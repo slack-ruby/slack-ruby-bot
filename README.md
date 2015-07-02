@@ -3,7 +3,7 @@ Slack-Ruby-Bot
 
 [![Build Status](https://travis-ci.org/dblock/slack-ruby-bot.png)](https://travis-ci.org/dblock/slack-ruby-bot)
 
-A generic Slack bot framework written in Ruby. This library does all the heavy lifting so you can focus on implementing slack bot commands.
+A generic Slack bot framework written in Ruby. This library does all the heavy lifting so you can focus on implementing slack bot commands, without introducing unnecessary requirements or limitations. It's a Slack bot boilerplate.
 
 ## Usage
 
