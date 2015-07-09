@@ -19,16 +19,22 @@ module SlackRubyBot
         [parts.first.downcase, parts[1].try(:downcase), parts[2..parts.length]] if parts && parts.any?
       end
 
-      def command_classes(include_slack_ruby_bot = false)
-        klasses = SlackRubyBot::Commands::Base.descendants
-        klasses.reject! { |k| k.name.starts_with? 'SlackRubyBot::Commands::' } unless include_slack_ruby_bot
-        klasses
+      def command_classes
+        @command_classes ||= SlackRubyBot::Commands::Base.descendants.reject do |k|
+          k.name.starts_with? 'SlackRubyBot::Commands::'
+        end
+      end
+
+      def built_in_command_classes
+        @built_in_command_classes ||= SlackRubyBot::Commands::Base.descendants.select do |k|
+          k.name.starts_with? 'SlackRubyBot::Commands::'
+        end
       end
 
       def command_to_class(command)
         # prioritize implementations to built-in classes
-        klass = command_classes.detect { |d| d.name.ends_with? "::#{command.titleize}" }
-        klass ||= command_classes(true).detect { |d| d.name.ends_with? "::#{command.titleize}" }
+        klass = command_classes.detect { |d| d.responds_to_command?(command) }
+        klass ||= built_in_command_classes.detect { |d| d.responds_to_command?(command) }
         klass || SlackRubyBot::Commands::Unknown
       end
     end

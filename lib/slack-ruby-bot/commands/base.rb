@@ -22,6 +22,10 @@ module SlackRubyBot
           Logger.new(STDOUT)
         end
       end
+
+      def self.responds_to_command?(command)
+        name.ends_with? "::#{command.titleize}"
+      end
     end
   end
 end
