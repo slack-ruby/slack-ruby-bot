@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'slack-api', '~> 1.1.6'
   s.add_dependency 'activesupport'
   s.add_dependency 'giphy', '~> 2.0.2'
+  s.add_dependency 'websocket-driver', '~> 0.5.4'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rack-test'
