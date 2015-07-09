@@ -47,11 +47,32 @@ A Slack bot is commonly a combination of a vanilla web server and a websocket ap
 
 * [slack-mathbot](https://github.com/dblock/slack-mathbot)
 
+### Commands and Operators
+
+Bots are addressed by name and respond to commands and operators. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone`. To respond to custom commands and to disable automatic class name matching, use the `command` keyword. The following command responds to `call` and `呼び出し` (call in Japanese).
+
+```ruby
+class Phone < SlackRubyBot::Commands::Base
+  command 'call'
+  command '呼び出し'
+end
+```
+
+Operators are 1-letter long and are similar to commands. They don't require addressing a bot nor separating an operator from its arguments. The following class responds to `=2+2`.
+
+```ruby
+class Calculator < SlackRubyBot::Commands::Base
+  operator '='
+end
+```
+
 ### Built-In Commands
+
+Slack-ruby-bot comes with several built-in commands. You can re-define built-in commands, normally, as described above.
 
 #### [bot name]
 
-Shows bot version and links.
+This is also known as the `default` command. Shows bot version and links.
 
 #### [bot name] hi
 

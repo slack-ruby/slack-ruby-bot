@@ -1,6 +1,9 @@
 module SlackRubyBot
   module Commands
     class Base
+      class_attribute :operators
+      class_attribute :commands
+
       def self.send_message(channel, text)
         Slack.chat_postMessage(channel: channel, text: text)
       end
@@ -24,7 +27,25 @@ module SlackRubyBot
       end
 
       def self.responds_to_command?(command)
-        name.ends_with? "::#{command.titleize}"
+        commands ? commands.include?(command) : command == default_command_name
+      end
+
+      def self.default_command_name
+        name && name.split(':').last.downcase
+      end
+
+      def self.responds_to_operator?(operator)
+        operators && operators.include?(operator)
+      end
+
+      def self.operator(value)
+        self.operators ||= []
+        self.operators << value.to_s
+      end
+
+      def self.command(value)
+        self.commands ||= []
+        self.commands << value.to_s
       end
     end
   end
