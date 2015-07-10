@@ -3,7 +3,6 @@ require 'rspec/expectations'
 RSpec::Matchers.define :respond_with_slack_message do |expected|
   match do |actual|
     channel, user, message = parse(actual)
-    SlackRubyBot.config.user ||= 'rubybot'
     allow(Giphy).to receive(:random)
     expect(SlackRubyBot::Commands::Base).to receive(:send_message).with(channel, expected)
     app.send(:message, text: message, channel: channel, user: user)

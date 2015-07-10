@@ -5,7 +5,11 @@ module SlackRubyBot
       class_attribute :commands
 
       def self.send_message(channel, text)
-        Slack.chat_postMessage(channel: channel, text: text)
+        if text && text.length > 0
+          Slack.chat_postMessage(channel: channel, text: text)
+        else
+          send_message_with_gif channel, 'Nothing to see here.', 'nothing'
+        end
       end
 
       def self.send_message_with_gif(channel, text, keywords)

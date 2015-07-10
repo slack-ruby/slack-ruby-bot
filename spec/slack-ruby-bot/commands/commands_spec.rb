@@ -3,9 +3,6 @@ require 'spec_helper'
 describe SlackRubyBot::Commands do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
-      operator '='
-      operator '-'
-
       command 'sayhi'
       command 'saybye'
 
@@ -17,11 +14,8 @@ describe SlackRubyBot::Commands do
   def app
     SlackRubyBot::App.new
   end
-  it 'supports commands' do
+  it 'supports multiple commands' do
     expect(message: "#{SlackRubyBot.config.user} sayhi arg1 arg2").to respond_with_slack_message('sayhi: ["arg1", "arg2"]')
     expect(message: "#{SlackRubyBot.config.user} saybye arg1 arg2").to respond_with_slack_message('saybye: ["arg1", "arg2"]')
-  end
-  it 'supports operators' do
-    expect(message: '=2+2').to respond_with_slack_message('=: ["2+2"]')
   end
 end
