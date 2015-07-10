@@ -17,8 +17,8 @@ shared_examples 'a slack ruby bot' do
       end
       it 'succeeds auth' do
         expect(subject.config.url).to eq 'https://rubybot.slack.com/'
-        expect(subject.config.team).to eq 'team'
-        expect(subject.config.user).to eq 'user'
+        expect(subject.config.team).to eq 'team_name'
+        expect(subject.config.user).to eq 'user_name'
         expect(subject.config.team_id).to eq 'TDEADBEEF'
         expect(subject.config.user_id).to eq 'UBAADFOOD'
       end
