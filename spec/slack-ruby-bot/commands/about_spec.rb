@@ -4,13 +4,10 @@ describe SlackRubyBot::Commands::Default do
   def app
     SlackRubyBot::App.new
   end
-  before do
-    app.config.user = 'rubybot'
+  it 'lowercase' do
+    expect(message: SlackRubyBot.config.user).to respond_with_slack_message(SlackRubyBot::ABOUT)
   end
-  it 'rubybot' do
-    expect(message: 'rubybot').to respond_with_slack_message(SlackRubyBot::ABOUT)
-  end
-  it 'Rubybot' do
-    expect(message: 'Rubybot').to respond_with_slack_message(SlackRubyBot::ABOUT)
+  it 'upcase' do
+    expect(message: SlackRubyBot.config.user.upcase).to respond_with_slack_message(SlackRubyBot::ABOUT)
   end
 end

@@ -4,7 +4,6 @@ RSpec::Matchers.define :respond_with_error do |expected|
   match do |actual|
     channel, user, message = parse(actual)
     app = SlackRubyBot::App.new
-    SlackRubyBot.config.user = 'rubybot'
     allow(Giphy).to receive(:random)
     begin
       expect do

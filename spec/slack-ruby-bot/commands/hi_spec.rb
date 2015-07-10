@@ -4,10 +4,7 @@ describe SlackRubyBot::Commands::Hi do
   def app
     SlackRubyBot::App.new
   end
-  before do
-    app.config.user = 'rubybot'
-  end
   it 'says hi' do
-    expect(message: 'rubybot hi').to respond_with_slack_message('Hi <@user>!')
+    expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message('Hi <@user>!')
   end
 end
