@@ -1,3 +1,7 @@
+### 0.3.0 (Next)
+
+* Your contribution here.
+
 ### 0.2.0 (7/10/2015)
 
 * Sending `send_message` with nil or empty text will yield `Nothing to see here.` with a GIF instead of `no_text` - [@dblock](https://github.com/dblock).
