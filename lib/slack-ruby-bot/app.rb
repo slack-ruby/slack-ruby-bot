@@ -79,5 +79,15 @@ module SlackRubyBot
       end
       logger.info "Welcome '#{SlackRubyBot.config.user}' to the '#{SlackRubyBot.config.team}' team at #{SlackRubyBot.config.url}."
     end
+
+    def reset!
+      SlackRubyBot.configure do |config|
+        config.url = nil
+        config.team = nil
+        config.user = nil
+        config.team_id = nil
+        config.user_id = nil
+      end
+    end
   end
 end

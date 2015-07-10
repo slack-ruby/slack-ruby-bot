@@ -1,4 +1,8 @@
-SlackRubyBot.configure do |config|
-  config.token = 'testtoken'
-  config.user = 'rubybot'
+RSpec.configure do |config|
+  config.before :each do
+    SlackRubyBot.configure do |c|
+      c.token = 'testtoken'
+      c.user = 'rubybot'
+    end
+  end
 end
