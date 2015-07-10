@@ -41,11 +41,16 @@ After [registering the bot](DEPLOYMENT.md), run with `SLACK_API_KEY=... bundle e
 
 ![](screenshots/demo.gif)
 
+### A Production Bot
+
+A typical production Slack bot is a combination of a vanilla web server and a websocket application that talks to the Slack Real Time Messaging API. See our [Writing a Production Bot](TUTORIAL.md) tutorial for more information.
+
 ### More Involved Examples
 
-A Slack bot is commonly a combination of a vanilla web server and a websocket application that talks to the Slack RealTime API. The web server is optional, but most people will run their Slack bots on Heroku in which case a web server is required to prevent Heroku from shutting the bot down. It also makes it convenient to develop and test using `foreman`.
+The following examples of production-grade bots based on slack-ruby-bot are listed in growing order of complexity.
 
-* [slack-mathbot](https://github.com/dblock/slack-mathbot)
+* [slack-mathbot](https://github.com/dblock/slack-mathbot): Slack integration with math.
+* [slack-gamebot](https://github.com/dblock/slack-gamebot): A generic game bot for ping-pong, chess, etc.
 
 ### Commands and Operators
 

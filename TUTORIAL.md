@@ -1,0 +1,148 @@
+## Production Bot Tutorial
+
+In this tutorial we'll implement [slack-mathbot](https://github.com/dblock/slack-mathbot).
+
+### Introduction
+
+A typical production Slack bot is a combination of a vanilla web server and a websocket application that talks to the [Slack Real Time Messaging API](https://api.slack.com/rtm). The web server is optional, but most people will run their Slack bots on [Heroku](https://dashboard.heroku.com) in which case a web server is required to prevent Heroku from shutting the bot down. It also makes it convenient to develop a bot and test using `foreman`.
+
+### Getting Started
+
+#### Gemfile
+
+Create a `Gemfile` that uses [slack-ruby-bot](https://github.com/dblock/slack-ruby-bot), [sinatra](https://github.com/sinatra/sinatra) (a web framework) and [puma](https://github.com/puma/puma) (a web server). For development we'll also use [foreman](https://github.com/theforeman/foreman) and write tests with [rspec](https://github.com/rspec/rspec).
+
+```ruby
+source 'http://rubygems.org'
+
+gem 'slack-ruby-bot'
+gem 'puma'
+gem 'sinatra'
+
+group :development, :test do
+  gem 'rake'
+  gem 'foreman'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'rack-test'
+end
+```
+
+Run `bundle install` to get all the gems.
+
+#### Application
+
+Create a folder called `slack-mathbot` and inside of it create `app.rb`.
+
+```ruby
+module SlackMathbot
+  class App < SlackRubyBot::App
+  end
+end
+```
+
+#### Commands
+
+Create a folder called `slack-mathbot/commands` and inside of it create `calculate.rb`. For now this calculator will always return 4.
+
+```ruby
+module SlackMathbot
+  module Commands
+    class Calculate < SlackRubyBot::Commands::Base
+      def self.call(data, command, arguments)
+        send_message data.channel, '4'
+      end
+    end
+  end
+end
+```
+
+#### Require Everything
+
+Create a `slack-mathbot.rb` at the root and require the above files.
+
+```ruby
+require 'slack-ruby-bot'
+require 'slack-mathbot/commands/calculate'
+require 'slack-mathbot/app'
+```
+
+#### Web Server
+
+We will need to keep the bot alive on Heroku, so create `web.rb`.
+
+```ruby
+require 'sinatra/base'
+
+module SlackMathbot
+  class Web < Sinatra::Base
+    get '/' do
+      'Math is good for you.'
+    end
+  end
+end
+```
+
+#### Config.ru
+
+Tie all the pieces togehter in `config.ru` which creates a thread for the bot and runs the web server on the main thread.
+
+```ruby
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
+require 'slack-mathbot'
+require 'web'
+
+Thread.new do
+  begin
+    SlackMathbot::App.instance.run
+  rescue Exception => e
+    STDERR.puts "ERROR: #{e}"
+    STDERR.puts e.backtrace
+    raise e
+  end
+end
+
+run SlackMathbot::Web
+```
+
+### Create a Bot User
+
+In Slack administration create a new Bot Integration under [services/new/bot](http://slack.com/services/new/bot).
+
+![](screenshots/register-bot.png)
+
+On the next screen, note the API token.
+
+#### .env
+
+Create a `.env` file with the API token from above and make sure to add it to `.gitignore`.
+
+```
+SLACK_API_TOKEN=...
+```
+
+### Run the Bot
+
+Run `foreman start`. Your bot should be running.
+
+```
+14:32:32 web.1  | Puma starting in single mode...
+14:32:32 web.1  | * Version 2.11.3 (ruby 2.1.6-p336), codename: Intrepid Squirrel
+14:32:32 web.1  | * Min threads: 0, max threads: 16
+14:32:32 web.1  | * Environment: development
+14:32:35 web.1  | * Listening on tcp://0.0.0.0:5000
+14:32:35 web.1  | Use Ctrl-C to stop
+14:32:36 web.1  | I, [2015-07-10T14:32:36.216663 #98948]  INFO -- : Welcome 'mathbot' to the 'xyz' team at https://xyz.slack.com/.
+14:32:36 web.1  | I, [2015-07-10T14:32:36.766955 #98948]  INFO -- : Successfully connected to https://xyz.slack.com/.
+```
+
+### Test
+
+Invite the bot to a channel via `/invite [bot name]` and send it a `calculate` command with `[bot name] calculate 2+2`. It will respond with `4` from the code above.
+
+### Deploy
+
+See [DEPLOYMENT](DEPLOYMENT.md) for how to deploy your bot to production.
