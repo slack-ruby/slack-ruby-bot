@@ -139,9 +139,56 @@ Run `foreman start`. Your bot should be running.
 14:32:36 web.1  | I, [2015-07-10T14:32:36.766955 #98948]  INFO -- : Successfully connected to https://xyz.slack.com/.
 ```
 
-### Test
+### Try
 
 Invite the bot to a channel via `/invite [bot name]` and send it a `calculate` command with `[bot name] calculate 2+2`. It will respond with `4` from the code above.
+
+### Write Tests
+
+#### Spec Helper
+
+Create `spec/spec_helper.rb` that includes the bot files and shared RSpec support from slack-ruby-bot.
+
+```ruby
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
+
+require 'slack-ruby-bot/rspec'
+require 'slack-mathbot'
+```
+
+#### Test the Bot Application
+
+Create a test for the bot application itself in `spec/slack-mathbot/app_spec.rb`.
+
+```ruby
+require 'spec_helper'
+
+describe SlackMathbot::App do
+  def app
+    SlackMathbot::App.new
+  end
+  it_behaves_like 'a slack ruby bot'
+end
+```
+
+#### Test a Command
+
+Create a test for the `calculate` command in `spec/slack-mathbot/commands/calculate_spec.rb`. The bot is addressed by its user name.
+
+```ruby
+require 'spec_helper'
+
+describe SlackMathbot::Commands::Calculate do
+  def app
+    SlackMathbot::App.new
+  end
+  it 'returns 4' do
+    expect(message: "#{SlackRubyBot.config.user} calculate 2+2", channel: 'channel').to respond_with_slack_message('4')
+  end
+end
+```
+
+See [lib/slack-ruby-bot/rspec/support/slack-ruby-bot](lib/slack-ruby-bot/rspec/support/slack-ruby-bot) for other shared RSpec behaviors.
 
 ### Deploy
 

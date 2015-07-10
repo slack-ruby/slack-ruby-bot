@@ -87,6 +87,14 @@ Politely says 'hi' back.
 
 Get help.
 
+### RSpec Shared Behaviors
+
+Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in your RSpec tests. Require 'slack-ruby-bot/rspec' in your `spec_helper.rb`.
+
+* [behaves like a slack bot](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/it_behaves_like_a_slack_bot.rb): A bot quacks like a Slack Ruby bot.
+* [respond with slack message](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_slack_message.rb): The bot responds with a message.
+* [respond with error](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_error.rb): An exception is raised inside a bot command.
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
