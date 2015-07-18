@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.homepage = 'http://github.com/dblock/slack-ruby-bot'
   s.licenses = ['MIT']
-  s.summary = 'The easiest way to write a Slack bot un Ruby.'
+  s.summary = 'The easiest way to write a Slack bot in Ruby.'
   s.add_dependency 'hashie'
   s.add_dependency 'slack-api', '~> 1.1.6'
   s.add_dependency 'activesupport'
