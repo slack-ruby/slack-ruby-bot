@@ -1,3 +1,7 @@
+### 0.3.1 (Next)
+
+* Your contribution here.
+
 ### 0.3.0 (7/19/2015)
 
 * [#5](https://github.com/dblock/slack-ruby-bot/issues/5): Added support for free-formed routes via `match` - [@dblock](https://github.com/dblock).
