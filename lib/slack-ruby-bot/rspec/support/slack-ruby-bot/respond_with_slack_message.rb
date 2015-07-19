@@ -4,7 +4,7 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
   match do |actual|
     channel, user, message = parse(actual)
     allow(Giphy).to receive(:random)
-    expect(SlackRubyBot::Commands::Base).to receive(:send_message).with(channel, expected, as_user: true)
+    expect(SlackRubyBot::Commands::Base).to receive(:chat_postMessage).with(channel: channel, text: expected, as_user: true)
     app.send(:message, text: message, channel: channel, user: user)
     true
   end

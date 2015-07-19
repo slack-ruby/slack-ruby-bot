@@ -6,8 +6,7 @@ module SlackRubyBot
 
       def self.send_message(channel, text, options = { as_user: true })
         if text && text.length > 0
-          message = { channel: channel, text: text }.merge(options)
-          Slack.chat_postMessage(message)
+          chat_postMessage({ channel: channel, text: text }.merge(options))
         else
           send_message_with_gif channel, 'Nothing to see here.', 'nothing', options
         end
@@ -51,6 +50,12 @@ module SlackRubyBot
       def self.command(value)
         self.commands ||= []
         self.commands << value.to_s
+      end
+
+      private
+
+      def self.chat_postMessage(message)
+        Slack.chat_postMessage(message)
       end
     end
   end
