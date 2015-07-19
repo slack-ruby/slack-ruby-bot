@@ -10,6 +10,6 @@ describe SlackRubyBot::Commands::Base do
     SlackRubyBot::App.new
   end
   it 'raises not implemented' do
-    expect(message: "#{SlackRubyBot.config.user} not_implemented").to respond_with_error(NotImplementedError, 'not_implemented')
+    expect(message: "#{SlackRubyBot.config.user} not_implemented").to respond_with_error(NotImplementedError, 'rubybot not_implemented')
   end
 end

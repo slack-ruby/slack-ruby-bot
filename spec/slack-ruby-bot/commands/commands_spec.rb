@@ -6,8 +6,8 @@ describe SlackRubyBot::Commands do
       command 'sayhi'
       command 'saybye'
 
-      def self.call(data, command, arguments)
-        send_message data.channel, "#{command}: #{arguments}", as_user: true
+      def self.call(data, match)
+        send_message data.channel, "#{match[:command]}: #{match[:expression]}", as_user: true
       end
     end
   end
@@ -15,7 +15,7 @@ describe SlackRubyBot::Commands do
     SlackRubyBot::App.new
   end
   it 'supports multiple commands' do
-    expect(message: "#{SlackRubyBot.config.user} sayhi arg1 arg2").to respond_with_slack_message('sayhi: ["arg1", "arg2"]')
-    expect(message: "#{SlackRubyBot.config.user} saybye arg1 arg2").to respond_with_slack_message('saybye: ["arg1", "arg2"]')
+    expect(message: "#{SlackRubyBot.config.user} sayhi arg1 arg2").to respond_with_slack_message('sayhi: arg1 arg2')
+    expect(message: "#{SlackRubyBot.config.user} saybye arg1 arg2").to respond_with_slack_message('saybye: arg1 arg2')
   end
 end

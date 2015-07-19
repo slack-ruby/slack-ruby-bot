@@ -4,8 +4,6 @@ require 'slack-ruby-bot/version'
 require 'slack-ruby-bot/about'
 require 'slack-ruby-bot/config'
 require 'slack-ruby-bot/hooks'
-require 'slack-ruby-bot/commands'
-require 'slack-ruby-bot/app'
 
 module SlackRubyBot
   class << self
@@ -18,3 +16,6 @@ module SlackRubyBot
     end
   end
 end
+
+require 'slack-ruby-bot/commands'
+require 'slack-ruby-bot/app'

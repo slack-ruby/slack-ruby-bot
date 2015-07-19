@@ -5,7 +5,7 @@ describe SlackRubyBot::Commands do
     Class.new(SlackRubyBot::Commands::Base) do
       command 'empty_text'
 
-      def self.call(data, _command, _arguments)
+      def self.call(data, _match)
         send_message data.channel, nil
       end
     end

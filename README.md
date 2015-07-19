@@ -28,7 +28,7 @@ module PongBot
   end
 
   class Ping < SlackRubyBot::Commands::Base
-    command 'ping' do |data, command, arguments|
+    command 'ping' do |data, _match|
       send_message data.channel, 'pong'
     end
   end
@@ -60,7 +60,7 @@ Bots are addressed by name and respond to commands and operators. By default a c
 class Phone < SlackRubyBot::Commands::Base
   command 'call'
 
-  def self.call(data, command, arguments)
+  def self.call(data, _match)
     send_message data.channel, 'called'
   end
 end
@@ -73,7 +73,7 @@ class Phone < SlackRubyBot::Commands::Base
   command 'call'
   command '呼び出し'
 
-  def self.call(data, command, arguments)
+  def self.call(data, _match)
     send_message data.channel, 'called'
   end
 end
@@ -83,21 +83,39 @@ You can combine multiple commands and use a block to implement them.
 
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
-  command 'call', '呼び出し' do
+  command 'call', '呼び出し' do |data, _match|
     send_message data.channel, 'called'
   end
 end
 ```
 
+Command match data includes `match['bot']`, `match['command']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` setting.
+
 Operators are 1-letter long and are similar to commands. They don't require addressing a bot nor separating an operator from its arguments. The following class responds to `=2+2`.
 
 ```ruby
 class Calculator < SlackRubyBot::Commands::Base
-  operator '=' do
+  operator '=' do |_data, _match|
     # implementation detail
   end
 end
 ```
+
+Operator match data includes `match['operator']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` setting.
+
+### Generic Routing
+
+Commands and operators are generic versions of bot routes. You can respond to just about anything by defining a custom route.
+
+```ruby
+class Weather < SlackRubyBot::Commands::Base
+  match /^How is the weather in (<?location>\w*)\?$/ do |data, match|
+    send_message data.channel, "The weather in #{match[:location]} is nice."
+  end
+end
+```
+
+![](screenshots/weather.gif)
 
 ### Built-In Commands
 

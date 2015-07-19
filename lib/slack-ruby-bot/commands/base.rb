@@ -1,8 +1,7 @@
 module SlackRubyBot
   module Commands
     class Base
-      class_attribute :operators
-      class_attribute :commands
+      class_attribute :routes
 
       def self.send_message(channel, text, options = { as_user: true })
         if text && text.length > 0
@@ -30,48 +29,57 @@ module SlackRubyBot
         end
       end
 
-      def self.responds_to_command?(command)
-        commands ? commands.keys.include?(command) : command == default_command_name
-      end
-
       def self.default_command_name
         name && name.split(':').last.downcase
       end
 
-      def self.responds_to_operator?(operator)
-        operators && operators.keys.include?(operator)
-      end
-
       def self.operator(*values, &block)
-        self.operators ||= {}
         values.each do |value|
-          self.operators[value] = block
+          match Regexp.new("^[\s]*(?<operator>\\#{value})(?<expression>.*)$", Regexp::IGNORECASE), &block
         end
       end
 
       def self.command(*values, &block)
-        self.commands ||= {}
         values.each do |value|
-          self.commands[value] = block
+          match Regexp.new("^[\s]*(?<bot>\\w*)[\\s]+(?<command>#{value})[\\s]*(?<expression>.*)$", Regexp::IGNORECASE), &block
         end
       end
 
-      def self.invoke(data, command, arguments)
-        method = self.commands[command] if self.commands
-        method ||= self.operators[command] if self.operators
-        if method
-          method.call(data, command, arguments)
-        elsif self.respond_to?(:call)
-          send :call, data, command, arguments
-        else
-          fail NotImplementedError, command
+      def self.invoke(data)
+        self.finalize_routes!
+        expression = data.text
+        called = false
+        routes.each_pair do |route, method|
+          match = route.match(expression)
+          next unless match
+          next if match.names.include?('bot') && match['bot'].downcase != SlackRubyBot.config.user
+          called = true
+          if method
+            method.call(data, match)
+          elsif self.respond_to?(:call)
+            send(:call, data, match)
+          else
+            fail NotImplementedError, data.text
+          end
+          break
         end
+        called
+      end
+
+      def self.match(match, &block)
+        self.routes ||= {}
+        self.routes[match] = block
       end
 
       private
 
       def self.chat_postMessage(message)
         Slack.chat_postMessage(message)
+      end
+
+      def self.finalize_routes!
+        return if self.routes && self.routes.any?
+        command default_command_name
       end
     end
   end

@@ -6,8 +6,8 @@ describe SlackRubyBot::Commands do
       operator '='
       operator '-'
 
-      def self.call(data, command, arguments)
-        send_message data.channel, "#{command}: #{arguments}", as_user: true
+      def self.call(data, match)
+        send_message data.channel, "#{match[:operator]}: #{match[:expression]}", as_user: true
       end
     end
   end
@@ -15,6 +15,6 @@ describe SlackRubyBot::Commands do
     SlackRubyBot::App.new
   end
   it 'supports operators' do
-    expect(message: '=2+2').to respond_with_slack_message('=: ["2+2"]')
+    expect(message: '=2+2').to respond_with_slack_message('=: 2+2')
   end
 end
