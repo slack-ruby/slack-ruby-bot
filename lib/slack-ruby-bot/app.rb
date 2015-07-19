@@ -57,7 +57,7 @@ module SlackRubyBot
             rescue StandardError => e
               logger.error e
               begin
-                Slack.chat_postMessage(channel: data['channel'], text: e.message) if data.key?('channel')
+                Slack.chat_postMessage(channel: data['channel'], text: e.message, as_user: true) if data.key?('channel')
               rescue
                 # ignore
               end

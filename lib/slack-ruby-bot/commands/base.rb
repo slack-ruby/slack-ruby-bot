@@ -4,15 +4,16 @@ module SlackRubyBot
       class_attribute :operators
       class_attribute :commands
 
-      def self.send_message(channel, text)
+      def self.send_message(channel, text, options = { as_user: true })
         if text && text.length > 0
-          Slack.chat_postMessage(channel: channel, text: text)
+          message = { channel: channel, text: text }.merge(options)
+          Slack.chat_postMessage(message)
         else
-          send_message_with_gif channel, 'Nothing to see here.', 'nothing'
+          send_message_with_gif channel, 'Nothing to see here.', 'nothing', options
         end
       end
 
-      def self.send_message_with_gif(channel, text, keywords)
+      def self.send_message_with_gif(channel, text, keywords, options = { as_user: true })
         gif = begin
           Giphy.random(keywords)
         rescue StandardError => e
@@ -20,7 +21,7 @@ module SlackRubyBot
           nil
         end
         text = text + "\n" + gif.image_url.to_s if gif
-        send_message channel, text
+        send_message channel, text, options
       end
 
       def self.logger

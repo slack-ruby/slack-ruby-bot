@@ -15,7 +15,7 @@ describe SlackRubyBot::Commands do
   end
   it 'sends default text' do
     allow(Giphy).to receive(:random)
-    expect(SlackRubyBot::Commands::Base).to receive(:send_message_with_gif).with('channel', 'Nothing to see here.', 'nothing')
+    expect(SlackRubyBot::Commands::Base).to receive(:send_message_with_gif).with('channel', 'Nothing to see here.', 'nothing', as_user: true)
     app.send(:message, text: "#{SlackRubyBot.config.user} test", channel: 'channel', user: 'user')
   end
 end

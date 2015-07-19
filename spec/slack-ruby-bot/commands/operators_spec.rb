@@ -7,7 +7,7 @@ describe SlackRubyBot::Commands do
       operator '-'
 
       def self.call(data, command, arguments)
-        send_message data.channel, "#{command}: #{arguments}"
+        send_message data.channel, "#{command}: #{arguments}", as_user: true
       end
     end
   end

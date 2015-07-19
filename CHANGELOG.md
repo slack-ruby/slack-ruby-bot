@@ -1,5 +1,6 @@
 ### 0.3.0 (Next)
 
+* [#4](https://github.com/dblock/slack-ruby-bot/issues/4): Messages are posted with `as_user: true` by default - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.2.0 (7/10/2015)
