@@ -14,6 +14,6 @@ describe RSpec do
     SlackRubyBot::App.new
   end
   it 'respond_with_error' do
-    expect(message: "#{SlackRubyBot.config.user} raise").to respond_with_error('raise')
+    expect(message: "#{SlackRubyBot.config.user} raise").to respond_with_error(ArgumentError, 'raise')
   end
 end

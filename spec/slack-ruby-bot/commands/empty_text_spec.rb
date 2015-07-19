@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SlackRubyBot::Commands do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
-      command 'test'
+      command 'empty_text'
 
       def self.call(data, _command, _arguments)
         send_message data.channel, nil
@@ -16,6 +16,6 @@ describe SlackRubyBot::Commands do
   it 'sends default text' do
     allow(Giphy).to receive(:random)
     expect(SlackRubyBot::Commands::Base).to receive(:send_message_with_gif).with('channel', 'Nothing to see here.', 'nothing', as_user: true)
-    app.send(:message, text: "#{SlackRubyBot.config.user} test", channel: 'channel', user: 'user')
+    app.send(:message, text: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user')
   end
 end

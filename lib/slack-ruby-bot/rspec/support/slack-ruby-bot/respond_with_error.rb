@@ -1,14 +1,13 @@
 require 'rspec/expectations'
 
-RSpec::Matchers.define :respond_with_error do |expected|
+RSpec::Matchers.define :respond_with_error do |error, error_message|
   match do |actual|
     channel, user, message = parse(actual)
-    app = SlackRubyBot::App.new
     allow(Giphy).to receive(:random)
     begin
       expect do
         app.send(:message, text: message, channel: channel, user: user)
-      end.to raise_error ArgumentError, expected
+      end.to raise_error error, error_message
     rescue RSpec::Expectations::ExpectationNotMetError => e
       @error_message = e.message
       raise e

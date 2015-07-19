@@ -28,7 +28,7 @@ module PongBot
   end
 
   class Ping < SlackRubyBot::Commands::Base
-    def self.call(data, command, arguments)
+    command 'ping' do |data, command, arguments|
       send_message data.channel, 'pong'
     end
   end
@@ -54,12 +54,38 @@ The following examples of production-grade bots based on slack-ruby-bot are list
 
 ### Commands and Operators
 
-Bots are addressed by name and respond to commands and operators. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone`. To respond to custom commands and to disable automatic class name matching, use the `command` keyword. The following command responds to `call` and `呼び出し` (call in Japanese).
+Bots are addressed by name and respond to commands and operators. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
+
+```ruby
+class Phone < SlackRubyBot::Commands::Base
+  command 'call'
+
+  def self.call(data, command, arguments)
+    send_message data.channel, 'called'
+  end
+end
+```
+
+To respond to custom commands and to disable automatic class name matching, use the `command` keyword. The following command responds to `call` and `呼び出し` (call in Japanese).
 
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
   command 'call'
   command '呼び出し'
+
+  def self.call(data, command, arguments)
+    send_message data.channel, 'called'
+  end
+end
+```
+
+You can combine multiple commands and use a block to implement them.
+
+```ruby
+class Phone < SlackRubyBot::Commands::Base
+  command 'call', '呼び出し' do
+    send_message data.channel, 'called'
+  end
 end
 ```
 
@@ -67,7 +93,9 @@ Operators are 1-letter long and are similar to commands. They don't require addr
 
 ```ruby
 class Calculator < SlackRubyBot::Commands::Base
-  operator '='
+  operator '=' do
+    # implementation detail
+  end
 end
 ```
 

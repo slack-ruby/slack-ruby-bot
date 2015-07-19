@@ -7,7 +7,7 @@ module SlackRubyBot
         data = Hashie::Mash.new(data)
         klass, command, arguments = text_to_class(data.text)
         return unless klass
-        klass.call(data, command, arguments)
+        klass.invoke(data, command, arguments)
       end
 
       private

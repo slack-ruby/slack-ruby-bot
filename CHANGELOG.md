@@ -1,5 +1,6 @@
 ### 0.3.0 (Next)
 
+* [#6](https://github.com/dblock/slack-ruby-bot/issues/6): Commands and operators take blocks - [@dblock](https://github.com/dblock).
 * [#4](https://github.com/dblock/slack-ruby-bot/issues/4): Messages are posted with `as_user: true` by default - [@dblock](https://github.com/dblock).
 * Your contribution here.
 

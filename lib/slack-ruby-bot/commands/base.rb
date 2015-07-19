@@ -31,7 +31,7 @@ module SlackRubyBot
       end
 
       def self.responds_to_command?(command)
-        commands ? commands.include?(command) : command == default_command_name
+        commands ? commands.keys.include?(command) : command == default_command_name
       end
 
       def self.default_command_name
@@ -39,17 +39,33 @@ module SlackRubyBot
       end
 
       def self.responds_to_operator?(operator)
-        operators && operators.include?(operator)
+        operators && operators.keys.include?(operator)
       end
 
-      def self.operator(value)
-        self.operators ||= []
-        self.operators << value.to_s
+      def self.operator(*values, &block)
+        self.operators ||= {}
+        values.each do |value|
+          self.operators[value] = block
+        end
       end
 
-      def self.command(value)
-        self.commands ||= []
-        self.commands << value.to_s
+      def self.command(*values, &block)
+        self.commands ||= {}
+        values.each do |value|
+          self.commands[value] = block
+        end
+      end
+
+      def self.invoke(data, command, arguments)
+        method = self.commands[command] if self.commands
+        method ||= self.operators[command] if self.operators
+        if method
+          method.call(data, command, arguments)
+        elsif self.respond_to?(:call)
+          send :call, data, command, arguments
+        else
+          fail NotImplementedError, command
+        end
       end
 
       private
