@@ -1,5 +1,6 @@
 ### 0.3.1 (Next)
 
+* [#8](https://github.com/dblock/slack-ruby-bot/issues/8): Fix: `undefined method `strip!' for nil:NilClass` on nil message - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.3.0 (7/19/2015)

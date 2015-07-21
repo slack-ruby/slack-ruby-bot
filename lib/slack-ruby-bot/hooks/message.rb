@@ -5,7 +5,7 @@ module SlackRubyBot
 
       def message(data)
         data = Hashie::Mash.new(data)
-        data.text.strip!
+        data.text.strip! if data.text
         result = child_command_classes.detect { |d| d.invoke(data) }
         result ||= built_in_command_classes.detect { |d| d.invoke(data) }
         result ||= SlackRubyBot::Commands::Unknown.tap { |d| d.invoke(data) }

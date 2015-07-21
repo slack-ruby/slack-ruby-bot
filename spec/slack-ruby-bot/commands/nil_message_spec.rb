@@ -1,0 +1,21 @@
+require 'spec_helper'
+
+describe SlackRubyBot::Commands do
+  let! :command do
+    Class.new(SlackRubyBot::Commands::Base) do
+      command 'nil_text'
+
+      def self.call(data, _match)
+        send_message data.channel, nil
+      end
+    end
+  end
+  def app
+    SlackRubyBot::App.new
+  end
+  it 'ignores nil messages' do
+    allow(Giphy).to receive(:random)
+    expect(SlackRubyBot::Commands::Base).to_not receive(:send_message_with_gif)
+    app.send(:message, text: nil, channel: 'channel', user: 'user')
+  end
+end
