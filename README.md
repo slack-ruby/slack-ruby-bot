@@ -156,6 +156,10 @@ Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in
 
 See [CONTRIBUTING](CONTRIBUTING.md).
 
+## Upgrading
+
+See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
+
 ## Copyright and License
 
 Copyright (c) 2015, Daniel Doubrovkine, Artsy and [Contributors](CHANGELOG.md).
