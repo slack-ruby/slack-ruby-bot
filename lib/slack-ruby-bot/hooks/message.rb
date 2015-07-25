@@ -3,12 +3,12 @@ module SlackRubyBot
     module Message
       extend Base
 
-      def message(data)
+      def message(client, data)
         data = Hashie::Mash.new(data)
         data.text.strip! if data.text
-        result = child_command_classes.detect { |d| d.invoke(data) }
-        result ||= built_in_command_classes.detect { |d| d.invoke(data) }
-        result ||= SlackRubyBot::Commands::Unknown.tap { |d| d.invoke(data) }
+        result = child_command_classes.detect { |d| d.invoke(client, data) }
+        result ||= built_in_command_classes.detect { |d| d.invoke(client, data) }
+        result ||= SlackRubyBot::Commands::Unknown.tap { |d| d.invoke(client, data) }
         result
       end
 

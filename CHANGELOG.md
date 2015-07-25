@@ -1,5 +1,7 @@
-### 0.3.2 (Next)
+### 0.4.0 (Next)
 
+* Using [slack-ruby-client](https://github.com/dblock/slack-ruby-client) - [@dblock](https://githubcom/dblock).
+* Use RealTime API to post messages - [@dblock](https://githubcom/dblock).
 * Your contribution here.
 
 ### 0.3.1 (7/21/2015)

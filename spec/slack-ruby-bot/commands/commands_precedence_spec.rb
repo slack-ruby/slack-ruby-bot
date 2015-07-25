@@ -3,12 +3,12 @@ require 'spec_helper'
 describe SlackRubyBot::Commands do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
-      command 'tomato' do |data, match|
-        send_message data.channel, "#{match[:command]}: #{match[:expression]}", as_user: true
+      command 'tomato' do |client, data, match|
+        send_message client, data.channel, "#{match[:command]}: #{match[:expression]}"
       end
 
-      command 'tomatoes' do |data, match|
-        send_message data.channel, "#{match[:command]}: #{match[:expression]}", as_user: true
+      command 'tomatoes' do |client, data, match|
+        send_message client, data.channel, "#{match[:command]}: #{match[:expression]}"
       end
     end
   end

@@ -6,7 +6,8 @@ RSpec::Matchers.define :respond_with_error do |error, error_message|
     allow(Giphy).to receive(:random)
     begin
       expect do
-        app.send(:message, text: message, channel: channel, user: user)
+        client = app.send(:client)
+        app.send(:message, client, text: message, channel: channel, user: user)
       end.to raise_error error, error_message
     rescue RSpec::Expectations::ExpectationNotMetError => e
       @error_message = e.message

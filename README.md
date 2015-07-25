@@ -28,8 +28,8 @@ module PongBot
   end
 
   class Ping < SlackRubyBot::Commands::Base
-    command 'ping' do |data, _match|
-      send_message data.channel, 'pong'
+    command 'ping' do |client, data, _match|
+      client.message text: 'pong', channel: data.channel
     end
   end
 end
@@ -61,8 +61,8 @@ Bots are addressed by name and respond to commands and operators. By default a c
 class Phone < SlackRubyBot::Commands::Base
   command 'call'
 
-  def self.call(data, _match)
-    send_message data.channel, 'called'
+  def self.call(client, data, _match)
+    send_message client, data.channel, 'called'
   end
 end
 ```
@@ -74,8 +74,8 @@ class Phone < SlackRubyBot::Commands::Base
   command 'call'
   command '呼び出し'
 
-  def self.call(data, _match)
-    send_message data.channel, 'called'
+  def self.call(client, data, _match)
+    send_message client, data.channel, 'called'
   end
 end
 ```
@@ -84,8 +84,8 @@ You can combine multiple commands and use a block to implement them.
 
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
-  command 'call', '呼び出し' do |data, _match|
-    send_message data.channel, 'called'
+  command 'call', '呼び出し' do |client, data, _match|
+    send_message client, data.channel, 'called'
   end
 end
 ```
@@ -110,13 +110,23 @@ Commands and operators are generic versions of bot routes. You can respond to ju
 
 ```ruby
 class Weather < SlackRubyBot::Commands::Base
-  match /^How is the weather in (<?location>\w*)\?$/ do |data, match|
-    send_message data.channel, "The weather in #{match[:location]} is nice."
+  match /^How is the weather in (<?location>\w*)\?$/ do |client, data, match|
+    send_message client, data.channel, "The weather in #{match[:location]} is nice."
   end
 end
 ```
 
 ![](screenshots/weather.gif)
+
+### SlackRubyBot::Commands::Base Functions
+
+#### send_message(client, channel, text)
+
+Send text using a RealTime client to a channel.
+
+#### send_message_with_gif(client, channel, text, keyword)
+
+Send text along with a random animated GIF based on a keyword.
 
 ### Built-In Commands
 

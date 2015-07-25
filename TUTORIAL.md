@@ -51,8 +51,8 @@ Create a folder called `slack-mathbot/commands` and inside of it create `calcula
 module SlackMathbot
   module Commands
     class Calculate < SlackRubyBot::Commands::Base
-      command 'calculate' do |data, _match|
-        send_message data.channel, '4'
+      command 'calculate' do |client, data, _match|
+        send_message client, data.channel, '4'
       end
     end
   end

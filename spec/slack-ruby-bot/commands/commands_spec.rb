@@ -6,8 +6,8 @@ describe SlackRubyBot::Commands do
       command 'sayhi'
       command 'saybye'
 
-      def self.call(data, match)
-        send_message data.channel, "#{match[:command]}: #{match[:expression]}", as_user: true
+      def self.call(client, data, match)
+        send_message client, data.channel, "#{match[:command]}: #{match[:expression]}"
       end
     end
   end

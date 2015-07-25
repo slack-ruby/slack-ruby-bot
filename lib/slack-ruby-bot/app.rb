@@ -42,22 +42,22 @@ module SlackRubyBot
 
     def start!
       loop do
-        client.start
+        client.start!
         @client = nil
       end
     end
 
     def client
       @client ||= begin
-        client = Slack.realtime
+        client = Slack::RealTime::Client.new
         hooks.each do |hook|
           client.on hook do |data|
             begin
-              send hook, data
+              send hook, client, data
             rescue StandardError => e
               logger.error e
               begin
-                Slack.chat_postMessage(channel: data['channel'], text: e.message, as_user: true) if data.key?('channel')
+                client.message(channel: data['channel'], text: e.message) if data.key?('channel')
               rescue
                 # ignore
               end
@@ -69,7 +69,7 @@ module SlackRubyBot
     end
 
     def auth!
-      auth = Slack.auth_test
+      auth = client.web_client.auth_test
       SlackRubyBot.configure do |config|
         config.url = auth['url']
         config.team = auth['team']

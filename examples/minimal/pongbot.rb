@@ -5,8 +5,8 @@ module PongBot
   end
 
   class Ping < SlackRubyBot::Commands::Base
-    def self.call(data, _match)
-      send_message data.channel, 'pong'
+    def self.call(client, data, _match)
+      client.message text: 'pong', channel: data.channel
     end
   end
 end

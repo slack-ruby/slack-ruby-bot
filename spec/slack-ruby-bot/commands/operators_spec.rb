@@ -6,8 +6,8 @@ describe SlackRubyBot::Commands do
       operator '='
       operator '-'
 
-      def self.call(data, match)
-        send_message data.channel, "#{match[:operator]}: #{match[:expression]}", as_user: true
+      def self.call(client, data, match)
+        send_message client, data.channel, "#{match[:operator]}: #{match[:expression]}"
       end
     end
   end

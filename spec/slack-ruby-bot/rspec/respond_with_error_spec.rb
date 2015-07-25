@@ -5,7 +5,7 @@ describe RSpec do
     Class.new(SlackRubyBot::Commands::Base) do
       command 'raise'
 
-      def self.call(_data, match)
+      def self.call(_client, _data, match)
         fail ArgumentError, match[:command]
       end
     end

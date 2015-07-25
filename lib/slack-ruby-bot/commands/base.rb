@@ -3,15 +3,15 @@ module SlackRubyBot
     class Base
       class_attribute :routes
 
-      def self.send_message(channel, text, options = { as_user: true })
+      def self.send_message(client, channel, text, options = {})
         if text && text.length > 0
-          chat_postMessage({ channel: channel, text: text }.merge(options))
+          send_client_message(client, { channel: channel, text: text }.merge(options))
         else
-          send_message_with_gif channel, 'Nothing to see here.', 'nothing', options
+          send_message_with_gif client, channel, 'Nothing to see here.', 'nothing', options
         end
       end
 
-      def self.send_message_with_gif(channel, text, keywords, options = { as_user: true })
+      def self.send_message_with_gif(client, channel, text, keywords, options = {})
         gif = begin
           Giphy.random(keywords)
         rescue StandardError => e
@@ -19,7 +19,7 @@ module SlackRubyBot
           nil
         end
         text = text + "\n" + gif.image_url.to_s if gif
-        send_message channel, text, options
+        send_message client, channel, text, options
       end
 
       def self.logger
@@ -46,7 +46,7 @@ module SlackRubyBot
         end
       end
 
-      def self.invoke(data)
+      def self.invoke(client, data)
         self.finalize_routes!
         expression = data.text
         called = false
@@ -56,9 +56,9 @@ module SlackRubyBot
           next if match.names.include?('bot') && match['bot'].downcase != SlackRubyBot.config.user
           called = true
           if method
-            method.call(data, match)
+            method.call(client, data, match)
           elsif self.respond_to?(:call)
-            send(:call, data, match)
+            send(:call, client, data, match)
           else
             fail NotImplementedError, data.text
           end
@@ -74,8 +74,8 @@ module SlackRubyBot
 
       private
 
-      def self.chat_postMessage(message)
-        Slack.chat_postMessage(message)
+      def self.send_client_message(client, data)
+        client.message(data)
       end
 
       def self.finalize_routes!

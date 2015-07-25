@@ -3,8 +3,8 @@ require 'spec_helper'
 describe SlackRubyBot::Commands do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
-      command 'space' do |data, match|
-        send_message data.channel, "#{match[:command]}: #{match[:expression]}", as_user: true
+      command 'space' do |client, data, match|
+        send_message client, data.channel, "#{match[:command]}: #{match[:expression]}"
       end
     end
   end
