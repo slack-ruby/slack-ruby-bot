@@ -1,3 +1,7 @@
+### 0.4.1 (Next)
+
+* Your contribution here.
+
 ### 0.4.0 (7/25/2015)
 
 * Using [slack-ruby-client](https://github.com/dblock/slack-ruby-client) - [@dblock](https://githubcom/dblock).
