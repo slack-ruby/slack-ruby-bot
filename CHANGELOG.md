@@ -1,6 +1,6 @@
-### 0.4.1 (Next)
+### 0.4.1 (7/25/2015)
 
-* Your contribution here.
+* Use a real client in `respond_with_slack_message` expectaions - [@dblock](https://githubcom/dblock).
 
 ### 0.4.0 (7/25/2015)
 
