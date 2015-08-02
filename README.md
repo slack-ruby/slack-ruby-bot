@@ -162,6 +162,6 @@ See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING
 
 ## Copyright and License
 
-Copyright (c) 2015, Daniel Doubrovkine, Artsy and [Contributors](CHANGELOG.md).
+Copyright (c) 2015, [Daniel Doubrovkine](https://twitter.com/dblockdotorg), [Artsy](https://www.artsy.net) and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
