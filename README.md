@@ -37,7 +37,7 @@ end
 PongBot::App.instance.run
 ```
 
-After [registering the bot](DEPLOYMENT.md), run with `SLACK_API_KEY=... bundle exec ruby pongbot.rb`. Have the bot join a channel and send it a ping.
+After [registering the bot](DEPLOYMENT.md), run with `SLACK_API_TOKEN=... bundle exec ruby pongbot.rb`. Have the bot join a channel and send it a ping.
 
 ![](screenshots/demo.gif)
 
