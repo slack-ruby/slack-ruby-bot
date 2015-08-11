@@ -12,25 +12,11 @@ module SlackRubyBot
       end
 
       def self.send_message_with_gif(client, channel, text, keywords, options = {})
-        gif = begin
-          Giphy.random(keywords)
-        rescue StandardError => e
-          logger.warn "Giphy.random: #{e.message}"
-          nil
-        end
-        text = text + "\n" + gif.image_url.to_s if gif
-        send_message client, channel, text, options
+        get_gif_and_send!(client, channel, text, keywords, options = {})
       end
 
       def self.send_gif(client, channel, keywords, options = {})
-        gif = begin
-          Giphy.random(keywords)
-        rescue StandardError => e
-          logger.warn "Giphy.random: #{e.message}"
-          nil
-        end
-        text = gif.image_url.to_s if gif
-        send_message client, channel, text, options
+        get_gif_and_send!(client, channel, "", keywords, options = {})
       end
 
       def self.logger
@@ -92,6 +78,17 @@ module SlackRubyBot
       def self.finalize_routes!
         return if self.routes && self.routes.any?
         command default_command_name
+      end
+
+      def self.get_gif_and_send!(client, channel, text, keywords, options = {})
+        gif = begin
+          Giphy.random(keywords)
+        rescue StandardError => e
+          logger.warn "Giphy.random: #{e.message}"
+          nil
+        end
+        text = text + "\n" + gif.image_url.to_s if gif
+        send_message(client, channel, text, options)
       end
     end
   end
