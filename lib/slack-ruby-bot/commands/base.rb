@@ -22,6 +22,17 @@ module SlackRubyBot
         send_message client, channel, text, options
       end
 
+      def self.send_gif(client, channel, keywords, options = {})
+        gif = begin
+          Giphy.random(keywords)
+        rescue StandardError => e
+          logger.warn "Giphy.random: #{e.message}"
+          nil
+        end
+        text = gif.image_url.to_s if gif
+        send_message client, channel, text, options
+      end
+
       def self.logger
         @logger ||= begin
           $stdout.sync = true

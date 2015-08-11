@@ -1,5 +1,6 @@
 ### 0.4.2 (Next)
 
+* Added `send_gif`, to allow GIFs to be sent without text - [@maclover7](https://github.com/maclover7).
 * Your contribution here.
 
 ### 0.4.1 (7/25/2015)
