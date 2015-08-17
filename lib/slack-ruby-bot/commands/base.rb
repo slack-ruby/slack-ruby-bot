@@ -12,11 +12,11 @@ module SlackRubyBot
       end
 
       def self.send_message_with_gif(client, channel, text, keywords, options = {})
-        get_gif_and_send!(client, channel, text, keywords, options = {})
+        get_gif_and_send!(client, channel, text, keywords, options)
       end
 
       def self.send_gif(client, channel, keywords, options = {})
-        get_gif_and_send!(client, channel, "", keywords, options = {})
+        get_gif_and_send!(client, channel, '', keywords, options)
       end
 
       def self.logger
