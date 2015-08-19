@@ -50,6 +50,7 @@ A typical production Slack bot is a combination of a vanilla web server and a we
 The following examples of production-grade bots based on slack-ruby-bot are listed in growing order of complexity.
 
 * [slack-mathbot](https://github.com/dblock/slack-mathbot): Slack integration with math.
+* [slack-google-bot](https://github.com/dblock/slack-google-bot): A Slack bot that searches Google, including CSE.
 * [slack-aws](https://github.com/dblock/slack-aws): Slack integration with Amazon Web Services.
 * [slack-gamebot](https://github.com/dblock/slack-gamebot): A generic game bot for ping-pong, chess, etc.
 
