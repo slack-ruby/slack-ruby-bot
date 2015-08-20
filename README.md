@@ -121,7 +121,7 @@ end
 
 This is particularly fun with emoji.
 
-![](screenshots/alias.gif)
+![](screenshots/aliases.gif)
 
 ### Generic Routing
 
