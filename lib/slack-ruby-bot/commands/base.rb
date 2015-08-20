@@ -41,8 +41,8 @@ module SlackRubyBot
 
       def self.command(*values, &block)
         values.each do |value|
-          match Regexp.new("^(?<bot>\\w*)[\\s]+(?<command>#{value})$", Regexp::IGNORECASE), &block
-          match Regexp.new("^(?<bot>\\w*)[\\s]+(?<command>#{value})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
+          match Regexp.new("^(?<bot>[\\w[:punct:]]*)[\\s]+(?<command>#{value})$", Regexp::IGNORECASE), &block
+          match Regexp.new("^(?<bot>[\\w[:punct:]]*)[\\s]+(?<command>#{value})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
         end
       end
 
@@ -53,7 +53,7 @@ module SlackRubyBot
         routes.each_pair do |route, method|
           match = route.match(expression)
           next unless match
-          next if match.names.include?('bot') && match['bot'].downcase != SlackRubyBot.config.user
+          next if match.names.include?('bot') && !SlackRubyBot.config.name?(match['bot'])
           called = true
           if method
             method.call(client, data, match)

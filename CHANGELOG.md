@@ -1,5 +1,6 @@
 ### 0.4.2 (Next)
 
+* [#12](https://github.com/dblock/slack-ruby-bot/issues/12): Added support for bot aliases - [@dblock](https://githubcom/dblock).
 * Your contribution here.
 
 ### 0.4.1 (7/25/2015)

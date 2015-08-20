@@ -105,6 +105,24 @@ end
 
 Operator match data includes `match['operator']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` setting.
 
+### Bot Aliases
+
+A bot will always respond to its name, but you can specify multiple aliases via the `SLACK_RUBY_BOT_ALIASES` environment variable or via an explicit configuration.
+
+```
+SLACK_RUBY_BOT_ALIASES=:pp: table-tennis
+```
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.aliases = [':pong:', 'pongbot']
+end
+```
+
+This is particularly fun with emoji.
+
+![](screenshots/alias.gif)
+
 ### Generic Routing
 
 Commands and operators are generic versions of bot routes. You can respond to just about anything by defining a custom route.

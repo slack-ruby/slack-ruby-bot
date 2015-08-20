@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    slack-ruby-bot (0.3.2)
+    slack-ruby-bot (0.4.2)
       activesupport
       giphy (~> 2.0.2)
       hashie
@@ -18,7 +18,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    eventmachine (1.0.7)
+    eventmachine (1.0.8)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.2)
@@ -40,10 +40,10 @@ GEM
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
-    minitest (5.7.0)
+    minitest (5.8.0)
     multipart-post (2.0.0)
-    oj (2.12.10)
-    slack-ruby-client (0.1.0)
+    oj (2.12.12)
+    slack-ruby-client (0.2.1)
       eventmachine
       faraday
       faraday_middleware
@@ -60,3 +60,6 @@ PLATFORMS
 
 DEPENDENCIES
   slack-ruby-bot!
+
+BUNDLED WITH
+   1.10.6
