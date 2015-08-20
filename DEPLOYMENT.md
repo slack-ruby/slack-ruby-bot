@@ -25,7 +25,7 @@ The bot replies with animated GIFs. While it's currently not necessary, you may 
 Optional names for this bot.
 
 ```
-heroku config:add SLACK_RUBY_BOT_ALIASES=:pong: table-tennis ping-pong
+heroku config:add SLACK_RUBY_BOT_ALIASES=":pong: table-tennis ping-pong"
 ```
 
 ### Heroku Idling
