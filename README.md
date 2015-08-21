@@ -147,6 +147,10 @@ Send text using a RealTime client to a channel.
 
 Send text along with a random animated GIF based on a keyword.
 
+## send_gif(client, channel, keyword)
+
+Send a random animated GIF based on a keyword.
+
 ### Built-In Commands
 
 Slack-ruby-bot comes with several built-in commands. You can re-define built-in commands, normally, as described above.
