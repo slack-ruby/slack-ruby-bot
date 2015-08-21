@@ -1,4 +1,6 @@
-### 0.4.3 (Next)
+### 0.4.3 (8/21/2015)
+
+* [#13](https://github.com/dblock/slack-ruby-bot/issues/13): You can now address the bot by its Slack @id - [@dblock](https://githubcom/dblock).
 
 * Your contribution here.
 

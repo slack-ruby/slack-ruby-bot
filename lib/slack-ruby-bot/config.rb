@@ -11,7 +11,7 @@ module SlackRubyBot
     attr_accessor :team_id
 
     def names
-      [user, aliases].compact.flatten
+      [user, aliases, "<@#{user_id.downcase}>", "<@#{user_id.downcase}>:"].compact.flatten
     end
 
     def name?(name)

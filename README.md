@@ -56,7 +56,7 @@ The following examples of production-grade bots based on slack-ruby-bot are list
 
 ### Commands and Operators
 
-Bots are addressed by name and respond to commands and operators. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
+Bots are addressed by name and respond to commands and operators. By default a command class responds, case-insensitively, to its name and Slack ID. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
 
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
@@ -107,7 +107,7 @@ Operator match data includes `match['operator']` and `match['expression']`. The 
 
 ### Bot Aliases
 
-A bot will always respond to its name, but you can specify multiple aliases via the `SLACK_RUBY_BOT_ALIASES` environment variable or via an explicit configuration.
+A bot will always respond to its name and Slack ID, but you can specify multiple aliases via the `SLACK_RUBY_BOT_ALIASES` environment variable or via an explicit configuration.
 
 ```
 SLACK_RUBY_BOT_ALIASES=:pp: table-tennis

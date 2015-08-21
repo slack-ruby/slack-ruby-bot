@@ -41,8 +41,8 @@ module SlackRubyBot
 
       def self.command(*values, &block)
         values.each do |value|
-          match Regexp.new("^(?<bot>[\\w[:punct:]]*)[\\s]+(?<command>#{value})$", Regexp::IGNORECASE), &block
-          match Regexp.new("^(?<bot>[\\w[:punct:]]*)[\\s]+(?<command>#{value})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
+          match Regexp.new("^(?<bot>[\\w[:punct:]@<>]*)[\\s]+(?<command>#{value})$", Regexp::IGNORECASE), &block
+          match Regexp.new("^(?<bot>[\\w[:punct:]@<>]*)[\\s]+(?<command>#{value})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
         end
       end
 
