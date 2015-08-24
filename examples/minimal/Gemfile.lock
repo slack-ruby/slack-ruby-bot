@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    slack-ruby-bot (0.4.3)
+    slack-ruby-bot (0.4.4)
       activesupport
       giphy (~> 2.0.2)
       hashie
@@ -60,3 +60,6 @@ PLATFORMS
 
 DEPENDENCIES
   slack-ruby-bot!
+
+BUNDLED WITH
+   1.10.6

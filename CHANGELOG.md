@@ -1,5 +1,6 @@
 ### 0.4.4 (Next)
 
+* Respond to direct messages without being addressed by name - [@dblock](https://githubcom/dblock).
 * Your contribution here.
 
 ### 0.4.3 (8/21/2015)

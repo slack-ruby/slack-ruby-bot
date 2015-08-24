@@ -123,6 +123,10 @@ This is particularly fun with emoji.
 
 ![](screenshots/aliases.gif)
 
+Bots also will respond to a direct message, with or without the bot name in the message itself.
+
+![](screenshots/dms.gif)
+
 ### Generic Routing
 
 Commands and operators are generic versions of bot routes. You can respond to just about anything by defining a custom route.
