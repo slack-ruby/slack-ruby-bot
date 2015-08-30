@@ -124,6 +124,14 @@ Create a `.env` file with the API token from above and make sure to add it to `.
 SLACK_API_TOKEN=...
 ```
 
+### Procfile
+
+Create a `Procfile` which `foreman` will use when you run the `foreman start` command below.
+
+```
+web: bundle exec puma -p $PORT
+```
+
 ### Run the Bot
 
 Run `foreman start`. Your bot should be running.
