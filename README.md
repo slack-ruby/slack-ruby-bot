@@ -133,7 +133,7 @@ Commands and operators are generic versions of bot routes. You can respond to ju
 
 ```ruby
 class Weather < SlackRubyBot::Commands::Base
-  match /^How is the weather in (<?location>\w*)\?$/ do |client, data, match|
+  match /^How is the weather in (?<location>\w*)\?$/ do |client, data, match|
     send_message client, data.channel, "The weather in #{match[:location]} is nice."
   end
 end
