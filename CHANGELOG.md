@@ -1,6 +1,7 @@
 ### 0.4.4 (Next)
 
 * Respond to direct messages without being addressed by name - [@dblock](https://githubcom/dblock).
+* Added `send_gif`, to allow GIFs to be sent without text - [@maclover7](https://github.com/maclover7).
 * Your contribution here.
 
 ### 0.4.3 (8/21/2015)

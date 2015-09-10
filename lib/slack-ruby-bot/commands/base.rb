@@ -12,14 +12,20 @@ module SlackRubyBot
       end
 
       def self.send_message_with_gif(client, channel, text, keywords, options = {})
-        gif = begin
-          Giphy.random(keywords)
-        rescue StandardError => e
-          logger.warn "Giphy.random: #{e.message}"
-          nil
-        end
-        text = text + "\n" + gif.image_url.to_s if gif
-        send_message client, channel, text, options
+        get_gif_and_send({
+          client: client,
+          channel: channel,
+          text: text,
+          keywords: keywords
+        }.merge(options))
+      end
+
+      def self.send_gif(client, channel, keywords, options = {})
+        get_gif_and_send({
+          client: client,
+          channel: channel,
+          keywords: keywords
+        }.merge(options))
       end
 
       def self.logger
@@ -85,13 +91,28 @@ module SlackRubyBot
         "#{SlackRubyBot.config.user} #{text}"
       end
 
-      def self.send_client_message(client, data)
-        client.message(data)
-      end
-
       def self.finalize_routes!
         return if self.routes && self.routes.any?
         command default_command_name
+      end
+
+      def self.get_gif_and_send(options = {})
+        options = options.dup
+        gif = begin
+          keywords = options.delete(:keywords)
+          Giphy.random(keywords)
+        rescue StandardError => e
+          logger.warn "Giphy.random: #{e.message}"
+          nil
+        end
+        client = options.delete(:client)
+        text = options.delete(:text)
+        text = [text, gif && gif.image_url.to_s].compact.join("\n")
+        send_client_message(client, { text: text }.merge(options))
+      end
+
+      def self.send_client_message(client, data)
+        client.message(data)
       end
     end
   end
