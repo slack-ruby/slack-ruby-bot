@@ -43,8 +43,18 @@ module SlackRubyBot
 
     def start!
       loop do
-        client.start!
-        @client = nil
+        begin
+          client.start!
+        rescue Slack::Web::Api::Error => e
+          case e.message
+          when 'migration_in_progress'
+            sleep 1 # ignore, try again
+          else
+            raise e
+          end
+        ensure
+          @client = nil
+        end
       end
     end
 

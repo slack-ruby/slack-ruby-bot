@@ -1,5 +1,6 @@
 ### 0.4.4 (Next)
 
+* [#3](https://github.com/dblock/slack-ruby-bot/issues/3): Retry on `migration_in_progress` errors during `rtm.start` - [@dblock](https://githubcom/dblock).
 * Respond to direct messages without being addressed by name - [@dblock](https://githubcom/dblock).
 * Added `send_gif`, to allow GIFs to be sent without text - [@maclover7](https://github.com/maclover7).
 * Your contribution here.

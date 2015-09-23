@@ -1,0 +1,30 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://slack.com/api/rtm.start
+    body:
+      string: token=token
+  response:
+    status:
+      code: 200
+      message: OK
+    body:
+      encoding: UTF-8
+      string: '{"ok":false,"error":"migration_in_progress"}'
+    http_version:
+  recorded_at: Tue, 28 Apr 2015 12:55:22 GMT
+- request:
+    method: post
+    uri: https://slack.com/api/rtm.start
+    body:
+      string: token=token
+  response:
+    status:
+      code: 200
+      message: OK
+    body:
+      encoding: UTF-8
+      string: '{"ok":false,"error":"unknown"}'
+    http_version:
+  recorded_at: Tue, 28 Apr 2015 12:55:22 GMT

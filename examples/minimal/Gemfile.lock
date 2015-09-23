@@ -60,6 +60,3 @@ PLATFORMS
 
 DEPENDENCIES
   slack-ruby-bot!
-
-BUNDLED WITH
-   1.10.6
