@@ -171,6 +171,28 @@ Politely says 'hi' back.
 
 Get help.
 
+### Hooks
+
+Hooks are event handlers and respond to Slack RTM API [events](https://api.slack.com/events), such as [hello](lib/slack-ruby-bot/hooks/hello.rb) or [message](lib/slack-ruby-bot/hooks/message.rb). You can implement your own by extending [SlackRubyBot::Hooks::Base](lib/slack-ruby-bot/hooks/base.rb).
+
+For example, the following hook handles [user_change](https://api.slack.com/events/user_change), an event sent when a team member updates their profile or data. This can be useful to update the local user cache when a user is renamed.
+
+```ruby
+module MyBot
+  module Hooks
+    module UserChange
+      extend SlackRubyBot::Hooks::Base
+
+      def user_change(client, data)
+        # data['user']['id'] contains the user ID
+        # data['user']['name'] contains the new user name
+        ...
+      end
+    end
+  end
+end
+```
+
 ### RSpec Shared Behaviors
 
 Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in your RSpec tests. Require 'slack-ruby-bot/rspec' in your `spec_helper.rb`.
