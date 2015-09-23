@@ -1,5 +1,6 @@
 ### 0.4.4 (Next)
 
+* [#17](https://github.com/dblock/slack-ruby-bot/issues/17): Address bot by `name:` - [@dblock](https://githubcom/dblock).
 * [#19](https://github.com/dblock/slack-ruby-bot/issues/19): Retry on `Faraday::Error::TimeoutError`, `TimeoutError` and `SSLError` - [@dblock](https://githubcom/dblock).
 * [#3](https://github.com/dblock/slack-ruby-bot/issues/3): Retry on `migration_in_progress` errors during `rtm.start` - [@dblock](https://githubcom/dblock).
 * Respond to direct messages without being addressed by name - [@dblock](https://githubcom/dblock).
