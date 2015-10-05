@@ -1,4 +1,8 @@
-### 0.4.4 (Next)
+### 0.4.5 (Next)
+
+* Your contribution here.
+
+### 0.4.4 (10/5/2015)
 
 * [#17](https://github.com/dblock/slack-ruby-bot/issues/17): Address bot by `name:` - [@dblock](https://githubcom/dblock).
 * [#19](https://github.com/dblock/slack-ruby-bot/issues/19): Retry on `Faraday::Error::TimeoutError`, `TimeoutError` and `SSLError` - [@dblock](https://githubcom/dblock).
