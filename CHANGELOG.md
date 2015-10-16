@@ -1,6 +1,6 @@
 ### 0.4.5 (Next)
 
-* [#17](https://github.com/dblock/slack-ruby-client/issues/17): Do not respond to messages from self, override with `allow_message_loops` - [@dblock](https://github.com/dblock).
+* [#22](https://github.com/dblock/slack-ruby-bot/issues/22), [slack-ruby-client#17](https://github.com/dblock/slack-ruby-client/issues/17): Do not respond to messages from self, override with `allow_message_loops` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.4.4 (10/5/2015)
