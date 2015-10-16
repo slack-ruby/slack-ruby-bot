@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    slack-ruby-bot (0.4.4)
+    slack-ruby-bot (0.4.5)
       activesupport
       giphy (~> 2.0.2)
       hashie
@@ -11,7 +11,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (4.2.3)
+    activesupport (4.2.4)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -40,7 +40,7 @@ GEM
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
-    minitest (5.8.0)
+    minitest (5.8.1)
     multipart-post (2.0.0)
     oj (2.12.12)
     slack-ruby-client (0.2.1)
@@ -60,3 +60,6 @@ PLATFORMS
 
 DEPENDENCIES
   slack-ruby-bot!
+
+BUNDLED WITH
+   1.10.6

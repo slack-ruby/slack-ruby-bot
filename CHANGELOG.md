@@ -1,31 +1,32 @@
 ### 0.4.5 (Next)
 
+* [#17](https://github.com/dblock/slack-ruby-client/issues/17): Do not respond to messages from self, override with `allow_message_loops` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.4.4 (10/5/2015)
 
-* [#17](https://github.com/dblock/slack-ruby-bot/issues/17): Address bot by `name:` - [@dblock](https://githubcom/dblock).
-* [#19](https://github.com/dblock/slack-ruby-bot/issues/19): Retry on `Faraday::Error::TimeoutError`, `TimeoutError` and `SSLError` - [@dblock](https://githubcom/dblock).
-* [#3](https://github.com/dblock/slack-ruby-bot/issues/3): Retry on `migration_in_progress` errors during `rtm.start` - [@dblock](https://githubcom/dblock).
-* Respond to direct messages without being addressed by name - [@dblock](https://githubcom/dblock).
+* [#17](https://github.com/dblock/slack-ruby-bot/issues/17): Address bot by `name:` - [@dblock](https://github.com/dblock).
+* [#19](https://github.com/dblock/slack-ruby-bot/issues/19): Retry on `Faraday::Error::TimeoutError`, `TimeoutError` and `SSLError` - [@dblock](https://github.com/dblock).
+* [#3](https://github.com/dblock/slack-ruby-bot/issues/3): Retry on `migration_in_progress` errors during `rtm.start` - [@dblock](https://github.com/dblock).
+* Respond to direct messages without being addressed by name - [@dblock](https://github.com/dblock).
 * Added `send_gif`, to allow GIFs to be sent without text - [@maclover7](https://github.com/maclover7).
 
 ### 0.4.3 (8/21/2015)
 
-* [#13](https://github.com/dblock/slack-ruby-bot/issues/13): You can now address the bot by its Slack @id - [@dblock](https://githubcom/dblock).
+* [#13](https://github.com/dblock/slack-ruby-bot/issues/13): You can now address the bot by its Slack @id - [@dblock](https://github.com/dblock).
 
 ### 0.4.2 (8/20/2015)
 
-* [#12](https://github.com/dblock/slack-ruby-bot/issues/12): Added support for bot aliases - [@dblock](https://githubcom/dblock).
+* [#12](https://github.com/dblock/slack-ruby-bot/issues/12): Added support for bot aliases - [@dblock](https://github.com/dblock).
 
 ### 0.4.1 (7/25/2015)
 
-* Use a real client in `respond_with_slack_message` expectaions - [@dblock](https://githubcom/dblock).
+* Use a real client in `respond_with_slack_message` expectaions - [@dblock](https://github.com/dblock).
 
 ### 0.4.0 (7/25/2015)
 
-* Using [slack-ruby-client](https://github.com/dblock/slack-ruby-client) - [@dblock](https://githubcom/dblock).
-* Use RealTime API to post messages - [@dblock](https://githubcom/dblock).
+* Using [slack-ruby-client](https://github.com/dblock/slack-ruby-client) - [@dblock](https://github.com/dblock).
+* Use RealTime API to post messages - [@dblock](https://github.com/dblock).
 
 ### 0.3.1 (7/21/2015)
 

@@ -5,6 +5,7 @@ module SlackRubyBot
 
       def message(client, data)
         data = Hashie::Mash.new(data)
+        return if !SlackRubyBot::Config.allow_message_loops && (client.self && client.self['id'] == data.user)
         data.text.strip! if data.text
         result = child_command_classes.detect { |d| d.invoke(client, data) }
         result ||= built_in_command_classes.detect { |d| d.invoke(client, data) }

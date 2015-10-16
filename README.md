@@ -193,6 +193,16 @@ module MyBot
 end
 ```
 
+### Message Loop Protection
+
+By default bots do not respond to their own messages. If you wish to change that behavior, set `allow_message_loops` to `true`.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.allow_message_loops = true
+end
+```
+
 ### RSpec Shared Behaviors
 
 Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in your RSpec tests. Require 'slack-ruby-bot/rspec' in your `spec_helper.rb`.
