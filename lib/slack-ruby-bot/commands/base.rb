@@ -81,14 +81,7 @@ module SlackRubyBot
       private
 
       def self.parse(data)
-        text = data.text
-        return text unless data.channel && data.channel[0] == 'D' && data.user && data.user != SlackRubyBot.config.user_id
-        SlackRubyBot.config.names.each do |name|
-          text.downcase.tap do |td|
-            return text if td == name || td.starts_with?("#{name} ")
-          end
-        end
-        "#{SlackRubyBot.config.user} #{text}"
+        return data.text
       end
 
       def self.finalize_routes!
