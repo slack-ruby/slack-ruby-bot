@@ -1,3 +1,7 @@
+### 0.4.6 (Next)
+
+* Your contribution here.
+
 ### 0.4.5 (10/29/2015)
 
 * [#23](https://github.com/dblock/slack-ruby-bot/pull/23): Fixed `match` that forced bot name into the expression being evaluated - [@dblock](https://github.com/dblock).
