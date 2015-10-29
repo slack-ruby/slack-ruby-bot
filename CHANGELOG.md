@@ -1,5 +1,6 @@
 ### 0.4.5 (Next)
 
+* [#23](https://github.com/dblock/slack-ruby-bot/pull/23): Fixed `match` that forced bot name into the expression being evaluated - [@dblock](https://github.com/dblock).
 * [#22](https://github.com/dblock/slack-ruby-bot/issues/22), [slack-ruby-client#17](https://github.com/dblock/slack-ruby-client/issues/17): Do not respond to messages from self, override with `allow_message_loops` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 

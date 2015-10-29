@@ -54,10 +54,11 @@ module SlackRubyBot
 
       def self.invoke(client, data)
         self.finalize_routes!
-        expression = parse(data)
+        expression, text = parse(data)
         called = false
         routes.each_pair do |route, method|
           match = route.match(expression)
+          match ||= route.match(text) if text
           next unless match
           next if match.names.include?('bot') && !SlackRubyBot.config.name?(match['bot'])
           called = true
@@ -88,7 +89,7 @@ module SlackRubyBot
             return text if td == name || td.starts_with?("#{name} ")
           end
         end
-        "#{SlackRubyBot.config.user} #{text}"
+        ["#{SlackRubyBot.config.user} #{text}", text]
       end
 
       def self.finalize_routes!
