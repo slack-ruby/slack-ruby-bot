@@ -1,8 +1,21 @@
 require 'spec_helper'
 
 describe SlackRubyBot::Server do
-  def app
-    SlackRubyBot::Server.new
+  context 'with a token' do
+    let(:client) { Slack::RealTime::Client.new }
+    let(:logger) { subject.send :logger }
+    subject do
+      SlackRubyBot::Server.new(token: 'token')
+    end
+    before do
+      allow(subject).to receive(:sleep)
+      allow(logger).to receive(:error)
+    end
+    it 'creates a client with a token' do
+      expect(client).to receive(:start!) { fail 'expected' }
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
+      expect { subject.send :start! }.to raise_error RuntimeError, 'expected'
+    end
   end
   context 'retries on rtm.start errors' do
     let(:client) { Slack::RealTime::Client.new }

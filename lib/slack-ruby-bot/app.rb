@@ -1,7 +1,5 @@
 module SlackRubyBot
   class App < Server
-    include SlackRubyBot::Hooks::Hello
-
     def initialize
       SlackRubyBot.configure do |config|
         config.token = ENV['SLACK_API_TOKEN'] || fail("Missing ENV['SLACK_API_TOKEN'].")

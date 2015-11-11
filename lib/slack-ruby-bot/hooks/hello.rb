@@ -4,7 +4,7 @@ module SlackRubyBot
       extend Base
 
       def hello(_client, _data)
-        logger.info "Successfully connected to #{SlackRubyBot.config.url}."
+        logger.info "Successfully connected to #{SlackRubyBot.config.url}." if SlackRubyBot.config.url
       end
     end
   end
