@@ -23,11 +23,11 @@ module SlackRubyBot
     def auth!
       super
       SlackRubyBot.configure do |config|
-        config.url = auth['url']
-        config.team = auth['team']
-        config.user = auth['user']
-        config.team_id = auth['team_id']
-        config.user_id = auth['user_id']
+        config.url = client.auth['url']
+        config.team = client.auth['team']
+        config.user = client.auth['user']
+        config.team_id = client.auth['team_id']
+        config.user_id = client.auth['user_id']
       end
     end
 

@@ -1,7 +1,6 @@
 module SlackRubyBot
   class Server
     cattr_accessor :hooks
-    attr_accessor :auth
     attr_accessor :token
 
     include SlackRubyBot::Hooks::Hello
@@ -55,7 +54,7 @@ module SlackRubyBot
 
     def client
       @client ||= begin
-        client = Slack::RealTime::Client.new(token: token)
+        client = SlackRubyBot::Client.new(token: token)
         hooks.each do |hook|
           client.on hook do |data|
             begin
@@ -75,12 +74,8 @@ module SlackRubyBot
     end
 
     def auth!
-      @auth = client.web_client.auth_test
-      logger.info "Welcome '#{auth['user']}' to the '#{auth['team']}' team at #{auth['url']}."
-    end
-
-    def reset!
-      @auth = nil
+      client.auth = client.web_client.auth_test
+      logger.info "Welcome '#{client.auth['user']}' to the '#{client.auth['team']}' team at #{client.auth['url']}."
     end
   end
 end

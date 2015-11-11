@@ -15,9 +15,6 @@ shared_examples 'a slack ruby bot' do
       before do
         subject.send(:auth!)
       end
-      after do
-        subject.send(:reset!)
-      end
       it 'succeeds auth' do
         expect(subject.config.url).to eq 'https://rubybot.slack.com/'
         expect(subject.config.team).to eq 'team_name'
