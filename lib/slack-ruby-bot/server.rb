@@ -12,7 +12,9 @@ module SlackRubyBot
 
     def run
       auth!
-      start!
+      loop do
+        start!
+      end
     end
 
     def stop!
@@ -29,27 +31,23 @@ module SlackRubyBot
     end
 
     def start!
-      loop do
-        begin
-          client.start!
-        rescue Slack::Web::Api::Error => e
-          logger.error e
-          case e.message
-          when 'migration_in_progress'
-            sleep 1 # ignore, try again
-          else
-            raise e
-          end
-        rescue Faraday::Error::TimeoutError, Faraday::Error::ConnectionFailed, Faraday::Error::SSLError => e
-          logger.error e
-          sleep 1 # ignore, try again
-        rescue StandardError => e
-          logger.error e
-          raise e
-        ensure
-          @client = nil
-        end
+      client.start!
+    rescue Slack::Web::Api::Error => e
+      logger.error e
+      case e.message
+      when 'migration_in_progress'
+        sleep 1 # ignore, try again
+      else
+        raise e
       end
+    rescue Faraday::Error::TimeoutError, Faraday::Error::ConnectionFailed, Faraday::Error::SSLError => e
+      logger.error e
+      sleep 1 # ignore, try again
+    rescue StandardError => e
+      logger.error e
+      raise e
+    ensure
+      @client = nil
     end
 
     def client
