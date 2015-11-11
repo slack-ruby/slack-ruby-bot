@@ -2,6 +2,7 @@
 
 * Extracted `SlackRubyBot::Server` from `SlackRubyBot::App` - [@dblock](https://github.com/dblock).
 * Fix: explicitly require 'giphy' - [@dblock](https://github.com/dblock).
+* Fix: undefined method `stop` for `Slack::RealTime::Client` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.4.5 (10/29/2015)

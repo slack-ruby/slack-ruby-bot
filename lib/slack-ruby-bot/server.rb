@@ -17,7 +17,7 @@ module SlackRubyBot
     end
 
     def stop!
-      client.stop
+      client.stop!
     end
 
     private
