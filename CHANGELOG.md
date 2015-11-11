@@ -1,5 +1,6 @@
 ### 0.4.6 (Next)
 
+* Extracted `SlackRubyBot::Server` from `SlackRubyBot::App` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.4.5 (10/29/2015)

@@ -18,4 +18,5 @@ module SlackRubyBot
 end
 
 require 'slack-ruby-bot/commands'
+require 'slack-ruby-bot/server'
 require 'slack-ruby-bot/app'
