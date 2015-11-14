@@ -41,11 +41,21 @@ module SlackRubyBot
     end
 
     def start!
+      @stopping = false
       client.start!
     end
 
     def stop!
+      @stopping = true
       client.stop! if @client
+    end
+
+    def restart!(wait = 1)
+      start!
+    rescue StandardError => e
+      sleep wait
+      logger.error "#{e.message}, reconnecting in #{wait} second(s)."
+      restart! [wait * 2, 60].min
     end
 
     private
@@ -60,6 +70,10 @@ module SlackRubyBot
     def client
       @client ||= begin
         client = SlackRubyBot::Client.new(token: token)
+        client.on :close do |_data|
+          @client = nil
+          restart! unless @stopping
+        end
         hooks.each do |hook|
           client.on hook do |data|
             begin

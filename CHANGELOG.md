@@ -1,5 +1,6 @@
 ### 0.5.0 (Next)
 
+* `SlackRubyBot::Server` supports `restart!` with retry - [@dblock](https://github.com/dblock).
 * `SlackRubyBot::Server` publicly supports `auth!` and `start!` that make up a `run` loop - [@dblock](https://github.com/dblock).
 * Extracted `SlackRubyBot::Server` from `SlackRubyBot::App` - [@dblock](https://github.com/dblock).
 * Fix: explicitly require 'giphy' - [@dblock](https://github.com/dblock).
