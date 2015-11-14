@@ -14,12 +14,13 @@ describe SlackRubyBot::Server do
     it 'creates a client with a token' do
       expect(client).to receive(:start!) { fail 'expected' }
       expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
-      expect { subject.send :start! }.to raise_error RuntimeError, 'expected'
+      expect { subject.start! }.to raise_error RuntimeError, 'expected'
     end
     it 'stops client' do
       expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
+      expect(subject.send(:client)).to_not be nil
       expect(client).to receive(:started?).and_return(true)
-      subject.send :stop!
+      subject.stop!
     end
   end
   context 'retries on rtm.start errors' do
