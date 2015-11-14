@@ -17,17 +17,9 @@ module SlackRubyBot
       end
     end
 
-    def stop!
-      client.stop!
-    end
-
-    private
-
-    def logger
-      @logger ||= begin
-        $stdout.sync = true
-        Logger.new(STDOUT)
-      end
+    def auth!
+      client.auth = client.web_client.auth_test
+      logger.info "Welcome '#{client.auth['user']}' to the '#{client.auth['team']}' team at #{client.auth['url']}."
     end
 
     def start!
@@ -50,6 +42,19 @@ module SlackRubyBot
       @client = nil
     end
 
+    def stop!
+      client.stop!
+    end
+
+    private
+
+    def logger
+      @logger ||= begin
+        $stdout.sync = true
+        Logger.new(STDOUT)
+      end
+    end
+
     def client
       @client ||= begin
         client = SlackRubyBot::Client.new(token: token)
@@ -69,11 +74,6 @@ module SlackRubyBot
         end
         client
       end
-    end
-
-    def auth!
-      client.auth = client.web_client.auth_test
-      logger.info "Welcome '#{client.auth['user']}' to the '#{client.auth['team']}' team at #{client.auth['url']}."
     end
   end
 end
