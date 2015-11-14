@@ -43,7 +43,7 @@ module SlackRubyBot
     end
 
     def stop!
-      client.stop!
+      client.stop! if @client
     end
 
     private
