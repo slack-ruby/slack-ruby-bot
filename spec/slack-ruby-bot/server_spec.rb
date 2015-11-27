@@ -16,6 +16,11 @@ describe SlackRubyBot::Server do
       expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
       expect { subject.start! }.to raise_error RuntimeError, 'expected'
     end
+    it 'asynchronously creates a client with a token' do
+      expect(client).to receive(:start_async) { fail 'expected' }
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
+      expect { subject.start_async }.to raise_error RuntimeError, 'expected'
+    end
     it 'stops client' do
       expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
       expect(subject.send(:client)).to_not be nil

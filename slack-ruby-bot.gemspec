@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
   s.summary = 'The easiest way to write a Slack bot in Ruby.'
   s.add_dependency 'hashie'
-  s.add_dependency 'slack-ruby-client'
+  s.add_dependency 'slack-ruby-client', '>= 0.5.0'
   s.add_dependency 'eventmachine'
   s.add_dependency 'faye-websocket'
   s.add_dependency 'activesupport'
@@ -27,6 +27,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'rubocop', '0.32.1'
-  s.add_development_dependency 'eventmachine'
-  s.add_development_dependency 'faye-websocket'
 end
