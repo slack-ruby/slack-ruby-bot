@@ -87,7 +87,7 @@ end
 
 #### Config.ru
 
-Tie all the pieces togehter in `config.ru` which creates a thread for the bot and runs the web server on the main thread.
+Tie all the pieces together in `config.ru` which creates a thread for the bot and runs the web server on the main thread.
 
 ```ruby
 $LOAD_PATH.unshift(File.dirname(__FILE__))
