@@ -1,4 +1,4 @@
-### 0.5.0 (Next)
+### 0.5.0 (12/7/2015)
 
 * Disable animated GIFs via `SlackRubyBot::Config.send_gifs` or ENV['SLACK_RUBY_BOT_SEND_GIFS'] - [@dblock](https://github.com/dblock).
 * `SlackRubyBot::Server` supports `restart!` with retry - [@dblock](https://github.com/dblock).
@@ -8,7 +8,6 @@
 * Fix: undefined method `stop` for `Slack::RealTime::Client` - [@dblock](https://github.com/dblock).
 * [#29](https://github.com/dblock/slack-ruby-bot/pull/29): Fixed bot failing to correctly respond to unknown commands when queried with format `@botname` - [@crayment](https://github.com/crayment).
 * [#30](https://github.com/dblock/slack-ruby-bot/pull/30): Fix RegexpError when parsing command - [@kuboshizuma](https://github.com/kuboshizuma).
-* Your contribution here.
 
 ### 0.4.5 (10/29/2015)
 
