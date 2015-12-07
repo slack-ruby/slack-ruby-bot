@@ -56,7 +56,7 @@ A typical production Slack bot is a combination of a vanilla web server and a we
 
 The following examples of bots based on slack-ruby-bot are listed in growing order of complexity.
 
-* [slack-bot-on-rails](https://github.com/dblock/slack-bot-on-rails): A bot running on Rails and using React to display Slack messages on a website. 
+* [slack-bot-on-rails](https://github.com/dblock/slack-bot-on-rails): A bot running on Rails and using React to display Slack messages on a website.
 * [slack-mathbot](https://github.com/dblock/slack-mathbot): Slack integration with math.
 * [slack-google-bot](https://github.com/dblock/slack-google-bot): A Slack bot that searches Google, including CSE.
 * [slack-aws](https://github.com/dblock/slack-aws): Slack integration with Amazon Web Services.
@@ -198,6 +198,16 @@ module MyBot
       end
     end
   end
+end
+```
+
+### Disable Animated GIFs
+
+By default bots send animated GIFs in default commands and errors. To disable animated GIFs set `send_gifs` or `ENV['SLACK_RUBY_BOT_SEND_GIFS']` to `false`.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.send_gifs = false
 end
 ```
 

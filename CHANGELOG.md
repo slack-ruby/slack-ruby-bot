@@ -1,5 +1,6 @@
 ### 0.5.0 (Next)
 
+* Disable animated GIFs via `SlackRubyBot::Config.send_gifs` or ENV['SLACK_RUBY_BOT_SEND_GIFS'] - [@dblock](https://github.com/dblock).
 * `SlackRubyBot::Server` supports `restart!` with retry - [@dblock](https://github.com/dblock).
 * `SlackRubyBot::Server` publicly supports `auth!`, `start!` and `start_async` that make up a `run` loop - [@dblock](https://github.com/dblock).
 * Extracted `SlackRubyBot::Server` from `SlackRubyBot::App` - [@dblock](https://github.com/dblock).

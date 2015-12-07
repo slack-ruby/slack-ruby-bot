@@ -100,13 +100,13 @@ module SlackRubyBot
 
       def self.get_gif_and_send(options = {})
         options = options.dup
+        keywords = options.delete(:keywords)
         gif = begin
-          keywords = options.delete(:keywords)
           Giphy.random(keywords)
         rescue StandardError => e
           logger.warn "Giphy.random: #{e.message}"
           nil
-        end
+        end if SlackRubyBot::Config.send_gifs?
         client = options.delete(:client)
         text = options.delete(:text)
         text = [text, gif && gif.image_url.to_s].compact.join("\n")
