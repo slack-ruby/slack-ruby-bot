@@ -95,6 +95,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'slack-mathbot'
 require 'web'
 
+Thread.abort_on_exception = true
+
 Thread.new do
   begin
     SlackMathbot::App.instance.run
