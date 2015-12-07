@@ -1,3 +1,7 @@
+### 0.5.1 (Next)
+
+* Your contribution here.
+
 ### 0.5.0 (12/7/2015)
 
 * Disable animated GIFs via `SlackRubyBot::Config.send_gifs` or ENV['SLACK_RUBY_BOT_SEND_GIFS'] - [@dblock](https://github.com/dblock).
