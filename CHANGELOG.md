@@ -1,5 +1,6 @@
 ### 0.5.1 (Next)
 
+* [#33](https://github.com/dblock/slack-ruby-bot/pull/33): `SlackRubyBot::App.instance` now creates an instance of the class on which it is called - [@dmvt](https://github.com/dmvt).
 * Your contribution here.
 
 ### 0.5.0 (12/7/2015)
@@ -62,4 +63,3 @@
 ### 0.1.0 (6/2/2015)
 
 * Initial public release - [@dblock](https://github.com/dblock).
-
