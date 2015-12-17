@@ -12,7 +12,7 @@ A generic Slack bot framework written in Ruby on top of [slack-ruby-client](http
 ## Useful to Me?
 
 * If you are just trying to send messages to Slack, use [slack-ruby-client](https://github.com/dblock/slack-ruby-client), which this library is built on top of.
-* I you're trying to roll out a full service with Slack button integration, check out [slack-bot-server](https://github.com/dblock/slack-bot-server), which uses this library.
+* If you're trying to roll out a full service with Slack button integration, check out [slack-bot-server](https://github.com/dblock/slack-bot-server), which uses this library.
 * Otherwise, this piece of the puzzle will help you create a single bot instance for one team.
 
 ## Stable Release
