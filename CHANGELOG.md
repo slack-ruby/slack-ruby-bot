@@ -1,8 +1,7 @@
-### 0.5.1 (Next)
+### 0.5.1 (12/23/2015)
 
 * Fix: restart sync vs. async - [@dblock](https://github.com/dblock).
 * [#33](https://github.com/dblock/slack-ruby-bot/pull/33): `SlackRubyBot::App.instance` now creates an instance of the class on which it is called - [@dmvt](https://github.com/dmvt).
-* Your contribution here.
 
 ### 0.5.0 (12/7/2015)
 
