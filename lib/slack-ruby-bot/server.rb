@@ -42,11 +42,13 @@ module SlackRubyBot
 
     def start!
       @stopping = false
+      @async = false
       client.start!
     end
 
     def start_async
       @stopping = false
+      @async = true
       client.start_async
     end
 
@@ -56,7 +58,11 @@ module SlackRubyBot
     end
 
     def restart!(wait = 1)
-      start!
+      if @async
+        start_async
+      else
+        start!
+      end
     rescue StandardError => e
       sleep wait
       logger.error "#{e.message}, reconnecting in #{wait} second(s)."
