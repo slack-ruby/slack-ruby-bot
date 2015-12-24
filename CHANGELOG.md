@@ -1,3 +1,7 @@
+### 0.5.2 (Next)
+
+* Your contribution here.
+
 ### 0.5.1 (12/23/2015)
 
 * Fix: restart sync vs. async - [@dblock](https://github.com/dblock).
