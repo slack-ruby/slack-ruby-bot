@@ -1,28 +1,32 @@
 require 'spec_helper'
 
 describe SlackRubyBot::Server do
-  context 'with a token' do
+  context 'with a token and aliases' do
     let(:client) { Slack::RealTime::Client.new }
     let(:logger) { subject.send :logger }
     subject do
-      SlackRubyBot::Server.new(token: 'token')
+      SlackRubyBot::Server.new(token: 'token', aliases: %w(foo bar))
     end
     before do
       allow(subject).to receive(:sleep)
       allow(logger).to receive(:error)
     end
+    it 'sets aliases' do
+      expect(subject.send(:client).aliases).to eq %w(foo bar)
+      expect(subject.send(:client).names).to include 'foo'
+    end
     it 'creates a client with a token' do
       expect(client).to receive(:start!) { fail 'expected' }
-      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', aliases: %w(foo bar)).and_return(client)
       expect { subject.start! }.to raise_error RuntimeError, 'expected'
     end
     it 'asynchronously creates a client with a token' do
       expect(client).to receive(:start_async) { fail 'expected' }
-      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', aliases: %w(foo bar)).and_return(client)
       expect { subject.start_async }.to raise_error RuntimeError, 'expected'
     end
     it 'stops client' do
-      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token').and_return(client)
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', aliases: %w(foo bar)).and_return(client)
       expect(subject.send(:client)).to_not be nil
       expect(client).to receive(:started?).and_return(true)
       subject.stop!

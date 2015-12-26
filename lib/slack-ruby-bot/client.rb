@@ -1,11 +1,18 @@
 module SlackRubyBot
   class Client < Slack::RealTime::Client
     attr_accessor :auth
+    attr_accessor :aliases
+
+    def initialize(attrs = {})
+      super(attrs)
+      @aliases = attrs[:aliases]
+    end
 
     def names
       [
         SlackRubyBot::Config.user,
         auth ? auth['user'] : nil,
+        aliases,
         SlackRubyBot::Config.aliases,
         auth ? "<@#{auth['user_id'].downcase}>" : nil,
         SlackRubyBot::Config.user_id ? "<@#{SlackRubyBot::Config.user_id.downcase}>" : nil,

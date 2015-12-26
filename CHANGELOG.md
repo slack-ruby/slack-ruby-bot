@@ -1,5 +1,6 @@
 ### 0.5.2 (Next)
 
+* Enable setting bot aliases per instance of `SlackRubyBot::Server` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.5.1 (12/23/2015)

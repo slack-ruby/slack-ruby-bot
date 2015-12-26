@@ -2,12 +2,14 @@ module SlackRubyBot
   class Server
     cattr_accessor :hooks
     attr_accessor :token
+    attr_accessor :aliases
 
     include SlackRubyBot::Hooks::Hello
     include SlackRubyBot::Hooks::Message
 
     def initialize(options = {})
       @token = options[:token]
+      @aliases = options[:aliases]
     end
 
     def run
@@ -81,7 +83,7 @@ module SlackRubyBot
 
     def client
       @client ||= begin
-        client = SlackRubyBot::Client.new(token: token)
+        client = SlackRubyBot::Client.new(aliases: aliases, token: token)
         client.on :close do |_data|
           @client = nil
           restart! unless @stopping
