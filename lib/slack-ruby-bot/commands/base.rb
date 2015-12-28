@@ -48,8 +48,8 @@ module SlackRubyBot
       def self.command(*values, &block)
         values.each do |value|
           escaped = Regexp.escape(value)
-          match Regexp.new("^(?<bot>[\\w[:punct:]@<>]*)[\\s]+(?<command>#{escaped})$", Regexp::IGNORECASE), &block
-          match Regexp.new("^(?<bot>[\\w[:punct:]@<>]*)[\\s]+(?<command>#{escaped})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
+          match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{escaped})$", Regexp::IGNORECASE), &block
+          match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{escaped})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
         end
       end
 
