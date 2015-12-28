@@ -227,6 +227,24 @@ SlackRubyBot.configure do |config|
 end
 ```
 
+### Advanced Integration
+
+You may want to integrate a bot or multiple bots into other systems, in which case a globally configured bot may not work for you. You may create instances of [SlackRubyBot::Server](lib/slack-ruby-bot/server.rb) which accepts `token` and `aliases`.
+
+```ruby
+EM.run do
+  bot1 = SlackRubyBot::Server.new(token: token1, aliases: ['bot1'])
+  bot1.auth!
+  bot1.start_async
+
+  bot2 = SlackRubyBot::Server.new(token: token2, aliases: ['bot2'])
+  bot2.auth!
+  bot2.start_async
+end
+```
+
+For an example of advanced integration that supports multiple teams, see [slack-gamebot](https://github.com/dblock/slack-gamebot) and [playplay.io](http://playplay.io) that is built on top of it.
+
 ### RSpec Shared Behaviors
 
 Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in your RSpec tests. Require 'slack-ruby-bot/rspec' in your `spec_helper.rb`.
