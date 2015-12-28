@@ -1,3 +1,7 @@
+### 0.5.4 (Next)
+
+* Your contribution here.
+
 ### 0.5.3 (12/28/2015)
 
 * [#36](https://github.com/dblock/slack-ruby-bot/issues/36): Fix: non-English bot aliases now work - [@dblock](https://github.com/dblock).
