@@ -2,10 +2,12 @@ module SlackRubyBot
   class Client < Slack::RealTime::Client
     attr_accessor :auth
     attr_accessor :aliases
+    attr_accessor :send_gifs
 
     def initialize(attrs = {})
       super(attrs)
       @aliases = attrs[:aliases]
+      @send_gifs = attrs.key?(:send_gifs) ? !!attrs[:send_gifs] : true
     end
 
     def names
@@ -25,6 +27,10 @@ module SlackRubyBot
 
     def name?(name)
       name && names.include?(name.downcase)
+    end
+
+    def send_gifs?
+      send_gifs
     end
 
     def name

@@ -229,7 +229,7 @@ end
 
 ### Advanced Integration
 
-You may want to integrate a bot or multiple bots into other systems, in which case a globally configured bot may not work for you. You may create instances of [SlackRubyBot::Server](lib/slack-ruby-bot/server.rb) which accepts `token` and `aliases`.
+You may want to integrate a bot or multiple bots into other systems, in which case a globally configured bot may not work for you. You may create instances of [SlackRubyBot::Server](lib/slack-ruby-bot/server.rb) which accepts `token`, `aliases` and `send_gifs`.
 
 ```ruby
 EM.run do
@@ -237,7 +237,7 @@ EM.run do
   bot1.auth!
   bot1.start_async
 
-  bot2 = SlackRubyBot::Server.new(token: token2, aliases: ['bot2'])
+  bot2 = SlackRubyBot::Server.new(token: token2, send_gifs: false, aliases: ['bot2'])
   bot2.auth!
   bot2.start_async
 end

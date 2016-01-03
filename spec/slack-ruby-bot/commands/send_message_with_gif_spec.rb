@@ -30,7 +30,20 @@ describe SlackRubyBot::Commands do
     app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
   end
   context 'send_gifs' do
-    context 'set to false' do
+    context 'set to false via client' do
+      before do
+        client.send_gifs = false
+      end
+      it 'does not send a gif' do
+        expect(Giphy).to_not receive(:random)
+        expect(SlackRubyBot::Commands::Base).to receive(:send_client_message).with(client, channel: 'channel', text: 'message')
+        app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+      end
+      after do
+        client.send_gifs = true
+      end
+    end
+    context 'set to false via config' do
       before do
         SlackRubyBot::Config.send_gifs = false
       end

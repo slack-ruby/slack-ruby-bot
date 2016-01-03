@@ -3,6 +3,7 @@ module SlackRubyBot
     cattr_accessor :hooks
     attr_accessor :token
     attr_accessor :aliases
+    attr_accessor :send_gifs
 
     include SlackRubyBot::Hooks::Hello
     include SlackRubyBot::Hooks::Message
@@ -10,6 +11,7 @@ module SlackRubyBot
     def initialize(options = {})
       @token = options[:token]
       @aliases = options[:aliases]
+      @send_gifs = options.key?(:send_gifs) ? !!options[:send_gifs] : true
     end
 
     def run
@@ -83,7 +85,7 @@ module SlackRubyBot
 
     def client
       @client ||= begin
-        client = SlackRubyBot::Client.new(aliases: aliases, token: token)
+        client = SlackRubyBot::Client.new(aliases: aliases, send_gifs: send_gifs, token: token)
         client.on :close do |_data|
           @client = nil
           restart! unless @stopping

@@ -1,6 +1,6 @@
 module SlackRubyBot
   class App < Server
-    def initialize
+    def initialize(options = {})
       SlackRubyBot.configure do |config|
         config.token = ENV['SLACK_API_TOKEN'] || fail("Missing ENV['SLACK_API_TOKEN'].")
         config.aliases = ENV['SLACK_RUBY_BOT_ALIASES'].split(' ') if ENV['SLACK_RUBY_BOT_ALIASES']
@@ -8,6 +8,7 @@ module SlackRubyBot
       Slack.configure do |config|
         config.token = SlackRubyBot.config.token
       end
+      super
     end
 
     def config
