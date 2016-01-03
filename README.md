@@ -17,7 +17,7 @@ A generic Slack bot framework written in Ruby on top of [slack-ruby-client](http
 
 ## Stable Release
 
-You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.5.3](https://github.com/dblock/slack-ruby-bot/tree/v0.5.3) unless you're integrating with HEAD.
+You're reading the documentation for the **stable** release of slack-ruby-bot, 0.5.4.
 
 ## Usage
 
@@ -263,6 +263,6 @@ See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING
 
 ## Copyright and License
 
-Copyright (c) 2015, [Daniel Doubrovkine](https://twitter.com/dblockdotorg), [Artsy](https://www.artsy.net) and [Contributors](CHANGELOG.md).
+Copyright (c) 2015-2016, [Daniel Doubrovkine](https://twitter.com/dblockdotorg), [Artsy](https://www.artsy.net) and [Contributors](CHANGELOG.md).
 
 This project is licensed under the [MIT License](LICENSE.md).
