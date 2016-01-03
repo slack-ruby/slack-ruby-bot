@@ -1,3 +1,7 @@
+### 0.5.5 (Next)
+
+* Your contribution here.
+
 ### 0.5.4 (1/3/2016)
 
 * Enable setting `send_gifs` per instance of `SlackRubyBot::Server` - [@dblock](https://github.com/dblock).
