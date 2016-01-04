@@ -152,7 +152,7 @@ class Phone < SlackRubyBot::Commands::Base
 end
 ```
 
-Other available functions include the following.
+The functions available in `SlackRubyBot::Commands::Base` are as follows.
 
 #### send_message(client, channel, text)
 
@@ -162,7 +162,7 @@ Send text using a RealTime client to a channel.
 
 Send text along with a random animated GIF based on a keyword.
 
-## send_gif(client, channel, keyword)
+#### send_gif(client, channel, keyword)
 
 Send a random animated GIF based on a keyword.
 
