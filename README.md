@@ -36,18 +36,13 @@ gem 'slack-ruby-bot'
 ```ruby
 require 'slack-ruby-bot'
 
-module PongBot
-  class App < SlackRubyBot::App
-  end
-
-  class Ping < SlackRubyBot::Commands::Base
-    command 'ping' do |client, data, _match|
-      client.message text: 'pong', channel: data.channel
-    end
+class PongBot < SlackRubyBot::Bot
+  command 'ping' do |client, data, _match|
+    client.message text: 'pong', channel: data.channel
   end
 end
 
-PongBot::App.instance.run
+PongBot.run
 ```
 
 After [registering the bot](DEPLOYMENT.md), run with `SLACK_API_TOKEN=... bundle exec ruby pongbot.rb`. Have the bot join a channel and send it a ping.
@@ -70,38 +65,13 @@ The following examples of bots based on slack-ruby-bot are listed in growing ord
 
 ### Commands and Operators
 
-Bots are addressed by name, they respond to commands and operators. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
-
-```ruby
-class Phone < SlackRubyBot::Commands::Base
-  command 'call'
-
-  def self.call(client, data, _match)
-    send_message client, data.channel, 'called'
-  end
-end
-```
-
-To respond to custom commands and to disable automatic class name matching, use the `command` keyword. The following command responds to `call` and `呼び出し` (call in Japanese).
-
-```ruby
-class Phone < SlackRubyBot::Commands::Base
-  command 'call'
-  command '呼び出し'
-
-  def self.call(client, data, _match)
-    send_message client, data.channel, 'called'
-  end
-end
-```
+Bots are addressed by name, they respond to commands and operators.
 
 You can combine multiple commands and use a block to implement them.
 
 ```ruby
-class Phone < SlackRubyBot::Commands::Base
-  command 'call', '呼び出し' do |client, data, _match|
-    send_message client, data.channel, 'called'
-  end
+command 'call', '呼び出し' do |client, data, _match|
+  send_message client, data.channel, 'called'
 end
 ```
 
@@ -110,10 +80,8 @@ Command match data includes `match['bot']`, `match['command']` and `match['expre
 Operators are 1-letter long and are similar to commands. They don't require addressing a bot nor separating an operator from its arguments. The following class responds to `=2+2`.
 
 ```ruby
-class Calculator < SlackRubyBot::Commands::Base
-  operator '=' do |_data, _match|
-    # implementation detail
-  end
+operator '=' do |_data, _match|
+  # implementation detail
 end
 ```
 
@@ -146,7 +114,7 @@ Bots also will respond to a direct message, with or without the bot name in the 
 Commands and operators are generic versions of bot routes. You can respond to just about anything by defining a custom route.
 
 ```ruby
-class Weather < SlackRubyBot::Commands::Base
+class Weather < SlackRubyBot::Bot
   match /^How is the weather in (?<location>\w*)\?$/ do |client, data, match|
     send_message client, data.channel, "The weather in #{match[:location]} is nice."
   end
@@ -155,7 +123,34 @@ end
 
 ![](screenshots/weather.gif)
 
-### SlackRubyBot::Commands::Base Functions
+### SlackRubyBot::Commands::Base
+
+The `SlackRubyBot::Bot` class is just sugare deriving from `SlackRubyBot::Commands::Base`. You can divide the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
+
+```ruby
+class Phone < SlackRubyBot::Commands::Base
+  command 'call'
+
+  def self.call(client, data, _match)
+    send_message client, data.channel, 'called'
+  end
+end
+```
+
+To respond to custom commands and to disable automatic class name matching, use the `command` keyword. The following command responds to `call` and `呼び出し` (call in Japanese).
+
+```ruby
+class Phone < SlackRubyBot::Commands::Base
+  command 'call'
+  command '呼び出し'
+
+  def self.call(client, data, _match)
+    send_message client, data.channel, 'called'
+  end
+end
+```
+
+Other available functions include the following.
 
 #### send_message(client, channel, text)
 
