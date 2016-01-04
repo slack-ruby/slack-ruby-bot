@@ -37,7 +37,7 @@ gem 'slack-ruby-bot'
 require 'slack-ruby-bot'
 
 class PongBot < SlackRubyBot::Bot
-  command 'ping' do |client, data, _match|
+  command 'ping' do |client, data, match|
     client.message text: 'pong', channel: data.channel
   end
 end
@@ -70,7 +70,7 @@ Bots are addressed by name, they respond to commands and operators.
 You can combine multiple commands and use a block to implement them.
 
 ```ruby
-command 'call', '呼び出し' do |client, data, _match|
+command 'call', '呼び出し' do |client, data, match|
   send_message client, data.channel, 'called'
 end
 ```
@@ -80,7 +80,7 @@ Command match data includes `match['bot']`, `match['command']` and `match['expre
 Operators are 1-letter long and are similar to commands. They don't require addressing a bot nor separating an operator from its arguments. The following class responds to `=2+2`.
 
 ```ruby
-operator '=' do |_data, _match|
+operator '=' do |data, match|
   # implementation detail
 end
 ```
@@ -131,7 +131,7 @@ The `SlackRubyBot::Bot` class is just sugare deriving from `SlackRubyBot::Comman
 class Phone < SlackRubyBot::Commands::Base
   command 'call'
 
-  def self.call(client, data, _match)
+  def self.call(client, data, match)
     send_message client, data.channel, 'called'
   end
 end
@@ -144,7 +144,7 @@ class Phone < SlackRubyBot::Commands::Base
   command 'call'
   command '呼び出し'
 
-  def self.call(client, data, _match)
+  def self.call(client, data, match)
     send_message client, data.channel, 'called'
   end
 end
