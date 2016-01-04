@@ -250,6 +250,10 @@ Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in
 * [respond with slack message](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_slack_message.rb): The bot responds with a message.
 * [respond with error](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_error.rb): An exception is raised inside a bot command.
 
+### Useful Libraries
+
+* [newrelic-slack-ruby-bot](https://github.com/dblock/newrelic-slack-ruby-bot): NewRelic instrumentation for slack-ruby-bot.
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
