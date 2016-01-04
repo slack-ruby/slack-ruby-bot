@@ -17,7 +17,7 @@ A generic Slack bot framework written in Ruby on top of [slack-ruby-client](http
 
 ## Stable Release
 
-You're reading the documentation for the **stable** release of slack-ruby-bot, 0.5.5.
+You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.5.5](https://github.com/dblock/slack-ruby-bot/tree/v0.5.5) unless you're integrating with HEAD.
 
 ## Usage
 
@@ -65,13 +65,13 @@ The following examples of bots based on slack-ruby-bot are listed in growing ord
 
 ### Commands and Operators
 
-Bots are addressed by name, they respond to commands and operators.
-
-You can combine multiple commands and use a block to implement them.
+Bots are addressed by name, they respond to commands and operators. You can combine multiple commands.
 
 ```ruby
-command 'call', '呼び出し' do |client, data, match|
-  send_message client, data.channel, 'called'
+class CallBot < SlackRubyBot::Bot
+  command 'call', '呼び出し' do |client, data, match|
+    send_message client, data.channel, 'called'
+  end
 end
 ```
 
@@ -80,8 +80,10 @@ Command match data includes `match['bot']`, `match['command']` and `match['expre
 Operators are 1-letter long and are similar to commands. They don't require addressing a bot nor separating an operator from its arguments. The following class responds to `=2+2`.
 
 ```ruby
-operator '=' do |data, match|
-  # implementation detail
+class MathBot < SlackRubyBot::Bot
+  operator '=' do |client, data, match|
+    # implementation detail
+  end
 end
 ```
 
@@ -125,7 +127,7 @@ end
 
 ### SlackRubyBot::Commands::Base
 
-The `SlackRubyBot::Bot` class is just sugare deriving from `SlackRubyBot::Commands::Base`. You can divide the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
+The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. You can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
 
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
