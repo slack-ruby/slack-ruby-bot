@@ -1,7 +1,6 @@
-### 0.5.5 (Next)
+### 0.5.5 (1/4/2016)
 
 * Added `SlackRubyBot::Bot` DSL sugar - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 0.5.4 (1/3/2016)
 
