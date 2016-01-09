@@ -5,7 +5,7 @@ module SlackRubyBot
       match(/^(?<bot>[[:alnum:][:punct:]@<>]*)$/u)
 
       def self.call(client, data, _match)
-        send_message_with_gif client, data.channel, SlackRubyBot::ABOUT, 'selfie'
+        client.say(channel: data.channel, text: SlackRubyBot::ABOUT, gif: 'selfie')
       end
     end
   end

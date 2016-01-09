@@ -40,5 +40,28 @@ module SlackRubyBot
     def url
       SlackRubyBot.config.url || (auth && auth['url'])
     end
+
+    def logger
+      @logger ||= begin
+        $stdout.sync = true
+        Logger.new(STDOUT)
+      end
+    end
+
+    def say(options = {})
+      options = options.dup
+      # get GIF
+      keywords = options.delete(:gif)
+      # text
+      text = options.delete(:text)
+      gif = begin
+        Giphy.random(keywords)
+      rescue StandardError => e
+        logger.warn "Giphy.random: #{e.message}"
+        nil
+      end if SlackRubyBot::Config.send_gifs? && send_gifs? && keywords
+      text = [text, gif && gif.image_url.to_s].compact.join("\n")
+      message({ text: text }.merge(options))
+    end
   end
 end

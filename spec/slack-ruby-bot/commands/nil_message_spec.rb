@@ -16,7 +16,7 @@ describe SlackRubyBot::Commands do
   let(:client) { app.send(:client) }
   it 'ignores nil messages' do
     allow(Giphy).to receive(:random)
-    expect(SlackRubyBot::Commands::Base).to_not receive(:send_message_with_gif)
+    expect(client).to_not receive(:message)
     app.send(:message, client, text: nil, channel: 'channel', user: 'user')
   end
 end

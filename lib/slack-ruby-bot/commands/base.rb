@@ -4,28 +4,22 @@ module SlackRubyBot
       class_attribute :routes
 
       def self.send_message(client, channel, text, options = {})
+        logger.warn '[DEPRECATION] `send_message` is deprecated.  Please use `client.say` instead.'
         if text && text.length > 0
-          send_client_message(client, { channel: channel, text: text }.merge(options))
+          client.say(options.merge(channel: channel, text: text))
         else
-          send_message_with_gif client, channel, 'Nothing to see here.', 'nothing', options
+          client.say(options.merge(channel: channel, text: 'Nothing to see here.', gif: 'nothing'))
         end
       end
 
       def self.send_message_with_gif(client, channel, text, keywords, options = {})
-        get_gif_and_send({
-          client: client,
-          channel: channel,
-          text: text,
-          keywords: keywords
-        }.merge(options))
+        logger.warn '[DEPRECATION] `send_message_with_gif` is deprecated.  Please use `client.say` instead.'
+        client.say(options.merge(channel: channel, text: text, gif: keywords))
       end
 
       def self.send_gif(client, channel, keywords, options = {})
-        get_gif_and_send({
-          client: client,
-          channel: channel,
-          keywords: keywords
-        }.merge(options))
+        logger.warn '[DEPRECATION] `send_gif` is deprecated.  Please use `client.say` instead.'
+        client.say(options.merge(channel: channel, text: '', gif: keywords))
       end
 
       def self.logger
@@ -96,25 +90,6 @@ module SlackRubyBot
       def self.finalize_routes!
         return if self.routes && self.routes.any?
         command default_command_name
-      end
-
-      def self.get_gif_and_send(options = {})
-        options = options.dup
-        keywords = options.delete(:keywords)
-        client = options.delete(:client)
-        gif = begin
-          Giphy.random(keywords)
-        rescue StandardError => e
-          logger.warn "Giphy.random: #{e.message}"
-          nil
-        end if SlackRubyBot::Config.send_gifs? && client.send_gifs?
-        text = options.delete(:text)
-        text = [text, gif && gif.image_url.to_s].compact.join("\n")
-        send_client_message(client, { text: text }.merge(options))
-      end
-
-      def self.send_client_message(client, data)
-        client.message(data)
       end
     end
   end

@@ -6,7 +6,7 @@ describe SlackRubyBot::Commands do
       command 'empty_text'
 
       def self.call(client, data, _match)
-        send_message client, data.channel, nil
+        client.say(channel: data.channel)
       end
     end
   end
@@ -16,7 +16,7 @@ describe SlackRubyBot::Commands do
   let(:client) { app.send(:client) }
   it 'sends default text' do
     allow(Giphy).to receive(:random)
-    expect(SlackRubyBot::Commands::Base).to receive(:send_message_with_gif).with(client, 'channel', 'Nothing to see here.', 'nothing', {})
+    expect(client).to receive(:message).with(channel: 'channel', text: '')
     app.send(:message, client, text: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user')
   end
 end

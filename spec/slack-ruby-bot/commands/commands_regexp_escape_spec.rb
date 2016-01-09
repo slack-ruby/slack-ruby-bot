@@ -4,7 +4,7 @@ describe SlackRubyBot::Commands do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
       command '(' do |client, data, match|
-        send_message client, data.channel, "#{match[:command]}: #{match[:expression]}"
+        client.say(channel: data.channel, text: "#{match[:command]}: #{match[:expression]}")
       end
     end
   end

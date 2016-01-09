@@ -4,11 +4,11 @@ describe SlackRubyBot::Commands do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
       operator '=' do |client, data, match|
-        send_message client, data.channel, "#{match[:operator]}: #{match[:expression]}"
+        client.say(channel: data.channel, text: "#{match[:operator]}: #{match[:expression]}")
       end
 
       operator '+', '-' do |client, data, match|
-        send_message client, data.channel, "#{match[:operator]}: #{match[:expression]}"
+        client.say(channel: data.channel, text: "#{match[:operator]}: #{match[:expression]}")
       end
     end
   end

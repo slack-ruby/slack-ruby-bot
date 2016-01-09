@@ -2,7 +2,7 @@ module SlackRubyBot
   module Commands
     class Help < Base
       def self.call(client, data, _match)
-        send_message_with_gif client, data.channel, 'See https://github.com/dblock/slack-ruby-bot, please.', 'help'
+        client.say(channel: data.channel, text: 'See https://github.com/dblock/slack-ruby-bot, please.', gif: 'help')
       end
     end
   end

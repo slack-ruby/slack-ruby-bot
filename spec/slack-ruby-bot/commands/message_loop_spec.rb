@@ -11,7 +11,7 @@ describe SlackRubyBot::App do
   end
   context 'default' do
     it 'does not respond to self' do
-      expect(SlackRubyBot::Commands::Base).to_not receive(:send_client_message)
+      expect(client).to_not receive(:message)
       subject.send(:message, client, text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF')
     end
   end
@@ -27,7 +27,7 @@ describe SlackRubyBot::App do
       end
     end
     it 'responds to self' do
-      expect(SlackRubyBot::Commands::Base).to receive(:send_client_message)
+      expect(client).to receive(:message)
       subject.send(:message, client, text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF')
     end
   end

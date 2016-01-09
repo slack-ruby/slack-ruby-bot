@@ -38,7 +38,7 @@ require 'slack-ruby-bot'
 
 class PongBot < SlackRubyBot::Bot
   command 'ping' do |client, data, match|
-    client.message text: 'pong', channel: data.channel
+    client.say(text: 'pong', channel: data.channel)
   end
 end
 
@@ -70,7 +70,7 @@ Bots are addressed by name, they respond to commands and operators. You can comb
 ```ruby
 class CallBot < SlackRubyBot::Bot
   command 'call', '呼び出し' do |client, data, match|
-    send_message client, data.channel, 'called'
+    client.say(channel: data.channel, text: 'called')
   end
 end
 ```
@@ -118,7 +118,7 @@ Commands and operators are generic versions of bot routes. You can respond to ju
 ```ruby
 class Weather < SlackRubyBot::Bot
   match /^How is the weather in (?<location>\w*)\?$/ do |client, data, match|
-    send_message client, data.channel, "The weather in #{match[:location]} is nice."
+    client.say(channel: data.channel, text: "The weather in #{match[:location]} is nice.")
   end
 end
 ```
@@ -127,14 +127,14 @@ end
 
 ### SlackRubyBot::Commands::Base
 
-The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. You can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
+The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. For more involved bots you can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
 
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
   command 'call'
 
   def self.call(client, data, match)
-    send_message client, data.channel, 'called'
+    client.say(channel: data.channel, text: 'called')
   end
 end
 ```
@@ -147,24 +147,16 @@ class Phone < SlackRubyBot::Commands::Base
   command '呼び出し'
 
   def self.call(client, data, match)
-    send_message client, data.channel, 'called'
+    client.say(channel: data.channel, text: 'called')
   end
 end
 ```
 
-The functions available in `SlackRubyBot::Commands::Base` are as follows.
+The `SlackRubyBot::Client` implementation comes with GIF support.
 
-#### send_message(client, channel, text)
+#### say(channel: ..., text: ..., gif: ...)
 
-Send text using a RealTime client to a channel.
-
-#### send_message_with_gif(client, channel, text, keyword)
-
-Send text along with a random animated GIF based on a keyword.
-
-#### send_gif(client, channel, keyword)
-
-Send a random animated GIF based on a keyword.
+Sends text and/or a random GIF that matches a keyword using a RealTime client to a channel.
 
 ### Built-In Commands
 

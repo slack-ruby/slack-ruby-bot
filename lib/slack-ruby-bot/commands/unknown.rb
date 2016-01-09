@@ -4,7 +4,7 @@ module SlackRubyBot
       match(/^(?<bot>\S*)[\s]*(?<expression>.*)$/)
 
       def self.call(client, data, _match)
-        send_message_with_gif client, data.channel, "Sorry <@#{data.user}>, I don't understand that command!", 'idiot'
+        client.say(channel: data.channel, text: "Sorry <@#{data.user}>, I don't understand that command!", gif: 'idiot')
       end
     end
   end
