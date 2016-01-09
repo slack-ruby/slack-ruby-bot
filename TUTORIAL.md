@@ -34,11 +34,11 @@ Run `bundle install` to get all the gems.
 
 #### Application
 
-Create a folder called `slack-mathbot` and inside of it create `app.rb`.
+Create a folder called `slack-mathbot` and inside of it create `bot.rb`.
 
 ```ruby
 module SlackMathbot
-  class App < SlackRubyBot::App
+  class Bot < SlackRubyBot::Bot
   end
 end
 ```
@@ -52,7 +52,7 @@ module SlackMathbot
   module Commands
     class Calculate < SlackRubyBot::Commands::Base
       command 'calculate' do |client, data, _match|
-        send_message client, data.channel, '4'
+        client.say(chanbel: data.channel, text: '4')
       end
     end
   end
@@ -66,7 +66,7 @@ Create a `slack-mathbot.rb` at the root and require the above files.
 ```ruby
 require 'slack-ruby-bot'
 require 'slack-mathbot/commands/calculate'
-require 'slack-mathbot/app'
+require 'slack-mathbot/bot'
 ```
 
 #### Web Server
@@ -99,7 +99,7 @@ Thread.abort_on_exception = true
 
 Thread.new do
   begin
-    SlackMathbot::App.instance.run
+    SlackMathbot::Bot.run
   rescue Exception => e
     STDERR.puts "ERROR: #{e}"
     STDERR.puts e.backtrace
@@ -175,7 +175,7 @@ require 'spec_helper'
 
 describe SlackMathbot::App do
   def app
-    SlackMathbot::App.new
+    SlackMathbot::Bot.instance
   end
   it_behaves_like 'a slack ruby bot'
 end
@@ -190,7 +190,7 @@ require 'spec_helper'
 
 describe SlackMathbot::Commands::Calculate do
   def app
-    SlackMathbot::App.new
+    SlackMathbot::Bot.instance
   end
   it 'returns 4' do
     expect(message: "#{SlackRubyBot.config.user} calculate 2+2", channel: 'channel').to respond_with_slack_message('4')
