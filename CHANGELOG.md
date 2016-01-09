@@ -1,3 +1,7 @@
+### 0.6.1 (Next)
+
+* Your contribution here.
+
 ### 0.6.0 (1/9/2016)
 
 * Deprecated `SlackRubyBot::Base#send_message`, `send_message_with_gif` and `send_gif` in favor of `client.say` - [@dblock](https://github.com/dblock).
