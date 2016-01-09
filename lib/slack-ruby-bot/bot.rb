@@ -1,7 +1,9 @@
 module SlackRubyBot
   class Bot < SlackRubyBot::Commands::Base
-    def self.run
-      SlackRubyBot::App.instance.run
+    delegate :client, :run, to: :instance
+
+    def self.instance
+      SlackRubyBot::App.instance
     end
   end
 end
