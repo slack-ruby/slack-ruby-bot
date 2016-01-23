@@ -18,4 +18,22 @@ describe SlackRubyBot::Commands do
     expect(message: "#{SlackRubyBot.config.user} sayhi arg1 arg2").to respond_with_slack_message('sayhi: arg1 arg2')
     expect(message: "#{SlackRubyBot.config.user} saybye arg1 arg2").to respond_with_slack_message('saybye: arg1 arg2')
   end
+  it 'checks for direct message' do
+    expect(command.direct_message?(Hashie::Mash.new(channel: 'D0K79RKJ7'))).to be true
+    expect(command.direct_message?(Hashie::Mash.new(channel: 'S0K79RKJ7'))).to be false
+  end
+  it 'checks that message from another user' do
+    SlackRubyBot.config.user_id = 'UDEADBEEF'
+    expect(command.message_from_another_user?(Hashie::Mash.new(user: 'U0CPHNZ2N'))).to be true
+    expect(command.message_from_another_user?(Hashie::Mash.new(user: 'UDEADBEEF'))).to be false
+  end
+  it 'checks that bot mentioned in message' do
+    bot_names = ['rubybot', '<@deadbeef>', '<@deadbeef>:', 'rubybot:']
+    expect(command.bot_mentioned_in_message?('rubybot', bot_names)).to be true
+    expect(command.bot_mentioned_in_message?('rubybot ', bot_names)).to be true
+    expect(command.bot_mentioned_in_message?('rubybotbot', bot_names)).to be false
+    expect(command.bot_mentioned_in_message?('rubybot:', bot_names)).to be true
+    expect(command.bot_mentioned_in_message?('rubybot: ', bot_names)).to be true
+    expect(command.bot_mentioned_in_message?('rubybot:bot', bot_names)).to be false
+  end
 end

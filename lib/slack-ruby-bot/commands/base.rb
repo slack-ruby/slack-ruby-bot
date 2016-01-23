@@ -74,17 +74,24 @@ module SlackRubyBot
         self.routes[match] = block
       end
 
-      private
-
       def self.parse(client, data)
         text = data.text
-        return text unless data.channel && data.channel[0] == 'D' && data.user && data.user != SlackRubyBot.config.user_id
-        client.names.each do |name|
-          text.downcase.tap do |td|
-            return text if td == name || td.starts_with?("#{name} ")
-          end
-        end
+        return text unless direct_message?(data) && message_from_another_user?(data)
+        return text if bot_mentioned_in_message?(text, client.names)
         ["#{client.name} #{text}", text]
+      end
+
+      def self.direct_message?(data)
+        data.channel && data.channel[0] == 'D'
+      end
+
+      def self.message_from_another_user?(data)
+        data.user && data.user != SlackRubyBot.config.user_id
+      end
+
+      def self.bot_mentioned_in_message?(text, bot_names)
+        bot_names = bot_names.join('|')
+        !!text.downcase.match(/\A(#{bot_names})\s|\A(#{bot_names})\z/)
       end
 
       def self.finalize_routes!
