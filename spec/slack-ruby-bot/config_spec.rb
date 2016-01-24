@@ -15,7 +15,7 @@ describe SlackRubyBot::Config do
         expect(SlackRubyBot::Config.send_gifs?).to be false
       end
       after do
-        SlackRubyBot::Config.send_gifs = nil
+        SlackRubyBot::Config.reset!
       end
     end
     context 'set to false via SLACK_RUBY_BOT_SEND_GIFS' do
@@ -37,7 +37,7 @@ describe SlackRubyBot::Config do
         expect(SlackRubyBot::Config.send_gifs?).to be true
       end
       after do
-        SlackRubyBot::Config.send_gifs = nil
+        SlackRubyBot::Config.reset!
       end
     end
     context 'set to true via SLACK_RUBY_BOT_SEND_GIFS' do
@@ -49,6 +49,18 @@ describe SlackRubyBot::Config do
       end
       after do
         ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS'
+      end
+    end
+  end
+  describe '#reset!' do
+    it 'sets all config attributes to nil' do
+      SlackRubyBot::Config::ATTRS.each do |attr|
+        SlackRubyBot::Config.send("#{attr}=", true)
+        expect(SlackRubyBot::Config.send(attr)).to be true
+      end
+      SlackRubyBot::Config.reset!
+      SlackRubyBot::Config::ATTRS.each do |attr|
+        expect(SlackRubyBot::Config.send(attr)).to be nil
       end
     end
   end
