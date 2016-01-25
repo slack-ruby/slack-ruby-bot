@@ -1,5 +1,6 @@
 ### 0.6.1 (Next)
 
+* [#40](https://github.com/dblock/slack-ruby-bot/pull/40): Added `SlackRubyBot::Config.reset!` - [@accessd](https://github.com/accessd).
 * Your contribution here.
 
 ### 0.6.0 (1/9/2016)

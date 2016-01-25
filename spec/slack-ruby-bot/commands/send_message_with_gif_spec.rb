@@ -53,7 +53,7 @@ describe SlackRubyBot::Commands do
         app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
       end
       after do
-        SlackRubyBot::Config.send_gifs = nil
+        SlackRubyBot::Config.reset!
       end
     end
     context 'set to false via SLACK_RUBY_BOT_SEND_GIFS' do

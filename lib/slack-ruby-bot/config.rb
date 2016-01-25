@@ -2,15 +2,8 @@ module SlackRubyBot
   module Config
     extend self
 
-    attr_accessor :token
-    attr_accessor :url
-    attr_accessor :aliases
-    attr_accessor :user
-    attr_accessor :user_id
-    attr_accessor :team
-    attr_accessor :team_id
-    attr_accessor :allow_message_loops
-    attr_accessor :send_gifs
+    ATTRS = [:token, :url, :aliases, :user, :user_id, :team, :team_id, :allow_message_loops, :send_gifs].freeze
+    attr_accessor(*ATTRS)
 
     def allow_message_loops?
       allow_message_loops
@@ -19,6 +12,10 @@ module SlackRubyBot
     def send_gifs?
       v = boolean_from_env('SLACK_RUBY_BOT_SEND_GIFS')
       v.nil? ? (send_gifs.nil? || send_gifs) : v
+    end
+
+    def reset!
+      ATTRS.each { |attr| send("#{attr}=", nil) }
     end
 
     private
