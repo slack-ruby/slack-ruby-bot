@@ -1,6 +1,7 @@
 module SlackRubyBot
   module Commands
     class Base
+      include Loggable
       class_attribute :routes
 
       def self.send_message(client, channel, text, options = {})
@@ -20,13 +21,6 @@ module SlackRubyBot
       def self.send_gif(client, channel, keywords, options = {})
         logger.warn '[DEPRECATION] `send_gif` is deprecated.  Please use `client.say` instead.'
         client.say(options.merge(channel: channel, text: '', gif: keywords))
-      end
-
-      def self.logger
-        @logger ||= begin
-          $stdout.sync = true
-          Logger.new(STDOUT)
-        end
       end
 
       def self.default_command_name
