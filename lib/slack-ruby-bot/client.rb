@@ -1,5 +1,6 @@
 module SlackRubyBot
   class Client < Slack::RealTime::Client
+    include Loggable
     attr_accessor :auth
     attr_accessor :aliases
     attr_accessor :send_gifs
@@ -39,13 +40,6 @@ module SlackRubyBot
 
     def url
       SlackRubyBot.config.url || (auth && auth['url'])
-    end
-
-    def logger
-      @logger ||= begin
-        $stdout.sync = true
-        Logger.new(STDOUT)
-      end
     end
 
     def say(options = {})

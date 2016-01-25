@@ -1,6 +1,7 @@
 require File.expand_path('../config/environment', __FILE__)
 
 require 'slack-ruby-bot/version'
+require 'slack-ruby-bot/support/loggable'
 require 'slack-ruby-bot/about'
 require 'slack-ruby-bot/config'
 require 'slack-ruby-bot/hooks'

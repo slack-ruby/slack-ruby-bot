@@ -1,5 +1,6 @@
 module SlackRubyBot
   class Server
+    include Loggable
     cattr_accessor :hooks
     attr_accessor :token
     attr_accessor :aliases
@@ -75,13 +76,6 @@ module SlackRubyBot
     end
 
     private
-
-    def logger
-      @logger ||= begin
-        $stdout.sync = true
-        Logger.new(STDOUT)
-      end
-    end
 
     def client
       @client ||= begin
