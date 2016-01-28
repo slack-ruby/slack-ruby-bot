@@ -18,6 +18,7 @@ source 'http://rubygems.org'
 gem 'slack-ruby-bot'
 gem 'puma'
 gem 'sinatra'
+gem 'dotenv'
 
 group :development, :test do
   gem 'rake'
@@ -52,7 +53,7 @@ module SlackMathbot
   module Commands
     class Calculate < SlackRubyBot::Commands::Base
       command 'calculate' do |client, data, _match|
-        client.say(chanbel: data.channel, text: '4')
+        client.say(channel: data.channel, text: '4')
       end
     end
   end
@@ -91,6 +92,9 @@ Tie all the pieces together in `config.ru` which creates a thread for the bot an
 
 ```ruby
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+
+require 'dotenv'
+Dotenv.load
 
 require 'slack-mathbot'
 require 'web'
