@@ -1,3 +1,7 @@
+### 0.6.2 (Next)
+
+* Your contribution here.
+
 ### 0.6.1 (1/29/2016)
 
 * [#43](https://github.com/dblock/slack-ruby-bot/issues/43): Issuing a `bot` command terminates bot - [@dblock](https://github.com/dblock).
