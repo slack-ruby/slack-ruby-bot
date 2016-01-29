@@ -1,8 +1,7 @@
-### 0.6.1 (Next)
+### 0.6.1 (1/29/2016)
 
 * [#43](https://github.com/dblock/slack-ruby-bot/issues/43): Issuing a `bot` command terminates bot - [@dblock](https://github.com/dblock).
 * [#40](https://github.com/dblock/slack-ruby-bot/pull/40): Added `SlackRubyBot::Config.reset!` - [@accessd](https://github.com/accessd).
-* Your contribution here.
 
 ### 0.6.0 (1/9/2016)
 
