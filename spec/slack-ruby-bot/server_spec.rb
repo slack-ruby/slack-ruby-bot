@@ -70,4 +70,22 @@ describe SlackRubyBot::Server do
       end
     end
   end
+  context 'exits without error' do
+    subject do
+      SlackRubyBot::Server.new(token: 'token')
+    end
+    before do
+      allow(subject).to receive(:auth!)
+      allow(subject).to receive(:start!)
+    end
+    SlackRubyBot::Server::TRAPPED_SIGNALS.each do |signal|
+      it "if #{signal} signal received" do
+        server_pid = fork { subject.run }
+        sleep 0.1
+        Process.kill(signal, server_pid)
+        _, status = Process.waitpid2(server_pid)
+        expect(status.success?).to be true
+      end
+    end
+  end
 end

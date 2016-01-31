@@ -2,9 +2,9 @@ module SlackRubyBot
   class Server
     include Loggable
     cattr_accessor :hooks
-    attr_accessor :token
-    attr_accessor :aliases
-    attr_accessor :send_gifs
+    attr_accessor :token, :aliases, :send_gifs
+
+    TRAPPED_SIGNALS = %w(INT TERM).freeze
 
     include SlackRubyBot::Hooks::Hello
     include SlackRubyBot::Hooks::Message
@@ -18,24 +18,9 @@ module SlackRubyBot
     def run
       auth!
       loop do
-        begin
+        handle_execeptions do
+          handle_signals
           start!
-        rescue Slack::Web::Api::Error => e
-          logger.error e
-          case e.message
-          when 'migration_in_progress'
-            sleep 1 # ignore, try again
-          else
-            raise e
-          end
-        rescue Faraday::Error::TimeoutError, Faraday::Error::ConnectionFailed, Faraday::Error::SSLError => e
-          logger.error e
-          sleep 1 # ignore, try again
-        rescue StandardError => e
-          logger.error e
-          raise e
-        ensure
-          @client = nil
         end
       end
     end
@@ -63,11 +48,7 @@ module SlackRubyBot
     end
 
     def restart!(wait = 1)
-      if @async
-        start_async
-      else
-        start!
-      end
+      @async ? start_async : start!
     rescue StandardError => e
       sleep wait
       logger.error "#{e.message}, reconnecting in #{wait} second(s)."
@@ -76,6 +57,35 @@ module SlackRubyBot
     end
 
     private
+
+    def handle_execeptions
+      yield
+    rescue Slack::Web::Api::Error => e
+      logger.error e
+      case e.message
+      when 'migration_in_progress'
+        sleep 1 # ignore, try again
+      else
+        raise e
+      end
+    rescue Faraday::Error::TimeoutError, Faraday::Error::ConnectionFailed, Faraday::Error::SSLError => e
+      logger.error e
+      sleep 1 # ignore, try again
+    rescue StandardError => e
+      logger.error e
+      raise e
+    ensure
+      @client = nil
+    end
+
+    def handle_signals
+      TRAPPED_SIGNALS.each do |signal|
+        Signal.trap(signal) do
+          stop!
+          exit
+        end
+      end
+    end
 
     def client
       @client ||= begin
