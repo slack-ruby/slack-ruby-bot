@@ -17,17 +17,17 @@ describe SlackRubyBot::Commands do
     gif = Giphy::RandomGif.new('image_url' => gif_image_url)
     expect(Giphy).to receive(:random).and_return(gif)
     expect(client).to receive(:message).with(channel: 'channel', text: "message\n#{gif_image_url}")
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user'))
   end
   it 'eats up the error' do
     expect(Giphy).to receive(:random) { fail 'oh no!' }
     expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user'))
   end
   it 'eats up nil gif' do
     expect(Giphy).to receive(:random).and_return(nil)
     expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user'))
   end
   context 'send_gifs' do
     context 'set to false via client' do
@@ -37,7 +37,7 @@ describe SlackRubyBot::Commands do
       it 'does not send a gif' do
         expect(Giphy).to_not receive(:random)
         expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-        app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+        app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user'))
       end
       after do
         client.send_gifs = true
@@ -50,7 +50,7 @@ describe SlackRubyBot::Commands do
       it 'does not send a gif' do
         expect(Giphy).to_not receive(:random)
         expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-        app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+        app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user'))
       end
       after do
         SlackRubyBot::Config.reset!
@@ -63,7 +63,7 @@ describe SlackRubyBot::Commands do
       it 'does not send a gif' do
         expect(Giphy).to_not receive(:random)
         expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-        app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user')
+        app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_with_gif_spec message", channel: 'channel', user: 'user'))
       end
       after do
         ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS'

@@ -4,7 +4,6 @@ module SlackRubyBot
       extend Base
 
       def message(client, data)
-        data = Hashie::Mash.new(data)
         return if message_to_self_not_allowed? && message_to_self?(client, data)
         data.text.strip! if data.text
         result = child_command_classes.detect { |d| d.invoke(client, data) }
@@ -20,7 +19,7 @@ module SlackRubyBot
       end
 
       def message_to_self?(client, data)
-        client.self && client.self['id'] == data.user
+        client.self && client.self.id == data.user
       end
 
       #

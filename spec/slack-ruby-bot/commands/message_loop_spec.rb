@@ -6,13 +6,13 @@ describe SlackRubyBot::App do
   end
   let(:client) { subject.send(:client) }
   before do
-    allow(client).to receive(:self).and_return('id' => 'UDEADBEEF')
+    allow(client).to receive(:self).and_return(Hashie::Mash.new('id' => 'UDEADBEEF'))
     allow(Giphy).to receive(:random)
   end
   context 'default' do
     it 'does not respond to self' do
       expect(client).to_not receive(:message)
-      subject.send(:message, client, text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF')
+      subject.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF'))
     end
   end
   context 'with allow_message_loops=true' do
@@ -28,7 +28,7 @@ describe SlackRubyBot::App do
     end
     it 'responds to self' do
       expect(client).to receive(:message)
-      subject.send(:message, client, text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF')
+      subject.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF'))
     end
   end
 end
