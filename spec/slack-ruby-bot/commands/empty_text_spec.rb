@@ -17,6 +17,6 @@ describe SlackRubyBot::Commands do
   it 'sends default text' do
     allow(Giphy).to receive(:random)
     expect(client).to receive(:message).with(channel: 'channel', text: '')
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user'))
   end
 end

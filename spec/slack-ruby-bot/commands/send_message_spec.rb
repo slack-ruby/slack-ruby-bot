@@ -14,6 +14,6 @@ describe SlackRubyBot::Commands do
   let(:client) { app.send(:client) }
   it 'sends a message' do
     expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_message_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_message_spec message", channel: 'channel', user: 'user'))
   end
 end

@@ -13,6 +13,6 @@ describe SlackRubyBot::Commands::Unknown do
   end
   it 'does not respond to sad face' do
     expect(SlackRubyBot::Commands::Base).to_not receive(:send_message)
-    SlackRubyBot::App.new.send(:message, client, text: ':((')
+    SlackRubyBot::App.new.send(:message, client, Hashie::Mash.new(text: ':(('))
   end
 end

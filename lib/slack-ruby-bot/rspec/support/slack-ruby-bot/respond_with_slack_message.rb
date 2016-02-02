@@ -6,7 +6,7 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
     allow(Giphy).to receive(:random)
     client = app.send(:client)
     expect(client).to receive(:message).with(channel: channel, text: expected)
-    app.send(:message, client, text: message, channel: channel, user: user)
+    app.send(:message, client, Hashie::Mash.new(text: message, channel: channel, user: user))
     true
   end
 
