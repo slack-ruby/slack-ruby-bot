@@ -17,16 +17,16 @@ describe SlackRubyBot::Commands do
     gif = Giphy::RandomGif.new('image_url' => gif_image_url)
     expect(Giphy).to receive(:random).and_return(gif)
     expect(client).to receive(:message).with(channel: 'channel', text: gif_image_url)
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_gif_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_gif_spec message", channel: 'channel', user: 'user'))
   end
   it 'eats up the error' do
     expect(Giphy).to receive(:random) { fail 'oh no!' }
     expect(client).to receive(:message).with(channel: 'channel', text: '')
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_gif_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_gif_spec message", channel: 'channel', user: 'user'))
   end
   it 'eats up nil gif' do
     expect(Giphy).to receive(:random).and_return(nil)
     expect(client).to receive(:message).with(channel: 'channel', text: '')
-    app.send(:message, client, text: "#{SlackRubyBot.config.user} send_gif_spec message", channel: 'channel', user: 'user')
+    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} send_gif_spec message", channel: 'channel', user: 'user'))
   end
 end
