@@ -187,8 +187,8 @@ module MyBot
       extend SlackRubyBot::Hooks::Base
 
       def user_change(client, data)
-        # data['user']['id'] contains the user ID
-        # data['user']['name'] contains the new user name
+        # data.user.id contains the user ID
+        # data.user.name contains the new user name
         ...
       end
     end
