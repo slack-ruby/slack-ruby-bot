@@ -1,3 +1,7 @@
+### 0.6.3 (Next)
+
+* Your contribution here.
+
 ### 0.6.2 (2/4/2016)
 
 * [#44](https://github.com/dblock/slack-ruby-bot/pull/44): Bot graceful shutdown - [@accessd](https://github.com/accessd).
