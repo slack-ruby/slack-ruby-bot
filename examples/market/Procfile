@@ -1,0 +1,1 @@
+console: bundle exec ruby marketbot.rb

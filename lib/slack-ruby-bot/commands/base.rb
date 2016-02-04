@@ -46,27 +46,40 @@ module SlackRubyBot
           finalize_routes!
           expression, text = parse(client, data)
           called = false
-          routes.each_pair do |route, method|
-            match = route.match(expression)
-            match ||= route.match(text) if text
-            next unless match
-            next if match.names.include?('bot') && !client.name?(match['bot'])
+          routes.each_pair do |route, options|
+            match_method = options[:match_method]
+            case match_method
+            when :match
+              match = route.match(expression)
+              match ||= route.match(text) if text
+              next unless match
+              next if match.names.include?('bot') && !client.name?(match['bot'])
+            when :scan
+              match = expression.scan(route)
+              next unless match.any?
+            end
             called = true
-            if method
-              method.call(client, data, match)
+            call = options[:call]
+            if call
+              call.call(client, data, match)
             elsif respond_to?(:call)
               send(:call, client, data, match)
             else
               fail NotImplementedError, data.text
             end
             break
-          end
+          end if expression
           called
         end
 
         def match(match, &block)
           self.routes ||= {}
-          self.routes[match] = block
+          self.routes[match] = { match_method: :match, call: block }
+        end
+
+        def scan(match, &block)
+          self.routes ||= {}
+          self.routes[match] = { match_method: :scan, call: block }
         end
 
         private

@@ -125,6 +125,20 @@ end
 
 ![](screenshots/weather.gif)
 
+You can also capture multiple matchers with `scan`.
+
+```ruby
+class Market < SlackRubyBot::Bot
+  scan(/(\[A-Z]{2,5})/) do |client, data, stocks|
+    # lookup stock market price
+  end
+end
+```
+
+![](screenshots/market.gif)
+
+See [examples/market](examples/market/marketbot.rb) for a working example.
+
 ### SlackRubyBot::Commands::Base
 
 The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. For more involved bots you can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.

@@ -1,5 +1,6 @@
 ### 0.6.3 (Next)
 
+* Extended `match` with `scan` that can make multiple captures - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.6.2 (2/4/2016)
