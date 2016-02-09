@@ -93,9 +93,6 @@ module SlackRubyBot
           @client = nil
           restart! unless @stopping
         end
-        client.on :hello do
-          hello!
-        end
         hooks.each do |hook|
           client.on hook do |data|
             begin

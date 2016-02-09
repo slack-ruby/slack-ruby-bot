@@ -4,7 +4,8 @@ module SlackRubyBot
       extend Base
 
       def hello(client, _data)
-        logger.info "Successfully connected to #{client.url || 'slack'}."
+        return unless client && client.team
+        logger.info "Successfully connected to https://#{client.team.domain}.slack.com."
       end
     end
   end
