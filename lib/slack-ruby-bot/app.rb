@@ -21,15 +21,19 @@ module SlackRubyBot
 
     private
 
-    def auth!
-      super
+    def hello!
       SlackRubyBot.configure do |config|
-        config.url = client.auth['url']
-        config.team = client.auth['team']
-        config.user = client.auth['user']
-        config.team_id = client.auth['team_id']
-        config.user_id = client.auth['user_id']
+        if client.team
+          config.url = "https://#{client.team.domain}.slack.com"
+          config.team = client.team.name
+          config.team_id = client.team.id
+        end
+        if client.self
+          config.user = client.self.name
+          config.user_id = client.self.id
+        end
       end
+      super
     end
 
     def reset!

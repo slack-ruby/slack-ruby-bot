@@ -237,11 +237,9 @@ You may want to integrate a bot or multiple bots into other systems, in which ca
 ```ruby
 EM.run do
   bot1 = SlackRubyBot::Server.new(token: token1, aliases: ['bot1'])
-  bot1.auth!
   bot1.start_async
 
   bot2 = SlackRubyBot::Server.new(token: token2, send_gifs: false, aliases: ['bot2'])
-  bot2.auth!
   bot2.start_async
 end
 ```

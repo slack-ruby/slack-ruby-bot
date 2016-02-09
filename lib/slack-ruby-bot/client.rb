@@ -1,7 +1,6 @@
 module SlackRubyBot
   class Client < Slack::RealTime::Client
     include Loggable
-    attr_accessor :auth
     attr_accessor :aliases
     attr_accessor :send_gifs
 
@@ -14,14 +13,14 @@ module SlackRubyBot
     def names
       [
         SlackRubyBot::Config.user,
-        auth ? auth['user'] : nil,
+        self.self ? self.self.name : nil,
         aliases,
         SlackRubyBot::Config.aliases,
-        auth ? "<@#{auth['user_id'].downcase}>" : nil,
+        self.self && self.self.id ? "<@#{self.self.id.downcase}>" : nil,
         SlackRubyBot::Config.user_id ? "<@#{SlackRubyBot::Config.user_id.downcase}>" : nil,
-        auth ? "<@#{auth['user_id'].downcase}>:" : nil,
+        self.self && self.self.id ? "<@#{self.self.id.downcase}>:" : nil,
         SlackRubyBot::Config.user_id ? "<@#{SlackRubyBot::Config.user_id.downcase}>:" : nil,
-        auth ? "#{auth['user']}:" : nil,
+        self.self && self.self.name ? "#{self.self.name.downcase}:" : nil,
         SlackRubyBot::Config.user ? "#{SlackRubyBot::Config.user}:" : nil
       ].compact.flatten
     end
@@ -35,11 +34,11 @@ module SlackRubyBot
     end
 
     def name
-      SlackRubyBot.config.user || (auth && auth['user'])
+      SlackRubyBot.config.user || (self.self && self.self.name)
     end
 
     def url
-      SlackRubyBot.config.url || (auth && auth['url'])
+      SlackRubyBot.config.url || super
     end
 
     def say(options = {})

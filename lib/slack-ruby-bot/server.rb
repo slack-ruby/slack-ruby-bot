@@ -16,18 +16,12 @@ module SlackRubyBot
     end
 
     def run
-      auth!
       loop do
         handle_execeptions do
           handle_signals
           start!
         end
       end
-    end
-
-    def auth!
-      client.auth = client.web_client.auth_test
-      logger.info "Welcome '#{client.auth['user']}' to the '#{client.auth['team']}' team at #{client.auth['url']}."
     end
 
     def start!
@@ -45,6 +39,11 @@ module SlackRubyBot
     def stop!
       @stopping = true
       client.stop! if @client
+    end
+
+    def hello!
+      return unless client.self && client.team
+      logger.info "Welcome '#{client.self.name}' to the '#{client.team.name}' team at https://#{client.team.domain}.slack.com."
     end
 
     def restart!(wait = 1)
@@ -93,6 +92,9 @@ module SlackRubyBot
         client.on :close do |_data|
           @client = nil
           restart! unless @stopping
+        end
+        client.on :hello do
+          hello!
         end
         hooks.each do |hook|
           client.on hook do |data|

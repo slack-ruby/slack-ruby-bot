@@ -1,5 +1,6 @@
-### 0.6.3 (Next)
+### 0.7.0 (Next)
 
+* Don't attempt to pre-authenticate via `auth!`, use RealTime client local store - [@dblock](https://github.com/dblock).
 * Extended `match` with `scan` that can make multiple captures - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
