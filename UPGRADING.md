@@ -3,6 +3,10 @@ Upgrading SlackRubyBot
 
 ### Upgrading to >= 0.7.0
 
+#### Simplify Match Expression Checking
+
+The regular expression parser for commands will now include a `nil` value for `expression` when an expression is not present. You can therefore no longer rely on checking `match.names.include?('expression')`, instead check `match['expression']`.
+
 #### Remove any bot.auth! calls
 
 SlackRubyBot 0.6.x versions invoked a method called `auth!`, which caused a pre-flight authentication via Slack Web API `auth_test` method and collected a number of properties, such as client and team ID or name. This method has been removed in favor of using data available in the `Slack::RealTime::Client` local store introduced in [slack-ruby-client#54](https://github.com/dblock/slack-ruby-client/issues/54). Remove any explicit calls to this method.
