@@ -29,17 +29,13 @@ module SlackRubyBot
         end
 
         def operator(*values, &block)
-          values.each do |value|
-            match Regexp.new("^(?<operator>\\#{value})(?<expression>.*)$", Regexp::IGNORECASE), &block
-          end
+          values = values.map { |value| Regexp.escape(value) }.join('|')
+          match Regexp.new("^(?<operator>#{values})(?<expression>.*)$", Regexp::IGNORECASE), &block
         end
 
         def command(*values, &block)
-          values.each do |value|
-            escaped = Regexp.escape(value)
-            match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{escaped})$", Regexp::IGNORECASE), &block
-            match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{escaped})[\\s]+(?<expression>.*)$", Regexp::IGNORECASE), &block
-          end
+          values = values.map { |value| Regexp.escape(value) }.join('|')
+          match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE), &block
         end
 
         def invoke(client, data)

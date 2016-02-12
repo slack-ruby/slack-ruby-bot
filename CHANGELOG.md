@@ -1,5 +1,6 @@
 ### 0.7.0 (Next)
 
+* Improved regular expression matching performance with less matching per command - [@dblock](https://github.com/dblock).
 * Don't attempt to pre-authenticate via `auth!`, use RealTime client local store - [@dblock](https://github.com/dblock).
 * Extended `match` with `scan` that can make multiple captures - [@dblock](https://github.com/dblock).
 * Your contribution here.
