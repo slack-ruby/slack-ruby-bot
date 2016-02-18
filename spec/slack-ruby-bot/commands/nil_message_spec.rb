@@ -6,7 +6,7 @@ describe SlackRubyBot::Commands do
       command 'nil_text'
 
       def self.call(_client, data, _match)
-        send_message cilent, data.channel, nil
+        send_message client, data.channel, nil
       end
     end
   end
