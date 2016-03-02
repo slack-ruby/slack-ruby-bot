@@ -1,0 +1,45 @@
+module SlackRubyBot
+  module Hooks
+    class Set
+      attr_accessor :handlers, :client
+
+      def initialize(client = nil)
+        self.handlers = {}
+        self.client = client
+
+        @pending_flush = client.blank?
+      end
+
+      def add(hook_name, handler)
+        if handlers[hook_name].present?
+          handlers[hook_name] << handler
+        else
+          handlers[hook_name] = [handler]
+          register_callback(hook_name)
+        end
+      end
+
+      def client=(client)
+        @client = client
+
+        flush_handlers if @pending_flush
+      end
+
+      protected
+
+      def register_callback(hook_name)
+        return unless client # We'll delay this until client is set
+
+        client.on hook_name do |data|
+          handlers[hook_name].each do |handler|
+            handler.call(client, data)
+          end
+        end
+      end
+
+      def flush_handlers
+        handlers.keys.each { |hook| register_callback(hook) }
+      end
+    end
+  end
+end

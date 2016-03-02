@@ -31,12 +31,12 @@ describe SlackRubyBot::Server do
       expect(subject.send(:client).send_gifs?).to be true
     end
     it 'creates a client with a token' do
-      expect(client).to receive(:start!) { fail 'expected' }
+      expect(client).to receive(:start!) { raise 'expected' }
       expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', send_gifs: true, aliases: %w(foo bar)).and_return(client)
       expect { subject.start! }.to raise_error RuntimeError, 'expected'
     end
     it 'asynchronously creates a client with a token' do
-      expect(client).to receive(:start_async) { fail 'expected' }
+      expect(client).to receive(:start_async) { raise 'expected' }
       expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', send_gifs: true, aliases: %w(foo bar)).and_return(client)
       expect { subject.start_async }.to raise_error RuntimeError, 'expected'
     end
@@ -61,9 +61,9 @@ describe SlackRubyBot::Server do
       end.to raise_error Slack::Web::Api::Error, 'unknown'
     end
     [Faraday::Error::ConnectionFailed, Faraday::Error::TimeoutError, Faraday::Error::SSLError].each do |err|
-      it "#{err}" do
-        expect(client).to receive(:start!) { fail err, 'Faraday' }
-        expect(client).to receive(:start!) { fail 'unknown' }
+      it err.to_s do
+        expect(client).to receive(:start!) { raise err, 'Faraday' }
+        expect(client).to receive(:start!) { raise 'unknown' }
         expect do
           subject.run
         end.to raise_error 'unknown'

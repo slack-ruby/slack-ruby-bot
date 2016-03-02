@@ -2,11 +2,19 @@ require 'rspec/expectations'
 
 RSpec::Matchers.define :respond_with_slack_message do |expected|
   match do |actual|
+    client = if respond_to?(:client)
+               send(:client)
+             else
+               SlackRubyBot::Client.new
+             end
+
+    message_command = SlackRubyBot::Hooks::Message.new
+
     channel, user, message = parse(actual)
     allow(Giphy).to receive(:random)
-    client = app.send(:client)
+
     expect(client).to receive(:message).with(channel: channel, text: expected)
-    app.send(:message, client, Hashie::Mash.new(text: message, channel: channel, user: user))
+    message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
     true
   end
 

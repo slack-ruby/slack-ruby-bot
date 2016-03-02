@@ -1,9 +1,7 @@
 module SlackRubyBot
   module Hooks
-    module Message
-      extend Base
-
-      def message(client, data)
+    class Message
+      def call(client, data)
         return if message_to_self_not_allowed? && message_to_self?(client, data)
         data.text.strip! if data.text
         result = child_command_classes.detect { |d| d.invoke(client, data) }

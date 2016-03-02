@@ -1,18 +1,25 @@
 module SlackRubyBot
   class Server
     include Loggable
-    cattr_accessor :hooks
+
     attr_accessor :token, :aliases, :send_gifs
 
-    TRAPPED_SIGNALS = %w(INT TERM).freeze
+    include SlackRubyBot::Hooks::HookSupport
 
-    include SlackRubyBot::Hooks::Hello
-    include SlackRubyBot::Hooks::Message
+    TRAPPED_SIGNALS = %w(INT TERM).freeze
 
     def initialize(options = {})
       @token = options[:token]
       @aliases = options[:aliases]
       @send_gifs = options.key?(:send_gifs) ? !!options[:send_gifs] : true
+
+      # Hook Handling
+      flush_hook_blocks
+
+      add_hook_handlers options[:hook_handlers] || {
+        hello: SlackRubyBot::Hooks::Hello.new(logger),
+        message: SlackRubyBot::Hooks::Message.new
+      }
     end
 
     def run
@@ -39,11 +46,6 @@ module SlackRubyBot
     def stop!
       @stopping = true
       client.stop! if @client
-    end
-
-    def hello!
-      return unless client.self && client.team
-      logger.info "Welcome '#{client.self.name}' to the '#{client.team.name}' team at https://#{client.team.domain}.slack.com."
     end
 
     def restart!(wait = 1)
@@ -93,20 +95,8 @@ module SlackRubyBot
           @client = nil
           restart! unless @stopping
         end
-        hooks.each do |hook|
-          client.on hook do |data|
-            begin
-              send hook, client, data
-            rescue StandardError => e
-              logger.error e
-              begin
-                client.message(channel: data['channel'], text: e.message) if data.key?('channel')
-              rescue
-                # ignore
-              end
-            end
-          end
-        end
+        hooks.client = client
+
         client
       end
     end

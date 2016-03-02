@@ -8,7 +8,7 @@ describe SlackRubyBot::Commands do
           k, v = match['expression'].split(/\W+/, 2)
           client.say(channel: data.channel, text: "#{match[:command]}: #{k}=#{v}")
         else
-          client.say(channel: data.channel, text: "#{match[:command]}")
+          client.say(channel: data.channel, text: (match[:command]).to_s)
         end
       end
     end

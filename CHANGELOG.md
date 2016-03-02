@@ -1,6 +1,7 @@
-### 0.7.1 (Next)
+### 0.8.0
 
 * Your contribution here.
+* [#54](https://github.com/dblock/slack-ruby-bot/pull/54): Improvements to Hook configuration - [@dramalho](https://github.com/dramalho).
 
 ### 0.7.0 (3/6/2016)
 

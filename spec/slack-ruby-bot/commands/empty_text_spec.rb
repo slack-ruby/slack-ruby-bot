@@ -10,13 +10,8 @@ describe SlackRubyBot::Commands do
       end
     end
   end
-  def app
-    SlackRubyBot::App.new
-  end
-  let(:client) { app.send(:client) }
   it 'sends default text' do
     allow(Giphy).to receive(:random)
-    expect(client).to receive(:message).with(channel: 'channel', text: '')
-    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user'))
+    expect(message: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user').to respond_with_slack_message('')
   end
 end

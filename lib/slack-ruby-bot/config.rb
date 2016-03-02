@@ -30,7 +30,7 @@ module SlackRubyBot
       when 1, 'true', 'yes'
         true
       else
-        fail ArgumentError, "Invalid value for #{key}: #{value}."
+        raise ArgumentError, "Invalid value for #{key}: #{value}."
       end
     end
   end
