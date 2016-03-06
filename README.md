@@ -17,7 +17,7 @@ A generic Slack bot framework written in Ruby on top of [slack-ruby-client](http
 
 ## Stable Release
 
-You're reading the documentation for the **stable** release of slack-ruby-bot, 0.7.0. See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
+You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.7.0](https://github.com/dblock/slack-ruby-bot/tree/v0.7.0) unless you're integrating with HEAD. See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
 
 ## Usage
 
