@@ -26,7 +26,7 @@ You're reading the documentation for the **next** release of slack-ruby-bot. Ple
 #### Gemfile
 
 ```ruby
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'slack-ruby-bot'
 ```
