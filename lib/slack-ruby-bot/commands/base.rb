@@ -7,7 +7,7 @@ module SlackRubyBot
       class << self
         def send_message(client, channel, text, options = {})
           logger.warn '[DEPRECATION] `send_message` is deprecated.  Please use `client.say` instead.'
-          if text && text.length > 0
+          if text && !text.length.empty?
             client.say(options.merge(channel: channel, text: text))
           else
             client.say(options.merge(channel: channel, text: 'Nothing to see here.', gif: 'nothing'))
@@ -61,7 +61,7 @@ module SlackRubyBot
             elsif respond_to?(:call)
               send(:call, client, data, match)
             else
-              fail NotImplementedError, data.text
+              raise NotImplementedError, data.text
             end
             break
           end if expression

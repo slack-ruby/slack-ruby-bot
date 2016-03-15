@@ -10,13 +10,14 @@ describe SlackRubyBot::Commands do
       end
     end
   end
-  def app
-    SlackRubyBot::App.new
-  end
+
+  let(:app) { SlackRubyBot::App.new }
   let(:client) { app.send(:client) }
+  let(:message_hook) { SlackRubyBot::Hooks::Message.new }
+
   it 'ignores nil messages' do
     allow(Giphy).to receive(:random)
     expect(client).to_not receive(:message)
-    app.send(:message, client, Hashie::Mash.new(text: nil, channel: 'channel', user: 'user'))
+    message_hook.call(client, Hashie::Mash.new(text: nil, channel: 'channel', user: 'user'))
   end
 end

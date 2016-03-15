@@ -6,7 +6,7 @@ describe RSpec do
       command 'raise'
 
       def self.call(_client, _data, match)
-        fail ArgumentError, match[:command]
+        raise ArgumentError, match[:command]
       end
     end
   end

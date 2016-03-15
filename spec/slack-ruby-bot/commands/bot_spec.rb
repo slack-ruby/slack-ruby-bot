@@ -8,14 +8,11 @@ describe SlackRubyBot::Bot do
       end
     end
   end
+
   def app
     SlackRubyBot::Bot.instance
   end
-  let(:client) { app.send(:client) }
-  it 'sends a message' do
-    expect(client).to receive(:message).with(channel: 'channel', text: 'message')
-    app.send(:message, client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} bot_spec message", channel: 'channel', user: 'user'))
-  end
+
   it 'sends a message' do
     expect(message: "#{SlackRubyBot.config.user} bot_spec message").to respond_with_slack_message('message')
   end

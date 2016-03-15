@@ -1,6 +1,16 @@
 Upgrading SlackRubyBot
 ======================
 
+### Upgrading to >= 0.8.0
+
+#### Hook::Base was removed, explicitly register any custom hook classes
+
+Hook classes are now handled differently, namely they are explicitly registered into `SlackRubyBot::Server` via a configuration option (`hook_handlers`) or by passing a similar hash later on through the `add_hook_handlers` method. Including Hook classes directly into the server class is no longer needed.
+
+A hook is actioned via a `call` message onto the handler object (this can be anything that responds to that), so you'll need to rename your method.
+
+Finally, you can now register multiple hooks for the same event, so if you had any code to remove default hooks, you'll need to change it so you pass a configuration hash into `Server`
+
 ### Upgrading to >= 0.7.0
 
 #### Simplify Match Expression Checking
@@ -175,5 +185,3 @@ def self.call(client, data, match)
   send_message_with_gif client, data.channel, 'hello', 'hi'
 end
 ```
-
-

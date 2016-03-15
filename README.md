@@ -190,17 +190,40 @@ Get help.
 
 ### Hooks
 
-Hooks are event handlers and respond to Slack RTM API [events](https://api.slack.com/events), such as [hello](lib/slack-ruby-bot/hooks/hello.rb) or [message](lib/slack-ruby-bot/hooks/message.rb). You can implement your own by extending [SlackRubyBot::Hooks::Base](lib/slack-ruby-bot/hooks/base.rb).
+Hooks are event handlers and respond to Slack RTM API [events](https://api.slack.com/events), such as [hello](lib/slack-ruby-bot/hooks/hello.rb) or [message](lib/slack-ruby-bot/hooks/message.rb). You can implement your own in a couple of ways:
+
+
+#### Implement and register a Hook Handler
+
+A Hook Handler is any object that respond to a `call` message, like a proc, instance of an object, class with a `call` class method, etc.
+
+Hooks are registered onto the `SlackRubyBot::Server` instance, by way of a configuration hash
+
+```ruby
+SlackRubyBot::Server.new(hook_handlers: {
+  hello: MyBot::Hooks::UserChange.new
+})
+```
+
+or at any time by pushing it to the `HookSet`
+
+```ruby
+# Push an object that implements the
+server.hooks.add(:hello, MyBot::Hooks::UserChange.new)
+
+# Push a lambda to handle the event
+server.hooks.add(:hello, ->(client, data) { puts "Hello!" })
+```
 
 For example, the following hook handles [user_change](https://api.slack.com/events/user_change), an event sent when a team member updates their profile or data. This can be useful to update the local user cache when a user is renamed.
 
 ```ruby
 module MyBot
   module Hooks
-    module UserChange
+    class UserChange
       extend SlackRubyBot::Hooks::Base
 
-      def user_change(client, data)
+      def call(client, data)
         # data['user']['id'] contains the user ID
         # data['user']['name'] contains the new user name
         ...
@@ -209,6 +232,23 @@ module MyBot
   end
 end
 ```
+
+Hooks can also be written as blocks inside the `SlackBotRuby::Server` class, for example
+
+```ruby
+module MyBot
+  class MyServer < SlackRubyBot::Server
+    on 'hello' do |client, data|
+      # data['user']['id'] contains the user ID
+      # data['user']['name'] contains the new user name
+    end
+  end
+end
+```
+
+These will get pushed into the hook set on initialization.
+
+Either by configuration, explicit assignment or hook blocks, multiple handlers can exist for the same event type.
 
 ### Disable Animated GIFs
 

@@ -20,10 +20,10 @@ describe SlackRubyBot do
   end
   context 'it responds to direct name calling' do
     it 'with bot name' do
-      expect(message: "#{SlackRubyBot.config.user}", channel: 'DEADBEEF').to respond_with_slack_message(SlackRubyBot::ABOUT)
+      expect(message: SlackRubyBot.config.user.to_s, channel: 'DEADBEEF').to respond_with_slack_message(SlackRubyBot::ABOUT)
     end
     it 'with bot name capitalized' do
-      expect(message: "#{SlackRubyBot.config.user.upcase}", channel: 'DEADBEEF').to respond_with_slack_message(SlackRubyBot::ABOUT)
+      expect(message: SlackRubyBot.config.user.upcase.to_s, channel: 'DEADBEEF').to respond_with_slack_message(SlackRubyBot::ABOUT)
     end
     it 'with bot user id' do
       expect(message: "<@#{SlackRubyBot.config.user_id}>", channel: 'DEADBEEF').to respond_with_slack_message(SlackRubyBot::ABOUT)
