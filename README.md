@@ -112,7 +112,7 @@ Bots also will respond to a direct message, with or without the bot name in the 
 ![](screenshots/dms.gif)
 
 ### Logger Level Configuration
-By default Bots set a Logger to STDOUT and displays all Log levels. If you want to  change the logging level for your Production Bot the level should be changed as follow:
+By default bots set a logger to STDOUT with DEBUG level. If you want to use a different log level it should be changed as follow:
 
 ```ruby 
 SlackRubyBot::Client.logger.level = Logger::WARN
