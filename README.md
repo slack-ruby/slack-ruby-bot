@@ -192,7 +192,6 @@ Get help.
 
 Hooks are event handlers and respond to Slack RTM API [events](https://api.slack.com/events), such as [hello](lib/slack-ruby-bot/hooks/hello.rb) or [message](lib/slack-ruby-bot/hooks/message.rb). You can implement your own in a couple of ways:
 
-
 #### Implement and register a Hook Handler
 
 A Hook Handler is any object that respond to a `call` message, like a proc, instance of an object, class with a `call` class method, etc.
@@ -268,6 +267,14 @@ By default bots do not respond to their own messages. If you wish to change that
 SlackRubyBot.configure do |config|
   config.allow_message_loops = true
 end
+```
+
+### Logging
+
+By default bots set a logger to `STDOUT` with `DEBUG` level. The logger is used in both the RealTime and Web clients. Silence logger as follows.
+
+```ruby
+SlackRubyBot::Client.logger.level = Logger::WARN
 ```
 
 ### Advanced Integration
