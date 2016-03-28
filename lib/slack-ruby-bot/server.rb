@@ -24,7 +24,7 @@ module SlackRubyBot
 
     def run
       loop do
-        handle_execeptions do
+        handle_exceptions do
           handle_signals
           start!
         end
@@ -59,7 +59,7 @@ module SlackRubyBot
 
     private
 
-    def handle_execeptions
+    def handle_exceptions
       yield
     rescue Slack::Web::Api::Error => e
       logger.error e
