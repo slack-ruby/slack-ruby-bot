@@ -29,6 +29,7 @@ You're reading the documentation for the **next** release of slack-ruby-bot. Ple
 source 'https://rubygems.org'
 
 gem 'slack-ruby-bot'
+gem 'celluloid-io'
 ```
 
 #### pongbot.rb

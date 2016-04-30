@@ -1,3 +1,6 @@
 rvm:
   - 2.1.6
+env:
+  - CONCURRENCY=celluloid-io
+  - CONCURRENCY=faye-websocket
 

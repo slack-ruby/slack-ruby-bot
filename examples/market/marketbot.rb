@@ -1,6 +1,8 @@
 require 'slack-ruby-bot'
 require 'yahoo-finance'
 
+SlackRubyBot::Client.logger.level = Logger::WARN
+
 class MarketBot < SlackRubyBot::Bot
   scan(/([A-Z]{2,5}+)/) do |client, data, stocks|
     YahooFinance::Client.new.quotes(stocks, [:name, :symbol, :last_trade_price, :change, :change_in_percent]).each do |quote|

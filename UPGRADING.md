@@ -3,6 +3,10 @@ Upgrading SlackRubyBot
 
 ### Upgrading to >= 0.8.0
 
+#### Require a concurrency library
+
+The `faye-websocket` library is no longer required by default. Add either `faye-websocket` or `celluiloid-io` to your `Gemfile` depending on which concurrency implementation you'd like to use. We recommend `celluloid-io` moving forward.
+
 #### Hook::Base was removed, explicitly register any custom hook classes
 
 Hook classes are now handled differently, namely they are explicitly registered into `SlackRubyBot::Server` via a configuration option (`hook_handlers`) or by passing a similar hash later on through the `add_hook_handlers` method. Including Hook classes directly into the server class is no longer needed.
