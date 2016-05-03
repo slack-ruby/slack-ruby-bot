@@ -2,7 +2,7 @@ module SlackRubyBot
   module Commands
     class Base
       include Loggable
-      class_attribute :routes
+      class_attribute :routes, :command_name, :command_desc, :command_long_desc
 
       class << self
         def send_message(client, channel, text, options = {})
@@ -76,6 +76,18 @@ module SlackRubyBot
         def scan(match, &block)
           self.routes ||= {}
           self.routes[match] = { match_method: :scan, call: block }
+        end
+
+        def title(title)
+          self.command_name = title
+        end
+
+        def desc(desc)
+          self.command_desc = desc
+        end
+
+        def long_desc(long_desc)
+          self.command_long_desc = long_desc
         end
 
         private

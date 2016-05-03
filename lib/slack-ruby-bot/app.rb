@@ -8,6 +8,7 @@ module SlackRubyBot
       Slack.configure do |config|
         config.token = SlackRubyBot.config.token
       end
+      CommandsHelper.validate_attrs if SlackRubyBot.config.help_attrs_required?
       super
     end
 
