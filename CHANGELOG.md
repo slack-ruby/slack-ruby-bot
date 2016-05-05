@@ -1,8 +1,7 @@
-### 0.8.0
+### 0.8.0 (5/5/2016)
 
 * [#32](https://github.com/dblock/slack-ruby-bot/issues/32): Don't include `faye-websocket` by default, support `celluloid-io` - [@dblock](https://github.com/dblock).
 * [#54](https://github.com/dblock/slack-ruby-bot/pull/54): Improvements to Hook configuration - [@dramalho](https://github.com/dramalho).
-* Your contribution here.
 
 ### 0.7.0 (3/6/2016)
 
