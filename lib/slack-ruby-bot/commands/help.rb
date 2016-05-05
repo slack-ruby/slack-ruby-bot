@@ -1,15 +1,16 @@
 module SlackRubyBot
   module Commands
     class Help < Base
-      title 'help'
-      desc 'Shows help information.'
-      long_desc ''
+      help do
+        title 'help'
+        desc 'Shows help information.'
+      end
 
       command 'help' do |client, data, match|
         command = match[:expression]
 
         text = if command.present?
-                 CommandsHelper.command_full_desc(command)
+                 CommandsHelper.instance.command_full_desc(command)
                else
                  general_text
                end
@@ -22,13 +23,13 @@ module SlackRubyBot
         private
 
         def general_text
-          bots_descs = CommandsHelper.all_bots_descs
-          command_descs = CommandsHelper.all_commands_descs
+          bot_desc = CommandsHelper.instance.bot_desc_and_commands
+          other_commands_descs = CommandsHelper.instance.other_commands_descs
           <<TEXT
-#{bots_descs.join("\n")}
+#{bot_desc.join("\n")}
 
-*Possible commands:*
-#{command_descs.join("\n")}
+*Other commands:*
+#{other_commands_descs.join("\n")}
 
 For getting description of the command use: *help <command>*
 
