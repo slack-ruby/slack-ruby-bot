@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - vendor/**/*
+    - examples/**/vendor/**/*
     - bin/**/*
 
 inherit_from: .rubocop_todo.yml

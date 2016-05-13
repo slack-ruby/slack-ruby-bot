@@ -1,6 +1,6 @@
 module SlackRubyBot
   module Commands
-    class Help < Base
+    class HelpCommand < Base
       help do
         title 'help'
         desc 'Shows help information.'
@@ -19,7 +19,6 @@ module SlackRubyBot
       end
 
       class << self
-
         private
 
         def general_text
@@ -36,7 +35,6 @@ For getting description of the command use: *help <command>*
 For more information see https://github.com/dblock/slack-ruby-bot, please.
 TEXT
         end
-
       end
     end
   end
