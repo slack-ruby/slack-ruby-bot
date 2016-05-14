@@ -22,9 +22,7 @@ module Testing
       end
     end
   end
-end
 
-module Testing
   class HelloCommand < SlackRubyBot::Commands::Base
     help do
       title 'hello'
