@@ -140,6 +140,47 @@ end
 
 See [examples/market](examples/market/marketbot.rb) for a working example.
 
+### Providing description for your bot and commands
+
+You can specify help information for bot or commands with `help` block, for example:
+
+in case of bot:
+
+```ruby
+class WeatherBot < SlackRubyBot::Bot
+  help do
+    title 'Weather Bot'
+    desc 'This bot tells you the weather.'
+
+    command 'clouds' do
+      desc 'Tells you how many clouds there\'re above you.'
+    end
+
+    command 'What\'s the weather in <city>?' do
+      desc 'Tells you the weather in a <city>.'
+      long_desc "Accurate 10 Day Weather Forecasts for thousands of places around the World.\n" \
+        'Bot provides detailed Weather Forecasts over a 10 day period updated four times a day.'
+    end
+  end
+
+  # commands implementation
+end
+```
+
+![](screenshots/help-command-examples.png)
+
+in case of your own command:
+
+```ruby
+class Deploy < SlackRubyBot::Commands::Base
+  help do
+    title 'deploy'
+    desc 'deploys your app'
+    long_desc 'command format: *deploy <branch> to <env>* where <env> is production or staging'
+  end
+end
+```
+
 ### SlackRubyBot::Commands::Base
 
 The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. For more involved bots you can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.

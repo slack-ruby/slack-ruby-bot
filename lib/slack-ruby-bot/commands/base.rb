@@ -24,6 +24,10 @@ module SlackRubyBot
           client.say(options.merge(channel: channel, text: '', gif: keywords))
         end
 
+        def help(&block)
+          CommandsHelper.instance.capture_help(name, &block)
+        end
+
         def default_command_name
           name && name.split(':').last.downcase
         end

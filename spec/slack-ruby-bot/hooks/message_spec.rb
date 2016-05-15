@@ -16,7 +16,7 @@ describe SlackRubyBot::Hooks::Message do
     it 'returns only built in command classes' do
       expect(built_in_command_classes).to include SlackRubyBot::Commands::Hi
       expect(built_in_command_classes).to include SlackRubyBot::Commands::Default
-      expect(built_in_command_classes).to include SlackRubyBot::Commands::Help
+      expect(built_in_command_classes).to include SlackRubyBot::Commands::HelpCommand
       expect(built_in_command_classes).to_not include SlackRubyBot::Bot
     end
     it 'does not return unknown command class' do
