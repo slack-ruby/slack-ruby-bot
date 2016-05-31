@@ -73,12 +73,12 @@ module SlackRubyBot
         end
 
         def match(match, &block)
-          self.routes ||= {}
+          self.routes ||= ActiveSupport::OrderedHash.new
           self.routes[match] = { match_method: :match, call: block }
         end
 
         def scan(match, &block)
-          self.routes ||= {}
+          self.routes ||= ActiveSupport::OrderedHash.new
           self.routes[match] = { match_method: :scan, call: block }
         end
 
