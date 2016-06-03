@@ -52,14 +52,14 @@ module SlackRubyBot
       @async ? start_async : start!
     rescue StandardError => e
       case e.message
-        when 'account_inactive', 'invalid_auth'
-          logger.error "#{token}: #{e.message}, team will be deactivated."
-          @stopping = true
-        else
-          sleep wait
-          logger.error "#{e.message}, reconnecting in #{wait} second(s)."
-          logger.debug e
-          restart! [wait * 2, 60].min
+      when 'account_inactive', 'invalid_auth'
+        logger.error "#{token}: #{e.message}, team will be deactivated."
+        @stopping = true
+      else
+        sleep wait
+        logger.error "#{e.message}, reconnecting in #{wait} second(s)."
+        logger.debug e
+        restart! [wait * 2, 60].min
       end
     end
 
