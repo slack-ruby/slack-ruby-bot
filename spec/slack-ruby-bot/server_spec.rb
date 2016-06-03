@@ -88,4 +88,21 @@ describe SlackRubyBot::Server do
       end
     end
   end
+  context '#restart!' do
+    subject do
+      SlackRubyBot::Server.new(token: 'token')
+    end
+    it 'reloads server after disconnection' do
+      expect(subject).to receive(:restart!)
+      subject.send(:client).send(:callbacks)['close'].first.call
+      expect(subject.instance_variable_get(:@stopping)).to be_falsy
+    end
+    it 'does not reload server for inactive account' do
+      stopping = -> { subject.instance_variable_get :@stopping }
+      allow(subject).to receive(:start!) { raise StandardError, 'account_inactive' }
+      expect(stopping.call).to be_falsy
+      subject.restart!
+      expect(stopping.call).to be true
+    end
+  end
 end

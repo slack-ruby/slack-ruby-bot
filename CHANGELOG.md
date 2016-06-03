@@ -2,6 +2,7 @@
 
 * [#69](https://github.com/dblock/slack-ruby-bot/pull/69): Ability to add help info to bot and commands - [@accessd](https://github.com/accessd).
 * [#75](https://github.com/dblock/slack-ruby-bot/issues/75): Guarantee order of command evaluation - [@dblock](https://github.com/dblock).
+* [#76](https://github.com/dblock/slack-ruby-bot/issues/76): Infinity error when app disabled - [@slayershadow](https://github.com/SlayerShadow).
 * Your contribution here.
 
 ### 0.8.0 (5/5/2016)
