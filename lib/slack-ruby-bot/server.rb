@@ -51,10 +51,15 @@ module SlackRubyBot
     def restart!(wait = 1)
       @async ? start_async : start!
     rescue StandardError => e
-      sleep wait
-      logger.error "#{e.message}, reconnecting in #{wait} second(s)."
-      logger.debug e
-      restart! [wait * 2, 60].min
+      case e.message
+        when 'account_inactive', 'invalid_auth'
+          logger.error "#{token}: #{e.message}, team will be deactivated."
+        else
+          sleep wait
+          logger.error "#{e.message}, reconnecting in #{wait} second(s)."
+          logger.debug e
+          restart! [wait * 2, 60].min
+      end
     end
 
     private
