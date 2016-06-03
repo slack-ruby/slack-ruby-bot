@@ -54,6 +54,7 @@ module SlackRubyBot
       case e.message
         when 'account_inactive', 'invalid_auth'
           logger.error "#{token}: #{e.message}, team will be deactivated."
+          @stopping = true
         else
           sleep wait
           logger.error "#{e.message}, reconnecting in #{wait} second(s)."
