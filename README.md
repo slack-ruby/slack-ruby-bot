@@ -264,8 +264,6 @@ For example, the following hook handles [user_change](https://api.slack.com/even
 module MyBot
   module Hooks
     class UserChange
-      extend SlackRubyBot::Hooks::Base
-
       def call(client, data)
         # data['user']['id'] contains the user ID
         # data['user']['name'] contains the new user name
