@@ -3,8 +3,6 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'boot'
 
-Bundler.require :default, ENV['RACK_ENV']
-
 Dir[File.expand_path('../../initializers', __FILE__) + '/**/*.rb'].each do |file|
   require file
 end
