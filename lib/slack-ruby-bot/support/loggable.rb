@@ -1,7 +1,5 @@
 module SlackRubyBot
   module Loggable
-    mattr_accessor :logger
-
     def self.included(base)
       base.send :include, LoggingMethods
       base.extend(LoggingMethods)
