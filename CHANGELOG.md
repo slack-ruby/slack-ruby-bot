@@ -4,6 +4,9 @@
 * [#54](https://github.com/dblock/slack-ruby-bot/pull/54): Improvements to Hook configuration - [@dramalho](https://github.com/dramalho).
 * Your contribution here.
 
+### 0.7.1 (7/7/2016)
+* Remove dependency on ActiveSupport. Logger no longer uses ActiveSupport::Concerns - [@rmulligan](https://github.com/rmulligan).
+
 ### 0.7.0 (3/6/2016)
 
 * Improved regular expression matching performance with less matching per command - [@dblock](https://github.com/dblock).
