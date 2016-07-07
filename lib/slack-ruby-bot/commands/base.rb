@@ -24,6 +24,10 @@ module SlackRubyBot
           client.say(options.merge(channel: channel, text: '', gif: keywords))
         end
 
+        def help(&block)
+          CommandsHelper.instance.capture_help(name, &block)
+        end
+
         def default_command_name
           name && name.split(':').last.downcase
         end
@@ -69,12 +73,12 @@ module SlackRubyBot
         end
 
         def match(match, &block)
-          self.routes ||= {}
+          self.routes ||= ActiveSupport::OrderedHash.new
           self.routes[match] = { match_method: :match, call: block }
         end
 
         def scan(match, &block)
-          self.routes ||= {}
+          self.routes ||= ActiveSupport::OrderedHash.new
           self.routes[match] = { match_method: :scan, call: block }
         end
 

@@ -12,4 +12,11 @@ describe SlackRubyBot::App do
       expect(klass.instance.class).to be klass
     end
   end
+
+  describe 'executable' do
+    it 'can be required as a dependency' do
+      response = system("ruby -e \"Bundler = nil ; require 'slack-ruby-bot'\"")
+      expect(response).to be true
+    end
+  end
 end

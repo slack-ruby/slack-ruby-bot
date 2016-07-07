@@ -7,6 +7,8 @@ Slack-Ruby-Bot
 
 A generic Slack bot framework written in Ruby on top of [slack-ruby-client](https://github.com/dblock/slack-ruby-client). This library does all the heavy lifting, such as message parsing, so you can focus on implementing slack bot commands. It also attempts to introduce the bare minimum number of requirements or any sorts of limitations. It's a Slack bot boilerplate.
 
+If you are not familiar with Slack bots or Slack API concepts, you might want to watch [this video](http://code.dblock.org/2016/03/11/your-first-slack-bot-service-video.html).
+
 ![](slack.png)
 
 ## Useful to Me?
@@ -17,7 +19,7 @@ A generic Slack bot framework written in Ruby on top of [slack-ruby-client](http
 
 ## Stable Release
 
-You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.7.0](https://github.com/dblock/slack-ruby-bot/tree/v0.7.0) unless you're integrating with HEAD. See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
+You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.8.0](https://github.com/dblock/slack-ruby-bot/tree/v0.8.0) unless you're integrating with HEAD. See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
 
 ## Usage
 
@@ -140,6 +142,47 @@ end
 
 See [examples/market](examples/market/marketbot.rb) for a working example.
 
+### Providing description for your bot and commands
+
+You can specify help information for bot or commands with `help` block, for example:
+
+in case of bot:
+
+```ruby
+class WeatherBot < SlackRubyBot::Bot
+  help do
+    title 'Weather Bot'
+    desc 'This bot tells you the weather.'
+
+    command 'clouds' do
+      desc 'Tells you how many clouds there\'re above you.'
+    end
+
+    command 'What\'s the weather in <city>?' do
+      desc 'Tells you the weather in a <city>.'
+      long_desc "Accurate 10 Day Weather Forecasts for thousands of places around the World.\n" \
+        'Bot provides detailed Weather Forecasts over a 10 day period updated four times a day.'
+    end
+  end
+
+  # commands implementation
+end
+```
+
+![](screenshots/help-command-examples.png)
+
+in case of your own command:
+
+```ruby
+class Deploy < SlackRubyBot::Commands::Base
+  help do
+    title 'deploy'
+    desc 'deploys your app'
+    long_desc 'command format: *deploy <branch> to <env>* where <env> is production or staging'
+  end
+end
+```
+
 ### SlackRubyBot::Commands::Base
 
 The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. For more involved bots you can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.
@@ -221,8 +264,6 @@ For example, the following hook handles [user_change](https://api.slack.com/even
 module MyBot
   module Hooks
     class UserChange
-      extend SlackRubyBot::Hooks::Base
-
       def call(client, data)
         # data['user']['id'] contains the user ID
         # data['user']['name'] contains the new user name
