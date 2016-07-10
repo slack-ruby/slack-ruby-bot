@@ -1,3 +1,7 @@
+### 0.8.2 (Next)
+
+* Your contribution here.
+
 ### 0.8.1 (6/10/2016)
 
 * [#69](https://github.com/dblock/slack-ruby-bot/pull/69): Ability to add help info to bot and commands - [@accessd](https://github.com/accessd).
