@@ -4,6 +4,7 @@
 * [#75](https://github.com/dblock/slack-ruby-bot/issues/75): Guarantee order of command evaluation - [@dblock](https://github.com/dblock).
 * [#76](https://github.com/dblock/slack-ruby-bot/issues/76): Infinity error when app disabled - [@slayershadow](https://github.com/SlayerShadow).
 * [#81](https://github.com/dblock/slack-ruby-bot/pull/81): Remove bundler dependency - [@derekddecker](https://github.com/derekddecker).
+* [#84](https://github.com/dblock/slack-ruby-bot/pull/84): Removed dependency on ActiveSupport - [@rmulligan](https://github.com/rmulligan).
 * Your contribution here.
 
 ### 0.8.0 (5/5/2016)
