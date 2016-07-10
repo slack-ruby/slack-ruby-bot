@@ -2,7 +2,7 @@
 
 * Your contribution here.
 
-### 0.8.1 (6/10/2016)
+### 0.8.1 (7/10/2016)
 
 * [#69](https://github.com/dblock/slack-ruby-bot/pull/69): Ability to add help info to bot and commands - [@accessd](https://github.com/accessd).
 * [#75](https://github.com/dblock/slack-ruby-bot/issues/75): Guarantee order of command evaluation - [@dblock](https://github.com/dblock).
