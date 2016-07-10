@@ -1,21 +1,23 @@
 module SlackRubyBot
   module Loggable
     def self.included(base)
-      base.send :include, LoggingMethods
-      base.extend(LoggingMethods)
+      base.send :include, InstanceMethods
+      base.extend(ClassMethods)
     end
 
-    def self.logger
-      @logger ||= begin
-                    $stdout.sync = true
-                    Logger.new(STDOUT)
-                  end
+    module ClassMethods
+      def logger
+        @logger ||= begin
+          $stdout.sync = true
+          Logger.new(STDOUT)
+        end
+      end
     end
-  end
 
-  module LoggingMethods
-    def logger
-      Loggable.logger
+    module InstanceMethods
+      def logger
+        self.class.logger
+      end
     end
   end
 end

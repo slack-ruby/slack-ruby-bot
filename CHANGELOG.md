@@ -1,5 +1,6 @@
 ### 0.8.2 (Next)
 
+* [#85](https://github.com/dblock/slack-ruby-bot/issues/85): Fix: regression in bot instance logging - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.8.1 (7/10/2016)
