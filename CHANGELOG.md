@@ -1,6 +1,7 @@
 ### 0.8.3 (Next)
 
 * Your contribution here.
+* [#86](https://github.com/dblock/slack-ruby-bot/pull/86): Fix: allow help statements from classes that do not directly inherit from Base classes to appear in `bot help` - [@maclover7](https://github.com/maclover7).
 
 ### 0.8.2 (7/10/2016)
 
