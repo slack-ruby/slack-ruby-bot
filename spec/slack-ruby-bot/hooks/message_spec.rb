@@ -31,9 +31,6 @@ describe SlackRubyBot::Hooks::Message do
       it do
         expect(message_hook.send(:message_to_self_not_allowed?)).to be false
       end
-      after do
-        SlackRubyBot::Config.reset!
-      end
     end
     context 'with allow_message_loops set to false' do
       before do
@@ -41,9 +38,6 @@ describe SlackRubyBot::Hooks::Message do
       end
       it do
         expect(message_hook.send(:message_to_self_not_allowed?)).to be true
-      end
-      after do
-        SlackRubyBot::Config.reset!
       end
     end
   end

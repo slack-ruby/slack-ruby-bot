@@ -11,7 +11,7 @@ module SlackRubyBot
     def initialize(options = {})
       @token = options[:token]
       @aliases = options[:aliases]
-      @send_gifs = options.key?(:send_gifs) ? !!options[:send_gifs] : true
+      @send_gifs = options[:send_gifs]
 
       # Hook Handling
       flush_hook_blocks

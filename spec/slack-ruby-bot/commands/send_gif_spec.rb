@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-describe SlackRubyBot::Commands do
+describe SlackRubyBot::Commands, if: ENV['WITH_GIPHY'] do
   let! :command do
+    SlackRubyBot::Config.send_gifs = true
     Class.new(SlackRubyBot::Commands::Base) do
       command 'send_gif_spec' do |client, data, _match|
         client.say(channel: data.channel, gif: 'dummy')
@@ -10,6 +11,7 @@ describe SlackRubyBot::Commands do
   end
 
   let(:gif_image_url) { 'http://media2.giphy.com/media/pzOijFsdDrsS4/giphy.gif' }
+
   it 'sends a gif' do
     gif = Giphy::RandomGif.new('image_url' => gif_image_url)
     expect(Giphy).to receive(:random).and_return(gif)

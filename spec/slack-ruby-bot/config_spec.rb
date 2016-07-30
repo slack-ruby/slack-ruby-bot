@@ -3,55 +3,47 @@ require 'spec_helper'
 describe SlackRubyBot::Config do
   context 'send_gifs?' do
     context 'default' do
-      it 'is true' do
-        expect(SlackRubyBot::Config.send_gifs?).to be true
+      it 'is nil (disabled)' do
+        expect(SlackRubyBot::Config.send_gifs?).to be nil
       end
     end
     context 'set to false' do
-      before do
-        SlackRubyBot::Config.send_gifs = false
-      end
       it 'is false' do
+        SlackRubyBot::Config.send_gifs = false
         expect(SlackRubyBot::Config.send_gifs?).to be false
-      end
-      after do
-        SlackRubyBot::Config.reset!
       end
     end
     context 'set to false via SLACK_RUBY_BOT_SEND_GIFS' do
-      before do
-        ENV['SLACK_RUBY_BOT_SEND_GIFS'] = 'false'
-      end
       it 'is false' do
+        ENV['SLACK_RUBY_BOT_SEND_GIFS'] = 'false'
         expect(SlackRubyBot::Config.send_gifs?).to be false
-      end
-      after do
-        ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS'
       end
     end
     context 'set to true' do
-      before do
+      it 'is true' do
         SlackRubyBot::Config.send_gifs = true
-      end
-      it 'is false' do
         expect(SlackRubyBot::Config.send_gifs?).to be true
-      end
-      after do
-        SlackRubyBot::Config.reset!
       end
     end
     context 'set to true via SLACK_RUBY_BOT_SEND_GIFS' do
-      before do
+      it 'is true' do
         ENV['SLACK_RUBY_BOT_SEND_GIFS'] = 'true'
-      end
-      it 'is false' do
         expect(SlackRubyBot::Config.send_gifs?).to be true
       end
-      after do
-        ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS'
+    end
+
+    context 'when using both methods' do
+      it 'config setting takes precedence' do
+        ENV['SLACK_RUBY_BOT_SEND_GIFS'] = 'true'
+        SlackRubyBot::Config.send_gifs = false
+        expect(SlackRubyBot::Config.send_gifs?).to be false
+        ENV['SLACK_RUBY_BOT_SEND_GIFS'] = 'false'
+        SlackRubyBot::Config.send_gifs = true
+        expect(SlackRubyBot::Config.send_gifs?).to be true
       end
     end
   end
+
   describe '#reset!' do
     it 'sets all config attributes to nil' do
       SlackRubyBot::Config::ATTRS.each do |attr|

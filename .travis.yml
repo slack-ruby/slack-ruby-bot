@@ -2,5 +2,6 @@ rvm:
   - 2.3.0
 env:
   - CONCURRENCY=celluloid-io
+  - CONCURRENCY=celluloid-io WITH_GIPHY=true
   - CONCURRENCY=faye-websocket
-
+  - CONCURRENCY=faye-websocket WITH_GIPHY=true

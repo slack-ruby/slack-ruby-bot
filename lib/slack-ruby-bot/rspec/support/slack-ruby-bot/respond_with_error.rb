@@ -2,8 +2,6 @@ require 'rspec/expectations'
 
 RSpec::Matchers.define :respond_with_error do |error, error_message|
   match do |actual|
-    allow(Giphy).to receive(:random)
-
     client = if respond_to?(:client)
                send(:client)
              else
