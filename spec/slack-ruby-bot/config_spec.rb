@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe SlackRubyBot::Config do
   describe '.send_gifs?' do
+    after { ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS' }
+
     context 'without giphy is false', unless: ENV.key?('WITH_GIPHY') do
       it 'by default' do
         expect(SlackRubyBot::Config.send_gifs?).to be false
