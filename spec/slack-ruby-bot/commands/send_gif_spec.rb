@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe SlackRubyBot::Commands, if: ENV.key?('WITH_GIPHY') do
   let! :command do
-    SlackRubyBot::Config.send_gifs = true
     Class.new(SlackRubyBot::Commands::Base) do
       command 'send_gif_spec' do |client, data, _match|
         client.say(channel: data.channel, gif: 'dummy')

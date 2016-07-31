@@ -23,8 +23,7 @@ describe SlackRubyBot::App do
       SlackRubyBot::Config.allow_message_loops = true
     end
     it 'responds to self' do
-      expect(client).to receive(:message)
-      message_hook.call(client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF'))
+      expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message('Hi <@user>!')
     end
   end
 end
