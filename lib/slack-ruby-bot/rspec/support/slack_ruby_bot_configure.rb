@@ -6,4 +6,8 @@ RSpec.configure do |config|
       c.user_id = 'DEADBEEF'
     end
   end
+
+  config.after :each do
+    SlackRubyBot::Config.reset!
+  end
 end

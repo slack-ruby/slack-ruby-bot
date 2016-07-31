@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.summary = 'The easiest way to write a Slack bot in Ruby.'
   s.add_dependency 'hashie'
   s.add_dependency 'slack-ruby-client', '>= 0.6.0'
-  s.add_dependency 'giphy', '~> 2.0.2'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rack-test'

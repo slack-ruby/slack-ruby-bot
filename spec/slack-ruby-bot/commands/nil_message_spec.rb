@@ -16,7 +16,6 @@ describe SlackRubyBot::Commands do
   let(:message_hook) { SlackRubyBot::Hooks::Message.new }
 
   it 'ignores nil messages' do
-    allow(Giphy).to receive(:random)
     expect(client).to_not receive(:message)
     message_hook.call(client, Hashie::Mash.new(text: nil, channel: 'channel', user: 'user'))
   end

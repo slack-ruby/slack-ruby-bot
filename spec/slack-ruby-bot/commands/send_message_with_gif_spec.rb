@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SlackRubyBot::Commands do
+describe SlackRubyBot::Commands, if: ENV.key?('WITH_GIPHY') do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
       command 'send_message_with_gif_spec' do |client, data, match|
@@ -16,7 +16,7 @@ describe SlackRubyBot::Commands do
     expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message("message\n#{gif_image_url}")
   end
 
-  it 'eats up the error' do
+  it 'eats up errors' do
     expect(Giphy).to receive(:random) { raise 'oh no!' }
     expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message('message')
   end
@@ -26,44 +26,14 @@ describe SlackRubyBot::Commands do
     expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message('message')
   end
 
-  context 'send_gifs' do
-    context 'set to false via client' do
-      let(:client) { SlackRubyBot::Client.new }
-
-      before do
-        client.send_gifs = false
-      end
-
-      it 'does not send a gif' do
-        expect(Giphy).to_not receive(:random)
-        expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message('message')
-      end
+  context 'when client.send_gifs is false' do
+    let :client do
+      SlackRubyBot::Client.new.tap { |c| c.send_gifs = false }
     end
 
-    context 'set to false via config' do
-      before do
-        SlackRubyBot::Config.send_gifs = false
-      end
-      it 'does not send a gif' do
-        expect(Giphy).to_not receive(:random)
-        expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message('message')
-      end
-      after do
-        SlackRubyBot::Config.reset!
-      end
-    end
-
-    context 'set to false via SLACK_RUBY_BOT_SEND_GIFS' do
-      before do
-        ENV['SLACK_RUBY_BOT_SEND_GIFS'] = 'false'
-      end
-      it 'does not send a gif' do
-        expect(Giphy).to_not receive(:random)
-        expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message('message')
-      end
-      after do
-        ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS'
-      end
+    it 'does not send a gif' do
+      expect(Giphy).to_not receive(:random)
+      expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message('message')
     end
   end
 end

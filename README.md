@@ -210,11 +210,30 @@ class Phone < SlackRubyBot::Commands::Base
 end
 ```
 
-The `SlackRubyBot::Client` implementation comes with GIF support.
+### Animated GIFs
 
-#### say(channel: ..., text: ..., gif: ...)
+The `SlackRubyBot::Client` implementation comes with GIF support.  
+To enable it simply add `gem 'giphy'` to your **Gemfile**.  
+**Note:** Bots send animated GIFs in default commands and errors.
 
-Sends text and/or a random GIF that matches a keyword using a RealTime client to a channel.
+```ruby
+class Phone < SlackRubyBot::Commands::Base
+  command 'call'
+
+  def self.call(client, data, match)
+    client.say(channel: data.channel, text: 'called', gif: 'phone')
+    # Sends the text 'called' and a random GIF that matches the keyword 'phone'.
+  end
+end
+```
+
+If you use giphy for something else but don't want your bots to send GIFs you can set `ENV['SLACK_RUBY_BOT_SEND_GIFS']` or `SlackRubyBot::Config.send_gifs` to `false`. The latter takes precedence.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.send_gifs = false
+end
+```
 
 ### Built-In Commands
 
@@ -290,16 +309,6 @@ end
 These will get pushed into the hook set on initialization.
 
 Either by configuration, explicit assignment or hook blocks, multiple handlers can exist for the same event type.
-
-### Disable Animated GIFs
-
-By default bots send animated GIFs in default commands and errors. To disable animated GIFs set `send_gifs` or `ENV['SLACK_RUBY_BOT_SEND_GIFS']` to `false`.
-
-```ruby
-SlackRubyBot.configure do |config|
-  config.send_gifs = false
-end
-```
 
 ### Message Loop Protection
 

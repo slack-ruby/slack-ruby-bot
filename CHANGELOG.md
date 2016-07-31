@@ -1,6 +1,7 @@
 ### 0.8.3 (Next)
 
 * Your contribution here.
+* [#89](https://github.com/dblock/slack-ruby-bot/pull/89): Drop giphy dependency - [@tmsrjs](https://github.com/tmsrjs).
 
 ### 0.8.2 (7/10/2016)
 

@@ -10,8 +10,9 @@ module SlackRubyBot
     end
 
     def send_gifs?
+      return false unless defined?(Giphy)
       v = boolean_from_env('SLACK_RUBY_BOT_SEND_GIFS')
-      v.nil? ? (send_gifs.nil? || send_gifs) : v
+      send_gifs.nil? ? (v.nil? || v) : send_gifs
     end
 
     def reset!

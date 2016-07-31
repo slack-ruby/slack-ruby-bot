@@ -10,7 +10,6 @@ describe SlackRubyBot::App do
 
   before do
     allow(client).to receive(:self).and_return(Hashie::Mash.new('id' => 'UDEADBEEF'))
-    allow(Giphy).to receive(:random)
   end
 
   context 'default' do
@@ -21,18 +20,10 @@ describe SlackRubyBot::App do
   end
   context 'with allow_message_loops=true' do
     before do
-      SlackRubyBot.configure do |config|
-        config.allow_message_loops = true
-      end
-    end
-    after do
-      SlackRubyBot.configure do |config|
-        config.allow_message_loops = nil
-      end
+      SlackRubyBot::Config.allow_message_loops = true
     end
     it 'responds to self' do
-      expect(client).to receive(:message)
-      message_hook.call(client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user} hi", channel: 'channel', user: 'UDEADBEEF'))
+      expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message('Hi <@user>!')
     end
   end
 end

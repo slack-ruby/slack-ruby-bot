@@ -7,7 +7,7 @@ module SlackRubyBot
     def initialize(attrs = {})
       super(attrs)
       @aliases = attrs[:aliases]
-      @send_gifs = attrs.key?(:send_gifs) ? !!attrs[:send_gifs] : true
+      @send_gifs = attrs[:send_gifs]
     end
 
     def names
@@ -30,7 +30,8 @@ module SlackRubyBot
     end
 
     def send_gifs?
-      send_gifs
+      return false unless defined?(Giphy)
+      send_gifs.nil? ? SlackRubyBot::Config.send_gifs? : send_gifs
     end
 
     def name
@@ -52,7 +53,7 @@ module SlackRubyBot
       rescue StandardError => e
         logger.warn "Giphy.random: #{e.message}"
         nil
-      end if SlackRubyBot::Config.send_gifs? && send_gifs? && keywords
+      end if keywords && send_gifs?
       text = [text, gif && gif.image_url.to_s].compact.join("\n")
       message({ text: text }.merge(options))
     end

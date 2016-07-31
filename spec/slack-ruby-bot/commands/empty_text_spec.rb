@@ -11,7 +11,6 @@ describe SlackRubyBot::Commands do
     end
   end
   it 'sends default text' do
-    allow(Giphy).to receive(:random)
     expect(message: "#{SlackRubyBot.config.user} empty_text", channel: 'channel', user: 'user').to respond_with_slack_message('')
   end
 end
