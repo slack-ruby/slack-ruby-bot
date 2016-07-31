@@ -213,17 +213,9 @@ end
 ### Animated GIFs
 
 The `SlackRubyBot::Client` implementation comes with GIF support.  
-To enable it add `gem 'giphy'` to your **Gemfile** and set `send_gifs` or `ENV['SLACK_RUBY_BOT_SEND_GIFS']` to `true`.
+To enable it simply add `gem 'giphy'` to your **Gemfile**.  
+**Note:** Bots send animated GIFs in default commands and errors.
 
-**Note:** Bots send animated GIFs in default commands and errors. This setting will affect them as well.
-
-```ruby
-SlackRubyBot.configure do |config|
-  config.send_gifs = true
-end
-```
-
-And in your command definition...
 ```ruby
 class Phone < SlackRubyBot::Commands::Base
   command 'call'
@@ -232,6 +224,14 @@ class Phone < SlackRubyBot::Commands::Base
     client.say(channel: data.channel, text: 'called', gif: 'phone')
     # Sends the text 'called' and a random GIF that matches the keyword 'phone'.
   end
+end
+```
+
+If you use giphy for something else but don't want your bots to send GIFs you can set `ENV['SLACK_RUBY_BOT_SEND_GIFS']` or `SlackRubyBot::Config.send_gifs` to `false`. The latter takes precedence.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.send_gifs = false
 end
 ```
 

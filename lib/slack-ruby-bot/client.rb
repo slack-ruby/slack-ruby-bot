@@ -30,6 +30,7 @@ module SlackRubyBot
     end
 
     def send_gifs?
+      return false unless defined?(Giphy)
       send_gifs.nil? ? SlackRubyBot::Config.send_gifs? : send_gifs
     end
 
