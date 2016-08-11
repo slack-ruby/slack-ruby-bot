@@ -132,7 +132,7 @@ You can also capture multiple matchers with `scan`.
 
 ```ruby
 class Market < SlackRubyBot::Bot
-  scan(/(\[A-Z]{2,5})/) do |client, data, stocks|
+  scan(/([A-Z]{2,5})/) do |client, data, stocks|
     # lookup stock market price
   end
 end
