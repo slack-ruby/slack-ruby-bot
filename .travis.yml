@@ -1,7 +1,22 @@
-rvm:
-  - 2.3.0
-env:
-  - CONCURRENCY=celluloid-io
-  - CONCURRENCY=celluloid-io WITH_GIPHY=true
-  - CONCURRENCY=faye-websocket
-  - CONCURRENCY=faye-websocket WITH_GIPHY=true
+language: ruby
+
+cache: bundler
+
+matrix:
+  include:
+    - rvm: 2.3.0
+      script:
+        - bundle exec danger
+    - rvm: 2.3.0
+      env: CONCURRENCY=celluloid-io
+    - rvm: 2.3.0
+      env: CONCURRENCY=faye-websocket
+    - rvm: 2.3.0
+      env: CONCURRENCY=celluloid-io WITH_GIPHY=true
+    - rvm: 2.3.0
+      env: CONCURRENCY=faye-websocket WITH_GIPHY=true
+    - rvm: ruby-head
+    - rvm: jruby-head
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: jruby-head

@@ -2,10 +2,10 @@ Slack-Ruby-Bot
 ==============
 
 [![Gem Version](https://badge.fury.io/rb/slack-ruby-bot.svg)](http://badge.fury.io/rb/slack-ruby-bot)
-[![Build Status](https://travis-ci.org/dblock/slack-ruby-bot.svg)](https://travis-ci.org/dblock/slack-ruby-bot)
-[![Code Climate](https://codeclimate.com/github/dblock/slack-ruby-bot/badges/gpa.svg)](https://codeclimate.com/github/dblock/slack-ruby-bot)
+[![Build Status](https://travis-ci.org/slack-ruby/slack-ruby-bot.svg)](https://travis-ci.org/slack-ruby/slack-ruby-bot)
+[![Code Climate](https://codeclimate.com/github/slack-ruby/slack-ruby-bot/badges/gpa.svg)](https://codeclimate.com/github/slack-ruby/slack-ruby-bot)
 
-A generic Slack bot framework written in Ruby on top of [slack-ruby-client](https://github.com/dblock/slack-ruby-client). This library does all the heavy lifting, such as message parsing, so you can focus on implementing slack bot commands. It also attempts to introduce the bare minimum number of requirements or any sorts of limitations. It's a Slack bot boilerplate.
+A generic Slack bot framework written in Ruby on top of [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client). This library does all the heavy lifting, such as message parsing, so you can focus on implementing slack bot commands. It also attempts to introduce the bare minimum number of requirements or any sorts of limitations. It's a Slack bot boilerplate.
 
 If you are not familiar with Slack bots or Slack API concepts, you might want to watch [this video](http://code.dblock.org/2016/03/11/your-first-slack-bot-service-video.html).
 
@@ -13,13 +13,13 @@ If you are not familiar with Slack bots or Slack API concepts, you might want to
 
 ## Useful to Me?
 
-* If you are just trying to send messages to Slack, use [slack-ruby-client](https://github.com/dblock/slack-ruby-client), which this library is built on top of.
-* If you're trying to roll out a full service with Slack button integration, check out [slack-ruby-bot-server](https://github.com/dblock/slack-ruby-bot-server), which uses this library.
+* If you are just trying to send messages to Slack, use [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client), which this library is built on top of.
+* If you're trying to roll out a full service with Slack button integration, check out [slack-ruby-bot-server](https://github.com/slack-ruby/slack-ruby-bot-server), which uses this library.
 * Otherwise, this piece of the puzzle will help you create a single bot instance for one team.
 
 ## Stable Release
 
-You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.8.2](https://github.com/dblock/slack-ruby-bot/tree/v0.8.2) unless you're integrating with HEAD. See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
+You're reading the documentation for the **next** release of slack-ruby-bot. Please see the documentation for the [last stable release, v0.8.2](https://github.com/slack-ruby/slack-ruby-bot/tree/v0.8.2) unless you're integrating with HEAD. See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
 
 ## Usage
 
@@ -212,8 +212,8 @@ end
 
 ### Animated GIFs
 
-The `SlackRubyBot::Client` implementation comes with GIF support.  
-To enable it simply add `gem 'giphy'` to your **Gemfile**.  
+The `SlackRubyBot::Client` implementation comes with GIF support.
+To enable it simply add `gem 'giphy'` to your **Gemfile**.
 **Note:** Bots send animated GIFs in default commands and errors.
 
 ```ruby
