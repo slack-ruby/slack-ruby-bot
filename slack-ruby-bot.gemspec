@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- spec/*`.split("\n")
   s.require_paths = ['lib']
-  s.homepage = 'https://github.com/dblock/slack-ruby-bot'
+  s.homepage = 'https://github.com/slack-ruby/slack-ruby-bot'
   s.licenses = ['MIT']
   s.summary = 'The easiest way to write a Slack bot in Ruby.'
   s.add_dependency 'hashie'

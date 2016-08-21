@@ -11,7 +11,7 @@ bundle install
 rake
 ```
 
-Check that the last build succeeded in [Travis CI](https://travis-ci.org/dblock/slack-ruby-bot) for all supported platforms.
+Check that the last build succeeded in [Travis CI](https://travis-ci.org/slack-ruby/slack-ruby-bot) for all supported platforms.
 
 Increment the version, modify [lib/slack-ruby-bot/version.rb](lib/slack-ruby-bot/version.rb).
 

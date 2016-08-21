@@ -20,7 +20,7 @@ describe SlackRubyBot::Commands::Help do
 
 For getting description of the command use: *help <command>*
 
-For more information see https://github.com/dblock/slack-ruby-bot, please.
+For more information see https://github.com/slack-ruby/slack-ruby-bot, please.
 MSG
 
     expect(message: "#{SlackRubyBot.config.user} help").to respond_with_slack_message(message)

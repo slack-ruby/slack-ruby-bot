@@ -30,7 +30,7 @@ The regular expression parser for commands will now include a `nil` value for `e
 
 #### Remove any bot.auth! calls
 
-SlackRubyBot 0.6.x versions invoked a method called `auth!`, which caused a pre-flight authentication via Slack Web API `auth_test` method and collected a number of properties, such as client and team ID or name. This method has been removed in favor of using data available in the `Slack::RealTime::Client` local store introduced in [slack-ruby-client#54](https://github.com/dblock/slack-ruby-client/issues/54). Remove any explicit calls to this method.
+SlackRubyBot 0.6.x versions invoked a method called `auth!`, which caused a pre-flight authentication via Slack Web API `auth_test` method and collected a number of properties, such as client and team ID or name. This method has been removed in favor of using data available in the `Slack::RealTime::Client` local store introduced in [slack-ruby-client#54](https://github.com/slack-ruby/slack-ruby-client/issues/54). Remove any explicit calls to this method.
 
 ### Upgrading to >= 0.6.0
 
@@ -139,7 +139,7 @@ Bot.run
 
 ### Upgrading to >= 0.4.0
 
-This version uses [slack-ruby-client](https://github.com/dblock/slack-ruby-client) instead of [slack-ruby-gem](https://github.com/aki017/slack-ruby-gem).
+This version uses [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client) instead of [slack-ruby-gem](https://github.com/aki017/slack-ruby-gem).
 
 The command interface now takes a `client` parameter, which is the RealTime Messaging API instance. Add the new parameter to all `call` calls in classes that inherit from `SlackRubyBot::Commands::Base`.
 
