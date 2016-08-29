@@ -1,8 +1,7 @@
-### 0.8.3 (Next)
+### 0.9.0 (8/29/2016)
 
 * [#89](https://github.com/slack-ruby/slack-ruby-bot/pull/89): Drop giphy dependency - [@tmsrjs](https://github.com/tmsrjs).
 * [#92](https://github.com/slack-ruby/slack-ruby-bot/pull/92): Added [danger](http://danger.systems), PR linting - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 0.8.2 (7/10/2016)
 

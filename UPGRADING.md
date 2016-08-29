@@ -1,12 +1,15 @@
 Upgrading SlackRubyBot
 ======================
 
-### Upgrading to >= 0.8.3
+### Upgrading to >= 0.9.0
 
 #### Add giphy to your Gemfile for GIF support
 
-The dependency on giphy was dropped, if you want GIF support you need to add `gem 'giphy'` to your **Gemfile**.
-You can ignore this if you had already disabled GIFs for your bot.
+The dependency on the `giphy` gem was dropped and GIFs don't appear by default. If you want GIF support, add `gem 'giphy'` to your **Gemfile**.
+
+You should not need to make any changes if you had already disabled GIFs for your bot.
+
+See [#89](https://github.com/slack-ruby/slack-ruby-bot/pull/89) for more information.
 
 ### Upgrading to >= 0.8.0
 
