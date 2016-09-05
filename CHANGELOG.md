@@ -1,5 +1,6 @@
 ### 0.9.1 (Next)
 
+* [#94](https://github.com/slack-ruby/slack-ruby-bot/pull/94): Use the slack-ruby-danger gem - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.9.0 (8/29/2016)
