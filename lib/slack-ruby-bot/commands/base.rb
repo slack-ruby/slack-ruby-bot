@@ -25,7 +25,7 @@ module SlackRubyBot
         end
 
         def help(&block)
-          CommandsHelper.instance.capture_help(name, &block)
+          CommandsHelper.instance.capture_help(self, &block)
         end
 
         def default_command_name

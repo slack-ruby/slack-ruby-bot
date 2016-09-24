@@ -10,8 +10,8 @@ module SlackRubyBot
       @commands_help_attrs = []
     end
 
-    def capture_help(class_name, &block)
-      k = Commands::Help::Attrs.new(class_name)
+    def capture_help(klass, &block)
+      k = Commands::Help::Attrs.new(klass)
       k.instance_eval(&block)
       @commands_help_attrs << k
     end
@@ -66,11 +66,11 @@ module SlackRubyBot
     end
 
     def bot_help_attrs
-      commands_help_attrs.select { |k| k.class_name.constantize.superclass == SlackRubyBot::Bot }
+      commands_help_attrs.select { |k| k.klass.ancestors.include?(SlackRubyBot::Bot) }
     end
 
     def other_commands_help_attrs
-      commands_help_attrs.select { |k| k.class_name.constantize.superclass == SlackRubyBot::Commands::Base }
+      commands_help_attrs.select { |k| k.klass.ancestors.include?(SlackRubyBot::Commands::Base) && !k.klass.ancestors.include?(SlackRubyBot::Bot) }
     end
   end
 end
