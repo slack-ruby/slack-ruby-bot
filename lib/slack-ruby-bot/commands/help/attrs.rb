@@ -3,10 +3,10 @@ module SlackRubyBot
     module Help
       class Attrs
         attr_accessor :command_name, :command_desc, :command_long_desc
-        attr_reader :class_name, :commands
+        attr_reader :klass, :commands
 
-        def initialize(class_name)
-          @class_name = class_name
+        def initialize(klass)
+          @klass = klass
           @commands = []
         end
 
@@ -23,7 +23,7 @@ module SlackRubyBot
         end
 
         def command(title, &block)
-          @commands << self.class.new(class_name).tap do |k|
+          @commands << self.class.new(klass).tap do |k|
             k.title(title)
             k.instance_eval(&block)
           end

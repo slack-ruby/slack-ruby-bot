@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe SlackRubyBot::CommandsHelper do
-  let(:bot_class_name) { 'Testing::WeatherBot' }
-  let(:command_class_name) { 'Testing::HelloCommand' }
+  let(:bot_class) { Testing::WeatherBot }
+  let(:command_class) { Testing::HelloCommand }
   let(:commands_helper) { described_class.instance }
 
   describe '#capture_help' do
     let(:help_attrs) { commands_helper.commands_help_attrs }
-    let(:bot_help_attrs) { help_attrs.find { |k| k.class_name == bot_class_name } }
-    let(:command_help_attrs) { help_attrs.find { |k| k.class_name == command_class_name } }
+    let(:bot_help_attrs) { help_attrs.find { |k| k.klass == bot_class } }
+    let(:command_help_attrs) { help_attrs.find { |k| k.klass == command_class } }
 
     it 'should save bot class name' do
       expect(bot_help_attrs).to be
@@ -62,7 +62,8 @@ describe SlackRubyBot::CommandsHelper do
   end
 
   describe '#bot_desc_and_commands' do
-    let(:bot_desc) { commands_helper.bot_desc_and_commands.first }
+    let(:bot_desc_and_commands) { commands_helper.bot_desc_and_commands }
+    let(:bot_desc) { bot_desc_and_commands.first }
 
     it 'returns bot name and description' do
       expect(bot_desc).to include('*Weather Bot* - This bot tells you the weather.')
@@ -82,39 +83,41 @@ describe SlackRubyBot::CommandsHelper do
       expect(bot_desc).to include("*command_without_description*\n")
     end
 
-    class AnotherBotBase < SlackRubyBot::Bot
-    end
-
-    class AnotherBot < AnotherBotBase
-      help do
-        title 'Creating your own base class works too!'
+    context 'subclasses' do
+      let(:another_bot_base) { Class.new(SlackRubyBot::Bot) }
+      let!(:another_bot) do
+        Class.new(another_bot_base) do
+          help do
+            title 'Creating your own base class works too!'
+          end
+        end
       end
-    end
 
-    it 'includes commands who do not directly inherit from the provided base class' do
-      expect(commands_helper.bot_desc_and_commands).to include("*Creating your own base class works too!*\n\n*Commands:*\n")
+      it 'expose help commands' do
+        expect(bot_desc_and_commands).to include("*Creating your own base class works too!*\n\n*Commands:*\n")
+      end
     end
   end
 
   describe '#other_commands_descs' do
-    class AnotherCommandBase < SlackRubyBot::Commands::Base
-    end
-
-    class AnotherCommand < AnotherCommandBase
-      help do
-        title 'Creating your own base class works too!'
+    let(:another_command_base) { Class.new(SlackRubyBot::Commands::Base) }
+    let!(:another_command) do
+      Class.new(another_command_base) do
+        help do
+          title 'Creating your own base class works too!'
+        end
       end
     end
 
-    let(:commands_desc) { commands_helper.other_commands_descs }
-    let(:hello_command_desc) { commands_desc.find { |desc| desc =~ /\*hello\*/ } }
+    let(:other_commands_descs) { commands_helper.other_commands_descs }
+    let(:hello_command_desc) { other_commands_descs.find { |desc| desc =~ /\*hello\*/ } }
 
     it 'returns command name and description' do
       expect(hello_command_desc).to eq('*hello* - Says hello.')
     end
 
     it 'includes commands who do not directly inherit from provided base class' do
-      expect(commands_desc).to include('*Creating your own base class works too!*')
+      expect(other_commands_descs).to include('*Creating your own base class works too!*')
     end
   end
 
