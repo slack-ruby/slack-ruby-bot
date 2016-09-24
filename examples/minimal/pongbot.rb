@@ -6,4 +6,6 @@ class Bot < SlackRubyBot::Bot
   end
 end
 
+SlackRubyBot::Client.logger.level = Logger::WARN
+
 Bot.run
