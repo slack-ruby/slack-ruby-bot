@@ -52,3 +52,7 @@ Style/FileName:
 # Offense count: 1
 Style/ModuleFunction:
   Enabled: false
+
+# Offense count: 1
+Style/StringLiterals:
+  Enabled: false

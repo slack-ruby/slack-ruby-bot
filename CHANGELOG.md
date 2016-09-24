@@ -3,6 +3,7 @@
 * [#95](https://github.com/slack-ruby/slack-ruby-bot/pull/95): Log team name and ID on successful connection - [@dblock](https://github.com/dblock).
 * [#94](https://github.com/slack-ruby/slack-ruby-bot/pull/94): Use the slack-ruby-danger gem - [@dblock](https://github.com/dblock).
 * Your contribution here.
+* [#86](https://github.com/dblock/slack-ruby-bot/pull/86): Fix: allow help statements from classes that do not directly inherit from Base classes to appear in `bot help` - [@maclover7](https://github.com/maclover7).
 
 ### 0.9.0 (8/29/2016)
 

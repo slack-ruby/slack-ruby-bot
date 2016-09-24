@@ -66,11 +66,11 @@ module SlackRubyBot
     end
 
     def bot_help_attrs
-      commands_help_attrs.select { |k| k.class_name.constantize.superclass == SlackRubyBot::Bot }
+      commands_help_attrs.select { |k| k.class_name.constantize.ancestors.include?(SlackRubyBot::Bot) }
     end
 
     def other_commands_help_attrs
-      commands_help_attrs.select { |k| k.class_name.constantize.superclass == SlackRubyBot::Commands::Base }
+      commands_help_attrs.select { |k| k.class_name.constantize.ancestors.include?(SlackRubyBot::Commands::Base) }
     end
   end
 end

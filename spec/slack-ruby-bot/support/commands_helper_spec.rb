@@ -81,14 +81,40 @@ describe SlackRubyBot::CommandsHelper do
     it 'do not show description for command without description' do
       expect(bot_desc).to include("*command_without_description*\n")
     end
+
+    class AnotherBotBase < SlackRubyBot::Bot
+    end
+
+    class AnotherBot < AnotherBotBase
+      help do
+        title 'Creating your own base class works too!'
+      end
+    end
+
+    it 'includes commands who do not directly inherit from the provided base class' do
+      expect(commands_helper.bot_desc_and_commands).to include("*Creating your own base class works too!*\n\n*Commands:*\n")
+    end
   end
 
   describe '#other_commands_descs' do
+    class AnotherCommandBase < SlackRubyBot::Commands::Base
+    end
+
+    class AnotherCommand < AnotherCommandBase
+      help do
+        title 'Creating your own base class works too!'
+      end
+    end
+
     let(:commands_desc) { commands_helper.other_commands_descs }
     let(:hello_command_desc) { commands_desc.find { |desc| desc =~ /\*hello\*/ } }
 
     it 'returns command name and description' do
       expect(hello_command_desc).to eq('*hello* - Says hello.')
+    end
+
+    it 'includes commands who do not directly inherit from provided base class' do
+      expect(commands_desc).to include('*Creating your own base class works too!*')
     end
   end
 
