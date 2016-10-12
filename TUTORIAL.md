@@ -19,6 +19,7 @@ gem 'slack-ruby-bot'
 gem 'puma'
 gem 'sinatra'
 gem 'dotenv'
+gem 'celluloid-io'
 
 group :development, :test do
   gem 'rake'
@@ -172,15 +173,18 @@ require 'slack-mathbot'
 
 #### Test the Bot Application
 
-Create a test for the bot application itself in `spec/slack-mathbot/app_spec.rb`.
+Create a test for the bot application itself in `spec/slack-mathbot/bot_spec.rb`.
 
 ```ruby
 require 'spec_helper'
 
-describe SlackMathbot::App do
+describe SlackMathbot::Bot do
   def app
     SlackMathbot::Bot.instance
   end
+
+  subject { app }
+
   it_behaves_like 'a slack ruby bot'
 end
 ```
@@ -196,6 +200,9 @@ describe SlackMathbot::Commands::Calculate do
   def app
     SlackMathbot::Bot.instance
   end
+
+  subject { app }
+
   it 'returns 4' do
     expect(message: "#{SlackRubyBot.config.user} calculate 2+2", channel: 'channel').to respond_with_slack_message('4')
   end
