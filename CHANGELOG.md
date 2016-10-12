@@ -1,5 +1,6 @@
 ### 0.9.1 (Next)
 
+* [#98](https://github.com/slack-ruby/slack-ruby-bot/pull/98): Fixed a couple of problems in TUTORIAL.md - [@edruder](https://github.com/edruder).
 * [#95](https://github.com/slack-ruby/slack-ruby-bot/pull/95): Log team name and ID on successful connection - [@dblock](https://github.com/dblock).
 * [#94](https://github.com/slack-ruby/slack-ruby-bot/pull/94): Use the slack-ruby-danger gem - [@dblock](https://github.com/dblock).
 * [#86](https://github.com/dblock/slack-ruby-bot/pull/86): Fix: help statements from classes that do not directly inherit from `Base` appear in `bot help` - [@maclover7](https://github.com/maclover7).
