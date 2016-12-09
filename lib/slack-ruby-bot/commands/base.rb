@@ -5,6 +5,13 @@ module SlackRubyBot
       class_attribute :routes
 
       class << self
+        attr_reader :command_classes
+
+        def inherited(subclass)
+          @command_classes ||= []
+          @command_classes << subclass
+        end
+
         def send_message(client, channel, text, options = {})
           logger.warn '[DEPRECATION] `send_message` is deprecated.  Please use `client.say` instead.'
           if text && !text.length.empty?

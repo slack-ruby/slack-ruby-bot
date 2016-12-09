@@ -26,7 +26,7 @@ module SlackRubyBot
       # @return [Array] Descendants of SlackRubyBot::Commands::Base.
       #
       def command_classes
-        SlackRubyBot::Commands::Base.descendants
+        SlackRubyBot::Commands::Base.command_classes
       end
 
       #
