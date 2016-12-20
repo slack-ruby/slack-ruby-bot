@@ -46,7 +46,7 @@ module SlackRubyBot
 
         def command(*values, &block)
           values = values.map { |value| Regexp.escape(value) }.join('|')
-          match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE), &block
+          match Regexp.new("^((?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+|)(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE), &block
         end
 
         def invoke(client, data)
@@ -60,7 +60,7 @@ module SlackRubyBot
               match = route.match(expression)
               match ||= route.match(text) if text
               next unless match
-              next if match.names.include?('bot') && !client.name?(match['bot'])
+              next if match.names.include?('bot') && match['bot'] && !client.name?(match['bot'])
             when :scan
               match = expression.scan(route)
               next unless match.any?
