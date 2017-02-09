@@ -1,4 +1,4 @@
-### 0.9.1 (Next)
+### 0.10.0 (2/9/2017)
 
 * [#111](https://github.com/slack-ruby/slack-ruby-bot/pull/111): Default keyword for GIFs in invalid commands has been changed from `idiot` to `understand` - [@dblock](https://github.com/dblock).
 * [#98](https://github.com/slack-ruby/slack-ruby-bot/pull/98): Fixed a couple of problems in TUTORIAL.md - [@edruder](https://github.com/edruder).
@@ -7,7 +7,6 @@
 * [#86](https://github.com/dblock/slack-ruby-bot/pull/86): Fix: help statements from classes that do not directly inherit from `Base` appear in `bot help` - [@maclover7](https://github.com/maclover7).
 * [#96](https://github.com/slack-ruby/slack-ruby-bot/pull/96): Support help statements in anonymous command and bot classes - [@dblock](https://github.com/dblock).
 * [#75](https://github.com/slack-ruby/slack-ruby-bot/pull/101): Fix: Guarantee order of commands based on load order - [@gconklin](https://github.com/gconklin).
-* Your contribution here.
 
 ### 0.9.0 (8/29/2016)
 
