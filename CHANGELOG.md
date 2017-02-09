@@ -1,3 +1,7 @@
+### 0.10.1 (Next)
+
+* Your contribution here.
+
 ### 0.10.0 (2/9/2017)
 
 * [#111](https://github.com/slack-ruby/slack-ruby-bot/pull/111): Default keyword for GIFs in invalid commands has been changed from `idiot` to `understand` - [@dblock](https://github.com/dblock).
