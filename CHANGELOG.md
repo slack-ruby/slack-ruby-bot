@@ -1,5 +1,6 @@
 ### 0.9.1 (Next)
 
+* [#111](https://github.com/slack-ruby/slack-ruby-bot/pull/111): Default keyword for GIFs in invalid commands has been changed from `idiot` to `understand` - [@dblock](https://github.com/dblock).
 * [#98](https://github.com/slack-ruby/slack-ruby-bot/pull/98): Fixed a couple of problems in TUTORIAL.md - [@edruder](https://github.com/edruder).
 * [#95](https://github.com/slack-ruby/slack-ruby-bot/pull/95): Log team name and ID on successful connection - [@dblock](https://github.com/dblock).
 * [#94](https://github.com/slack-ruby/slack-ruby-bot/pull/94): Use the slack-ruby-danger gem - [@dblock](https://github.com/dblock).
