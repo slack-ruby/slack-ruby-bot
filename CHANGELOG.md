@@ -1,3 +1,7 @@
+### 0.10.2 (Next)
+
+* Your contribution here.
+
 ### 0.10.1 (2/12/2017)
 
 * [#113](https://github.com/slack-ruby/slack-ruby-bot/issues/113): Fixed commands in subclassed `SlackRubyBot::Bot` - [@dblock](https://github.com/dblock).
