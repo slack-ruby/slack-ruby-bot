@@ -13,6 +13,10 @@ describe SlackRubyBot::Bot do
     SlackRubyBot::Bot.instance
   end
 
+  it 'registers subclass command' do
+    expect(SlackRubyBot::Commands::Base.command_classes).to include command
+  end
+
   it 'sends a message' do
     expect(message: "#{SlackRubyBot.config.user} bot_spec message").to respond_with_slack_message('message')
   end

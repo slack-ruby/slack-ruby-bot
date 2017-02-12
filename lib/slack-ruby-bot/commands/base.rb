@@ -5,11 +5,11 @@ module SlackRubyBot
       class_attribute :routes
 
       class << self
-        attr_reader :command_classes
+        attr_accessor :command_classes
 
         def inherited(subclass)
-          @command_classes ||= []
-          @command_classes << subclass
+          SlackRubyBot::Commands::Base.command_classes ||= []
+          SlackRubyBot::Commands::Base.command_classes << subclass
         end
 
         def send_message(client, channel, text, options = {})
