@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Commands::Hi do
   def app
     SlackRubyBot::App.new

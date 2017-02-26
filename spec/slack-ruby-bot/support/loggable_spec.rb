@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Loggable do
   let! :class_with_logger do
     Class.new(SlackRubyBot::Commands::Base) do

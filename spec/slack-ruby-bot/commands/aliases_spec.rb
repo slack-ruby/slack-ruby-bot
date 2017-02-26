@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot do
   def client
     SlackRubyBot::Client.new aliases: %w(:emoji: alias каспаров)
