@@ -1,6 +1,7 @@
 ### 0.10.2 (Next)
 
 * Your contribution here.
+* [#119](https://github.com/slack-ruby/slack-ruby-bot/pull/119): Add link to slack-deploy-bot - [@accessd](https://github.com/accessd).
 
 ### 0.10.1 (2/12/2017)
 

@@ -64,6 +64,7 @@ The following examples of bots based on slack-ruby-bot are listed in growing ord
 * [slack-mathbot](https://github.com/dblock/slack-mathbot): Slack integration with math.
 * [slack-google-bot](https://github.com/dblock/slack-google-bot): A Slack bot that searches Google, including CSE.
 * [slack-aws](https://github.com/dblock/slack-aws): Slack integration with Amazon Web Services.
+* [slack-deploy-bot](https://github.com/accessd/slack-deploy-bot): A Slack bot that helps you to deploy your apps.
 * [slack-gamebot](https://github.com/dblock/slack-gamebot): A game bot service for ping pong, chess, etc, hosted at [playplay.io](http://playplay.io).
 
 ### Commands and Operators
