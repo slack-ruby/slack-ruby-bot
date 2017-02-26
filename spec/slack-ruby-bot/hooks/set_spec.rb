@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Hooks::Set do
   let(:client) { Slack::RealTime::Client.new }
 

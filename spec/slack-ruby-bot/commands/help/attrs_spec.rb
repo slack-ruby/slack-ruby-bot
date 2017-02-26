@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Commands::Help::Attrs do
   let(:help_attrs) { described_class.new('WeatherBot') }
 

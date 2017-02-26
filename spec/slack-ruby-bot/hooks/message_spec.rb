@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Hooks::Message do
   let(:message_hook) { described_class.new }
 

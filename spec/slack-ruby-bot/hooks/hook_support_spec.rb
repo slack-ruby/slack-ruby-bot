@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Hooks::HookSupport do
   subject do
     Class.new do

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Commands::Base do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do

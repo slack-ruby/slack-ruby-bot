@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Client do
   describe '#send_gifs?' do
     context 'without giphy is false', unless: ENV.key?('WITH_GIPHY') do
