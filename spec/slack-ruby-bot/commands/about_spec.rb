@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Commands::Default do
   it 'lowercase' do
     expect(message: SlackRubyBot.config.user).to respond_with_slack_message(SlackRubyBot::ABOUT)

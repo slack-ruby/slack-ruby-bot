@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::CommandsHelper do
   let(:bot_class) { Testing::WeatherBot }
   let(:command_class) { Testing::HelloCommand }

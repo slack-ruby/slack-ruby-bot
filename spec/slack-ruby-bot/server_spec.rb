@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe SlackRubyBot::Server do
   let(:logger) { subject.send :logger }
   let(:client) { Slack::RealTime::Client.new }
