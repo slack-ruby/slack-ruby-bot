@@ -13,7 +13,7 @@ A typical production Slack bot is a combination of a vanilla web server and a we
 Create a `Gemfile` that uses [slack-ruby-bot](https://github.com/slack-ruby/slack-ruby-bot), [sinatra](https://github.com/sinatra/sinatra) (a web framework) and [puma](https://github.com/puma/puma) (a web server). For development we'll also use [foreman](https://github.com/theforeman/foreman) and write tests with [rspec](https://github.com/rspec/rspec).
 
 ```ruby
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'slack-ruby-bot'
 gem 'puma'
