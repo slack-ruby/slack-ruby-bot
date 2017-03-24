@@ -1,6 +1,7 @@
 ### 0.10.2 (Next)
 
 * Your contribution here.
+* [#126](https://github.com/slack-ruby/slack-ruby-bot/pull/126): Added victorbot to the list of bots - [@emachnic](https://github.com/emachnic).
 
 ### 0.10.1 (2/12/2017)
 
