@@ -1,6 +1,7 @@
 ### 0.10.2 (Next)
 
-* [#130](https://github.com/slack-ruby/slack-ruby-bot/issues/130): Added test dependencies in TUTORIAL.md [@jbristow](https://github.com/jbristow)
+* Your contribution here.
+* [#130](https://github.com/slack-ruby/slack-ruby-bot/issues/130): Added test dependencies in TUTORIAL.md - [@jbristow](https://github.com/jbristow).
 
 ### 0.10.1 (2/12/2017)
 
