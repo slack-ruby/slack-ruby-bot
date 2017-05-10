@@ -11,7 +11,7 @@ module SlackRubyBot
     end
 
     def self.call(client, data, _match)
-      client.say(channel: data.channel, text: "Sorry <@#{data.user}>, I don't understand that command!", gif: 'idiot')
+      client.say(channel: data.channel, text: "Sorry <@#{data.user}>, I don't understand that command!")
     end
   end
 end
