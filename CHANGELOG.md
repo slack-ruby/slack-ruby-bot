@@ -1,5 +1,5 @@
 ### 0.10.2 (Next)
-=======
+
 * Your contribution here.
 * [#133](https://github.com/slack-ruby/slack-ruby-bot/pull/133): Commands - add before/after hooks - [@chuckremes](https://github.com/chuckremes).
 * [#130](https://github.com/slack-ruby/slack-ruby-bot/issues/130): Added test dependencies in TUTORIAL.md - [@jbristow](https://github.com/jbristow).
