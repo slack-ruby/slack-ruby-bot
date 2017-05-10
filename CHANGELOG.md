@@ -1,3 +1,5 @@
+* [#133](https://github.com/slack-ruby/slack-ruby-bot/pull/133): Commands - add before/after hooks - [@chuckremes](https://github.com/chuckremes).
+
 ### 0.9.1 (Next)
 
 * [#95](https://github.com/slack-ruby/slack-ruby-bot/pull/95): Log team name and ID on successful connection - [@dblock](https://github.com/dblock).
