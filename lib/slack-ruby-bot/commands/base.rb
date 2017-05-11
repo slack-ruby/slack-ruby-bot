@@ -91,7 +91,7 @@ module SlackRubyBot
           self.routes[match] = { match_method: :scan, call: block }
         end
 
-        def remove_command_hooks(type=nil, name=nil)
+        def remove_command_hooks(type = nil, name = nil)
           setup_for_command_hooks
           case type
           when :before
@@ -112,13 +112,13 @@ module SlackRubyBot
           end
         end
 
-        def before(verb=nil, &block)
+        def before(verb = nil, &block)
           verb = verb ? verb.downcase : :global
           setup_for_command_hooks
           @before_command_hooks[verb] << block
         end
 
-        def after(verb=nil, &block)
+        def after(verb = nil, &block)
           verb = verb ? verb.downcase : :global
           setup_for_command_hooks
           @after_command_hooks[verb] << block
@@ -152,8 +152,8 @@ module SlackRubyBot
         end
 
         def setup_for_command_hooks
-          @before_command_hooks ||= Hash.new { |h,k| h[k] = [] }
-          @after_command_hooks ||= Hash.new { |h,k| h[k] = [] }
+          @before_command_hooks ||= Hash.new { |h, k| h[k] = [] }
+          @after_command_hooks ||= Hash.new { |h, k| h[k] = [] }
         end
 
         def execute_command_hooks(client, data, match)
@@ -162,9 +162,9 @@ module SlackRubyBot
             verb = verb.downcase if verb
             setup_for_command_hooks
             @before_command_hooks[:global].each { |blk| blk.call(client, data, match) }
-            @before_command_hooks.select { |k,v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
+            @before_command_hooks.select { |k, v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
             yield
-            @after_command_hooks.select { |k,v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
+            @after_command_hooks.select { |k, v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
             @after_command_hooks[:global].each { |blk| blk.call(client, data, match) }
           else
             # Not subject to a command hook, so pass through

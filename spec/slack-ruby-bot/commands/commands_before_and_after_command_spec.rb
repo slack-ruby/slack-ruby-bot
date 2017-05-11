@@ -10,22 +10,22 @@ describe SlackRubyBot::Commands do
       class << self
         attr_accessor :executed
       end
-      command 'foo' do |client, data, match|
+      command 'foo' do |client, data, _match|
         self.executed = true
-        client.say(channel: data.channel, text: "foo")
+        client.say(channel: data.channel, text: 'foo')
       end
     end
     app
   end
 
-  describe "with `before` block" do
+  describe 'with `before` block' do
     after(:each) { @klass.remove_command_hooks }
 
-    it "runs the global block and the original command block" do
+    it 'runs the global block and the original command block' do
       @flag = false
       @klass.executed = false
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @flag = true
       end
 
@@ -34,14 +34,14 @@ describe SlackRubyBot::Commands do
       expect(@klass.executed).to be_truthy
     end
 
-    it "runs global blocks in FIFO order" do
+    it 'runs global blocks in FIFO order' do
       @order = []
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @order << 0
       end
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @order << 1
       end
 
@@ -49,14 +49,14 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([0, 1])
     end
 
-    it "runs the global before block first and the verb-specific block second" do
+    it 'runs the global before block first and the verb-specific block second' do
       @order = []
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @order << :global
       end
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @order << :verb
       end
 
@@ -64,14 +64,14 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([:global, :verb])
     end
 
-    it "runs the global before block first and the verb-specific block second when defined in flipped order" do
+    it 'runs the global before block first and the verb-specific block second when defined in flipped order' do
       @order = []
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @order << :verb
       end
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @order << :global
       end
 
@@ -79,14 +79,14 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([:global, :verb])
     end
 
-    it "runs verb-specific blocks in FIFO order" do
+    it 'runs verb-specific blocks in FIFO order' do
       @order = []
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @order << 0
       end
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @order << 1
       end
 
@@ -94,22 +94,22 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([0, 1])
     end
 
-    it "runs global and verb-specific blocks in FIFO order" do
+    it 'runs global and verb-specific blocks in FIFO order' do
       @order = []
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @order << 0
       end
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @order << 1
       end
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @order << 2
       end
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @order << 3
       end
 
@@ -118,13 +118,13 @@ describe SlackRubyBot::Commands do
     end
   end
 
-  describe "with global `after` block" do
+  describe 'with global `after` block' do
     after(:each) { @klass.remove_command_hooks }
 
-    it "runs the block and the original command block" do
+    it 'runs the block and the original command block' do
       @flag = false
 
-      @klass.after do |client, data, match|
+      @klass.after do
         @flag = true
       end
 
@@ -133,16 +133,14 @@ describe SlackRubyBot::Commands do
       expect(@klass.executed).to be_truthy
     end
 
-    it "runs global blocks in FIFO order" do
+    it 'runs global blocks in FIFO order' do
       @order = []
 
-      @klass.after do |client, data, match|
-        STDERR.puts "after block 0"
+      @klass.after do
         @order << 0
       end
 
-      @klass.after do |client, data, match|
-        STDERR.puts "after block 1"
+      @klass.after do
         @order << 1
       end
 
@@ -150,14 +148,14 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([0, 1])
     end
 
-    it "runs the global after block last and the verb-specific block first" do
+    it 'runs the global after block last and the verb-specific block first' do
       @order = []
 
-      @klass.after do |client, data, match|
+      @klass.after do
         @order << :global
       end
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @order << :verb
       end
 
@@ -165,14 +163,14 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([:verb, :global])
     end
 
-    it "runs the global after block last and the verb-specific block first when defined in flipped order" do
+    it 'runs the global after block last and the verb-specific block first when defined in flipped order' do
       @order = []
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @order << :verb
       end
 
-      @klass.after do |client, data, match|
+      @klass.after do
         @order << :global
       end
 
@@ -180,14 +178,14 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([:verb, :global])
     end
 
-    it "runs verb-specific blocks in FIFO order" do
+    it 'runs verb-specific blocks in FIFO order' do
       @order = []
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @order << 0
       end
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @order << 1
       end
 
@@ -195,22 +193,22 @@ describe SlackRubyBot::Commands do
       expect(@order).to eq([0, 1])
     end
 
-    it "runs global and verb-specific blocks in FIFO order" do
+    it 'runs global and verb-specific blocks in FIFO order' do
       @order = []
 
-      @klass.after do |client, data, match|
+      @klass.after do
         @order << 2
       end
 
-      @klass.after do |client, data, match|
+      @klass.after do
         @order << 3
       end
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @order << 0
       end
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @order << 1
       end
 
@@ -219,12 +217,12 @@ describe SlackRubyBot::Commands do
     end
   end
 
-  describe "#remove_command_hooks" do
-    it "removes global `before` block and does not run it" do
+  describe '#remove_command_hooks' do
+    it 'removes global `before` block and does not run it' do
       @flag = false
       @klass.executed = false
 
-      @klass.before do |client, data, match|
+      @klass.before do
         @flag = true
       end
 
@@ -234,11 +232,11 @@ describe SlackRubyBot::Commands do
       expect(@klass.executed).to be_truthy
     end
 
-    it "removes global `after` block and does not run it" do
+    it 'removes global `after` block and does not run it' do
       @flag = false
       @klass.executed = false
 
-      @klass.after do |client, data, match|
+      @klass.after do
         @flag = true
       end
 
@@ -248,11 +246,11 @@ describe SlackRubyBot::Commands do
       expect(@klass.executed).to be_truthy
     end
 
-    it "removes verb-specific `before` block and does not run it" do
+    it 'removes verb-specific `before` block and does not run it' do
       @flag = false
       @klass.executed = false
 
-      @klass.before 'foo' do |client, data, match|
+      @klass.before 'foo' do
         @flag = true
       end
 
@@ -262,11 +260,11 @@ describe SlackRubyBot::Commands do
       expect(@klass.executed).to be_truthy
     end
 
-    it "removes verb-specific `after` block and does not run it" do
+    it 'removes verb-specific `after` block and does not run it' do
       @flag = false
       @klass.executed = false
 
-      @klass.after 'foo' do |client, data, match|
+      @klass.after 'foo' do
         @flag = true
       end
 
@@ -276,12 +274,12 @@ describe SlackRubyBot::Commands do
       expect(@klass.executed).to be_truthy
     end
 
-    describe "with arguments" do
-      it "removes named verb-specific `before` block and does not run it" do
+    describe 'with arguments' do
+      it 'removes named verb-specific `before` block and does not run it' do
         @flag = false
         @klass.executed = false
 
-        @klass.before 'foo' do |client, data, match|
+        @klass.before 'foo' do
           @flag = true
         end
 
@@ -291,16 +289,16 @@ describe SlackRubyBot::Commands do
         expect(@klass.executed).to be_truthy
       end
 
-      it "removes named verb-specific `before` block and does not run it but leaves global `before` block in place" do
+      it 'removes named verb-specific `before` block and does not run it but leaves global `before` block in place' do
         @flag = false
         @global = false
         @klass.executed = false
 
-        @klass.before 'foo' do |client, data, match|
+        @klass.before 'foo' do
           @flag = true
         end
 
-        @klass.before do |client, data, match|
+        @klass.before do
           @global = true
         end
 
@@ -311,11 +309,11 @@ describe SlackRubyBot::Commands do
         expect(@klass.executed).to be_truthy
       end
 
-      it "removes named verb-specific `after` block and does not run it" do
+      it 'removes named verb-specific `after` block and does not run it' do
         @flag = false
         @klass.executed = false
 
-        @klass.after 'foo' do |client, data, match|
+        @klass.after 'foo' do
           @flag = true
         end
 
@@ -325,16 +323,16 @@ describe SlackRubyBot::Commands do
         expect(@klass.executed).to be_truthy
       end
 
-      it "removes named verb-specific `after` block and does not run it but leaves global `after` block in place" do
+      it 'removes named verb-specific `after` block and does not run it but leaves global `after` block in place' do
         @flag = false
         @global = false
         @klass.executed = false
 
-        @klass.after 'foo' do |client, data, match|
+        @klass.after 'foo' do
           @flag = true
         end
 
-        @klass.after do |client, data, match|
+        @klass.after do
           @global = true
         end
 
