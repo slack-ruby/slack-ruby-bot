@@ -162,9 +162,9 @@ module SlackRubyBot
             verb = verb.downcase if verb
             setup_for_command_hooks
             @before_command_hooks[:global].each { |blk| blk.call(client, data, match) }
-            @before_command_hooks.select { |k, v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
+            @before_command_hooks.select { |k, _v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
             yield
-            @after_command_hooks.select { |k, v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
+            @after_command_hooks.select { |k, _v| verb == k }.values.flatten.each { |blk| blk.call(client, data, match) }
             @after_command_hooks[:global].each { |blk| blk.call(client, data, match) }
           else
             # Not subject to a command hook, so pass through
