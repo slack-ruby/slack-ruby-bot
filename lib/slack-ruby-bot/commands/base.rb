@@ -114,33 +114,7 @@ module SlackRubyBot
         def invoke(client, data)
           finalize_routes!
           expression, text = parse(client, data)
-          called = false
-          routes.each_pair do |route, options|
-            match_method = options[:match_method]
-            case match_method
-            when :match
-              match = route.match(expression)
-              match ||= route.match(text) if text
-              next unless match
-              next if match.names.include?('bot') && !client.name?(match['bot'])
-            when :scan
-              match = expression.scan(route)
-              next unless match.any?
-            end
-            called = true
-            call = options[:call]
-            execute_command_hooks(client, data, match) do
-              if call
-                call.call(client, data, match)
-              elsif respond_to?(:call)
-                send(:call, client, data, match)
-              else
-                raise NotImplementedError, data.text
-              end
-            end
-            break
-          end if expression
-          called
+          call_routes(routes, client, data, expression, text)
         end
 
         def match(match, &block)
@@ -178,6 +152,36 @@ module SlackRubyBot
         def finalize_routes!
           return if routes && routes.any?
           command default_command_name
+        end
+
+        def call_routes(routes, client, data, expression, text)
+          called = false
+          routes.each_pair do |route, options|
+            match_method = options[:match_method]
+            case match_method
+            when :match
+              match = route.match(expression)
+              match ||= route.match(text) if text
+              next unless match
+              next if match.names.include?('bot') && !client.name?(match['bot'])
+            when :scan
+              match = expression.scan(route)
+              next unless match.any?
+            end
+            called = true
+            call = options[:call]
+            execute_command_hooks(client, data, match) do
+              if call
+                call.call(client, data, match)
+              elsif respond_to?(:call)
+                send(:call, client, data, match)
+              else
+                raise NotImplementedError, data.text
+              end
+            end
+            break
+          end if expression
+          called
         end
       end
     end
