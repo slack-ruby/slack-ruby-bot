@@ -1,3 +1,4 @@
+require 'slack-ruby-bot/commands/command_hooks'
 require 'slack-ruby-bot/commands/base'
 require 'slack-ruby-bot/commands/about'
 require 'slack-ruby-bot/commands/help'
