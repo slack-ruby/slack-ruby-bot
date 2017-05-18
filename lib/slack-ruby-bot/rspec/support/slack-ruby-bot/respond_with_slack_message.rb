@@ -13,7 +13,7 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
 
     allow(Giphy).to receive(:random) if defined?(Giphy)
 
-    expect(client).to receive(:message).with(channel: channel, text: expected)
+    expect(client).to receive(:message).with(channel: channel, text: expected).at_least(:once)
     message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
     true
   end
