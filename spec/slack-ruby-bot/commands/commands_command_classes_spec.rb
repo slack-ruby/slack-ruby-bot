@@ -33,5 +33,12 @@ describe SlackRubyBot::Commands::Base do
       command_classes = SlackRubyBot::Commands::Base.command_classes
       expect(command_classes.find_index(command1)).to be < command_classes.find_index(command2)
     end
+
+    it 'uses the object_id of an anonymous class as the default command name' do
+      command_classes = SlackRubyBot::Commands::Base.command_classes
+      anon_class = Class.new(SlackRubyBot::Commands::Base)
+      expect(command_classes).to include anon_class
+      expect(command_classes.find {|obj| obj == anon_class }.object_id.to_s).to eq anon_class.default_command_name
+    end
   end
 end
