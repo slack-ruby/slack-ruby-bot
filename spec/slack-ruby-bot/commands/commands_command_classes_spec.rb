@@ -38,7 +38,7 @@ describe SlackRubyBot::Commands::Base do
       command_classes = SlackRubyBot::Commands::Base.command_classes
       anon_class = Class.new(SlackRubyBot::Commands::Base)
       expect(command_classes).to include anon_class
-      expect(command_classes.find {|obj| obj == anon_class }.object_id.to_s).to eq anon_class.default_command_name
+      expect(command_classes.find { |obj| obj == anon_class }.object_id.to_s).to eq anon_class.default_command_name
     end
   end
 end

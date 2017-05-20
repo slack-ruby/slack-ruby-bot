@@ -57,7 +57,7 @@ module SlackRubyBot
 
               # sprinkle a little syntactic sugar on top of existing `command` infrastructure
               @@command_class.class_eval do
-                command "#{meth_name}" do |client, data, match|
+                command meth_name.to_s do |client, data, match|
                   controller.use_args(client, data, match)
                   controller.call_command
                 end
@@ -83,7 +83,8 @@ module SlackRubyBot
         attr_reader :model, :view, :client, :data, :match
 
         def initialize(model, view)
-          @model, @view = model, view
+          @model = model
+          @view = view
           self.class.register_controller(self)
         end
 

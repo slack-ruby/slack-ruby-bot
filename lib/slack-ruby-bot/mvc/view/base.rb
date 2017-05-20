@@ -12,7 +12,7 @@ module SlackRubyBot
         end
 
         attr_reader :client, :data, :match
-        
+
         def_delegators :@client, :say
 
         # Hand off the latest updated objects to the +model+ and +view+ and
