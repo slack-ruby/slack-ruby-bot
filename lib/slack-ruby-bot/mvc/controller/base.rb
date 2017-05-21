@@ -7,23 +7,22 @@ module SlackRubyBot
         class << self
           attr_reader :abstract
           alias_method :abstract?, :abstract
-          @@command_class = nil
 
           def controllers
-            @@controllers
+            Base.instance_variable_get(:@controllers)
           end
 
           def command_class
-            @@command_class
+            Base.instance_variable_get(:@command_class)
           end
 
           def reset!
             # Remove any earlier anonymous classes from prior calls so we don't leak them
-            Commands::Base.command_classes.delete(command_class) if command_class
+            Commands::Base.command_classes.delete(Controller::Base.command_class) if Base.command_class
 
             # Create anonymous class to hold our #commands; required by SlackRubyBot::Commands::Base
-            @@command_class = Class.new(SlackRubyBot::Commands::Base)
-            @@controllers = []
+            Base.instance_variable_set(:@command_class, Class.new(SlackRubyBot::Commands::Base))
+            Base.instance_variable_set(:@controllers, [])
           end
 
           # Define a controller as abstract. See internal_methods for more
@@ -43,7 +42,9 @@ module SlackRubyBot
 
           def register_controller(controller)
             # Only used to keep a reference around so the instance object doesn't get garbage collected
-            @@controllers << controller
+            Base.instance_variable_set(:@controllers, []) unless controllers
+            controller_ary = Base.instance_variable_get(:@controllers)
+            controller_ary << controller
             klass = controller.class
 
             methods = (klass.public_instance_methods(true) -
@@ -56,7 +57,7 @@ module SlackRubyBot
               next if meth_name[0..1] == '__'
 
               # sprinkle a little syntactic sugar on top of existing `command` infrastructure
-              @@command_class.class_eval do
+              command_class.class_eval do
                 command meth_name.to_s do |client, data, match|
                   controller.use_args(client, data, match)
                   controller.call_command
