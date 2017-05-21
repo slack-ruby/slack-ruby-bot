@@ -6,7 +6,7 @@ module SlackRubyBot
 
         class << self
           attr_reader :abstract
-          alias_method :abstract?, :abstract
+          alias :abstract? :abstract
 
           def controllers
             Base.instance_variable_get(:@controllers)
