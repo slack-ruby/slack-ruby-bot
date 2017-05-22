@@ -101,7 +101,7 @@ module SlackRubyBot
 
         # Determine the command issued and call the corresponding instance method
         def call_command
-          verb = match.named_captures['command']
+          verb = match.captures[match.names.index('command')]
           verb = verb.downcase if verb
           public_send(verb)
         end
