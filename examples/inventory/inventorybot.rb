@@ -54,19 +54,18 @@ class InventoryController < SlackRubyBot::MVC::Controller::Base
   private
 
   def notify_admin
-    row = self._row.first
-    if row[:quantity].to_i.zero?
-      view.email_admin("Inventory item #{row[:name]} needs to be refilled.")
-      view.say(channel: data.channel, text: "Administrator notified via email to refill #{row[:name]}.")
-    end
+    row = _row.first
+    return if row[:quantity].to_i.zero?
+    view.email_admin("Inventory item #{row[:name]} needs to be refilled.")
+    view.say(channel: data.channel, text: "Administrator notified via email to refill #{row[:name]}.")
   end
 
   def around_reaction
     view.react_wait
-    view.say(channel: data.channel, text: "Please wait while long-running action completes...")
+    view.say(channel: data.channel, text: 'Please wait while long-running action completes...')
     sleep 2.0
     yield
-    view.say(channel: data.channel, text: "Action has completed!")
+    view.say(channel: data.channel, text: 'Action has completed!')
     view.unreact_wait
   end
 end
@@ -86,45 +85,44 @@ class InventoryModel < SlackRubyBot::MVC::Model::Base
   def initialize
     @db = SQLite3::Database.new ':memory'
     @db.results_as_hash = true
-    @db.execute 'CREATE TABLE IF NOT EXISTS Inventory(Id INTEGER PRIMARY KEY, 
+    @db.execute 'CREATE TABLE IF NOT EXISTS Inventory(Id INTEGER PRIMARY KEY,
             Name TEXT, Quantity INT, Price INT)'
-            
+
     s = @db.prepare 'SELECT * FROM Inventory'
     results = s.execute
     count = 0
     count += 1 while results.next
-    if count < 4
-      add_item "'Audi',3,52642"
-      add_item "'Mercedes',1,57127"
-      add_item "'Skoda',5,9000"
-      add_item "'Volvo',1,29000"
-    end
+    return if count < 4
+    add_item "'Audi',3,52642"
+    add_item "'Mercedes',1,57127"
+    add_item "'Skoda',5,9000"
+    add_item "'Volvo',1,29000"
   end
 
   def add_item(line)
     self._line = line # make line accessible to callback
     run_callbacks :fixup do
-      name, quantity, price = parse(self._line)
+      name, quantity, price = parse(_line)
       row = @db.prepare('SELECT MAX(Id) FROM Inventory').execute
       max_id = row.next_hash['MAX(Id)']
-      @db.execute "INSERT INTO Inventory VALUES(#{max_id+1},'#{name}',#{quantity.to_i},#{price.to_i})"
+      @db.execute "INSERT INTO Inventory VALUES(#{max_id + 1},'#{name}',#{quantity.to_i},#{price.to_i})"
     end
   end
 
   def read_item(line)
     self._line = line
     run_callbacks :fixup do
-      name, other = parse(self._line)
+      name, _other = parse(_line)
       statement = if name == '*'
-        @db.prepare "SELECT * FROM Inventory"
-      else
-        @db.prepare "SELECT * FROM Inventory WHERE Name='#{name}'"
-      end
-      
+                    @db.prepare 'SELECT * FROM Inventory'
+                  else
+                    @db.prepare("SELECT * FROM Inventory WHERE Name='#{name}'")
+                  end
+
       results = statement.execute
       a = []
       results.each do |row|
-        a << {id: row['Id'], name: row['Name'], quantity: row['Quantity'], price: row['Price'] }
+        a << { id: row['Id'], name: row['Name'], quantity: row['Quantity'], price: row['Price'] }
       end
       a
     end
@@ -133,21 +131,21 @@ class InventoryModel < SlackRubyBot::MVC::Model::Base
   def update_item(line)
     self._line = line
     run_callbacks :fixup do
-      name, quantity, price = parse(self._line)
+      name, quantity, price = parse(_line)
       statement = if price
-        @db.prepare "UPDATE Inventory SET Quantity=#{quantity}, Price=#{price} WHERE Name='#{name}'"
-      else
-        @db.prepare "UPDATE Inventory SET Quantity=#{quantity} WHERE Name='#{name}'"
-      end
+                    @db.prepare "UPDATE Inventory SET Quantity=#{quantity}, Price=#{price} WHERE Name='#{name}'"
+                  else
+                    @db.prepare "UPDATE Inventory SET Quantity=#{quantity} WHERE Name='#{name}'"
+                  end
       statement.execute
-      read_item(self._line)
+      read_item(_line)
     end
   end
 
   def delete_item(line)
     self._line = line
     run_callbacks :fixup do
-      name, other = parse(self._line)
+      name, _other = parse(_line)
       before_count = row_count
       statement = @db.prepare "DELETE FROM Inventory WHERE Name='#{name}'"
       statement.execute
@@ -158,7 +156,7 @@ class InventoryModel < SlackRubyBot::MVC::Model::Base
   private
 
   def row_count
-    statement = @db.prepare "SELECT COUNT(*) FROM Inventory"
+    statement = @db.prepare 'SELECT COUNT(*) FROM Inventory'
     result = statement.execute
     result.next_hash['COUNT(*)']
   end
@@ -168,33 +166,35 @@ class InventoryModel < SlackRubyBot::MVC::Model::Base
   end
 
   def normalize_data
-    name, quantity, price = parse(self._line)
+    name, quantity, price = parse(_line)
     self._line = [name.capitalize, quantity, price].join(',')
   end
 end
 
-# All interactivity logic should live in this class. 
+# All interactivity logic should live in this class.
 #
 # ActiveSupport::Callbacks support is included for before, after,
 # or around hooks.
 #
 # The Model has access to the `client`, `data`, and `match` objects.
-# 
+#
 class InventoryView < SlackRubyBot::MVC::View::Base
   def react_wait
     client.web_client.reactions_add(
-    name: :hourglass_flowing_sand,
-    channel: data.channel,
-    timestamp: data.ts,
-    as_user: true)
+      name: :hourglass_flowing_sand,
+      channel: data.channel,
+      timestamp: data.ts,
+      as_user: true
+    )
   end
-  
+
   def unreact_wait
     client.web_client.reactions_remove(
-    name: :hourglass_flowing_sand,
-    channel: data.channel,
-    timestamp: data.ts,
-    as_user: true)
+      name: :hourglass_flowing_sand,
+      channel: data.channel,
+      timestamp: data.ts,
+      as_user: true
+    )
   end
 
   def email_admin(message)
@@ -204,15 +204,15 @@ class InventoryView < SlackRubyBot::MVC::View::Base
   end
 
   def delete_succeeded
-    say(channel: data.channel, text: "Item was successfully deleted.")
+    say(channel: data.channel, text: 'Item was successfully deleted.')
   end
 
   def delete_failed
-    say(channel: data.channel, text: "Item failed to be deleted.")
+    say(channel: data.channel, text: 'Item failed to be deleted.')
   end
 end
 
-class InventoryBot < SlackRubyBot::Bot  
+class InventoryBot < SlackRubyBot::Bot
   help do
     title 'Inventory Bot'
     desc 'This bot lets you create, read, update, and delete items from an inventory.'
@@ -220,15 +220,15 @@ class InventoryBot < SlackRubyBot::Bot
     command 'create' do
       desc 'Add an item to the inventory.'
     end
-    
+
     command 'read' do
       desc 'Get inventory status for an item.'
     end
-    
+
     command 'update' do
       desc 'Update inventory levels for an item.'
     end
-    
+
     command 'delete' do
       desc 'Remove an item from inventory.'
     end
