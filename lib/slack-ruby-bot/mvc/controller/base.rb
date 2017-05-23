@@ -54,7 +54,7 @@ module SlackRubyBot
                        klass.public_instance_methods(false)).uniq.map(&:to_s)
 
             methods.each do |meth_name|
-              next if meth_name[0..1] == '__'
+              next if meth_name[0] == '_'
 
               # sprinkle a little syntactic sugar on top of existing `command` infrastructure
               command_class.class_eval do
