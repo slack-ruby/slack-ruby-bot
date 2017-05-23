@@ -30,11 +30,11 @@ describe SlackRubyBot::MVC::Controller::Base, 'initialization' do
     expect(controller.command_class.routes.size).to eq(route_count + 1)
   end
 
-  it 'does NOT create a command route on SlackRubyBot::Commands::Base when method starts with "__"' do
+  it 'does NOT create a command route on SlackRubyBot::Commands::Base when method starts with a single "_"' do
     controller.reset!
     route_count = 0
     controller.class_eval do
-      def __no_route_to_me() end
+      def _no_route_to_me() end
     end
     controller.new(model, view)
     expect(controller.command_class.routes.size).to eq(route_count + 1) # instead of +2
