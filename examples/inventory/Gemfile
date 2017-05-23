@@ -1,0 +1,5 @@
+source 'http://rubygems.org'
+
+gem 'slack-ruby-bot', path: '../..'
+gem 'celluloid-io'
+gem 'sqlite3'
