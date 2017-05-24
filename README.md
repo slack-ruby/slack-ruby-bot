@@ -360,13 +360,17 @@ The Controller is the focal point of the bot behavior. Typically the code that w
 
 As an example, these two classes are functionally equivalent.
 
-```
+Consider the following `Agent` class which is the simplest default approach to take.
+
+```ruby
 class Agent < SlackRubyBot::Bot
   command 'sayhello' do |client, data, match|
     client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
   end
 end
 
+Using the MVC functionality, we would create a controller instead to encapsulate this function.
+```ruby
 class MyController < SlackRubyBot::MVC::Controller::Base
   def sayhello
     client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
@@ -388,7 +392,7 @@ A complex bot may need to read or write data from a database or other network re
 
 The Model also includes `ActiveSupport::Callbacks`.
 
-```
+```ruby
 class MyModel < SlackRubyBot::MVC::Model::Base
   define_callbacks :sanitize
   set_callback :sanitize, :around, :sanitize_resource
@@ -424,7 +428,7 @@ Model methods are not matched to routes, so there is no restriction on how to na
 
 A typical bot just writes to a channel or uses the web client to react/unreact to a message. More complex bots will probably require more complex behaviors. These should be stored in a `SlackRubyBot::MVC::View::Base` subclass.
 
-```
+```ruby
 class MyView < SlackRubyBot::MVC::View::Base
   define_callbacks :logit
   set_callbacks :logit, :around, :audit_trail
