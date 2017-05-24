@@ -56,11 +56,33 @@ describe SlackRubyBot::Config do
     end
   end
 
+  describe '.rbac_allow=' do
+    it 'returns nil when set to nil' do
+      SlackRubyBot::Config.rbac_allow = nil
+      expect(SlackRubyBot::Config.rbac_allow).to be nil
+    end
+
+    it 'returns :rbac_allow when set to true' do
+      SlackRubyBot::Config.rbac_allow = true
+      expect(SlackRubyBot::Config.rbac_allow).to eq(:rbac_allow)
+    end
+
+    it 'returns :rbac_deny when set to any truthy value' do
+      SlackRubyBot::Config.rbac_allow = 1
+      expect(SlackRubyBot::Config.rbac_allow).to eq(:rbac_deny)
+    end
+
+    it 'returns :rbac_deny when set to false' do
+      SlackRubyBot::Config.rbac_allow = false
+      expect(SlackRubyBot::Config.rbac_allow).to eq(:rbac_deny)
+    end
+  end
+
   describe '#reset!' do
     it 'sets all config attributes to nil' do
       SlackRubyBot::Config::ATTRS.each do |attr|
         SlackRubyBot::Config.send("#{attr}=", true)
-        expect(SlackRubyBot::Config.send(attr)).to be true
+        expect(SlackRubyBot::Config.send(attr)).to be_truthy
       end
       SlackRubyBot::Config.reset!
       SlackRubyBot::Config::ATTRS.each do |attr|

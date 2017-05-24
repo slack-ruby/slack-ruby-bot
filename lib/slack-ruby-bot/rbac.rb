@@ -1,0 +1,5 @@
+require 'slack-ruby-bot/rbac/group'
+require 'slack-ruby-bot/rbac/list'
+require 'slack-ruby-bot/rbac/allow'
+require 'slack-ruby-bot/rbac/deny'
+require 'slack-ruby-bot/rbac/rbac'

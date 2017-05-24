@@ -330,6 +330,40 @@ By default bots set a logger to `STDOUT` with `DEBUG` level. The logger is used 
 SlackRubyBot::Client.logger.level = Logger::WARN
 ```
 
+### Role-Based Access Control Support
+
+On larger Slack teams it's useful to restrict commands based upon a user's role within the team. By default every user can execute every command. Using RBAC (Role-Based Access Control) an administrator can produce a number of groups/roles and assign users to those groups. Likewise, they can specifically assign commands to the groups.
+
+When a command event is received by the bot, it will check to see if the source user has the permissions to execute the named command. If they have permission, the command is executed. If they do not have permission, the message is ignored.
+
+By default the system starts in `:rbac_deny` mode which paradoxically means that all users have permission to run all commands. By adding a user, group, and command it marks the beginning of a list of users and commands to DENY. This is a blacklist mechanism where all commands may be run unless a user is explicitly named to be denied.
+
+A second mode is `:rbac_allow` which defaults to denying all users from running any commands. A user, group, and command must be registered with the system to explicitly allow them to execute each command. This is a whitelist mechanism.
+
+#### DenyList / Blacklist Example
+```ruby
+class Agent < SlackRubyBot::Bot
+  SlackRubyBot::Config.rbac_allow = :rbac_deny # set to use blacklist mechanism
+
+  # All users may run all commands. However, setup :group1 to disallow
+  # 'slackuser1' from running the 'scream_and_shout' command.
+  SlackRubyBot::RBAC.add_user_to_group('slackuser1', :group1)
+  SlackRubyBot::RBAC.add_command_to_group('scream_and_shout', :group1)
+end
+```
+
+#### AllowList / Whitelist Example
+```ruby
+class Agent < SlackRubyBot::Bot
+  SlackRubyBot::Config.rbac_allow = :rbac_allow # set to use whitelist mechanism
+
+  # All users are DENIED all commands. However, setup :group1 to allow
+  # 'slackuser1' to run the 'scream_and_shout' command.
+  SlackRubyBot::RBAC.add_user_to_group('slackuser1', :group1)
+  SlackRubyBot::RBAC.add_command_to_group('scream_and_shout', :group1)
+end
+```
+
 ### Advanced Integration
 
 You may want to integrate a bot or multiple bots into other systems, in which case a globally configured bot may not work for you. You may create instances of [SlackRubyBot::Server](lib/slack-ruby-bot/server.rb) which accepts `token`, `aliases` and `send_gifs`.

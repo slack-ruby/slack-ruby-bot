@@ -52,7 +52,7 @@ module SlackRubyBot
         def invoke(client, data)
           finalize_routes!
           expression, text = parse(client, data)
-          called = false
+          call_matched = false
           routes.each_pair do |route, options|
             match_method = options[:match_method]
             case match_method
@@ -65,18 +65,18 @@ module SlackRubyBot
               match = expression.scan(route)
               next unless match.any?
             end
-            called = true
+            call_matched = true
             call = options[:call]
             if call
-              call.call(client, data, match)
+              call.call(client, data, match) if permitted?(data, match)
             elsif respond_to?(:call)
-              send(:call, client, data, match)
+              send(:call, client, data, match) if permitted?(data, match)
             else
               raise NotImplementedError, data.text
             end
             break
           end if expression
-          called
+          call_matched
         end
 
         def match(match, &block)
@@ -114,6 +114,12 @@ module SlackRubyBot
         def finalize_routes!
           return if routes && routes.any?
           command default_command_name
+        end
+
+        def permitted?(data, match)
+          return true unless match.is_a?(MatchData)
+          command = match.names.include?('command') ? match[:command] : nil
+          RBAC.allowed_for?(data.user, command)
         end
       end
     end
