@@ -36,7 +36,7 @@ module SlackRubyBot
         end
 
         def default_command_name
-          name && name.split(':').last.downcase
+          name ? name.split(':').last.downcase : object_id.to_s
         end
 
         def operator(*values, &block)

@@ -346,6 +346,133 @@ end
 
 For an example of advanced integration that supports multiple teams, see [slack-gamebot](https://github.com/dblock/slack-gamebot) and [playplay.io](http://playplay.io) that is built on top of it.
 
+### Model-View-Controller Design
+
+The `command` method is essentially a controller method that receives input from the outside and acts upon it. Complex behaviors could lead to a long and difficult-to-understand `command` block. A complex `command` block is a candidate for separation into classes conforming to the Model-View-Controller pattern popularized by Rails.
+
+The library provides three helpful base classes named `SlackRubyBot::MVC::Model::Base`, `SlackRubyBot::MVC::View::Base`, and `SlackRubyBot::MVC::Controller::Base`.
+
+Testing a `command` block is difficult. As separate classes, the Model/View/Controller's behavior can be tested via `rspec` or a similar tool.
+
+#### Controller
+
+The Controller is the focal point of the bot behavior. Typically the code that would go into the `command` block will now go into an instance method in a Controller subclass. The instance method name should match the command name exactly (case sensitive).
+
+As an example, these two classes are functionally equivalent.
+
+Consider the following `Agent` class which is the simplest default approach to take.
+
+```ruby
+class Agent < SlackRubyBot::Bot
+  command 'sayhello' do |client, data, match|
+    client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
+  end
+end
+
+Using the MVC functionality, we would create a controller instead to encapsulate this function.
+```ruby
+class MyController < SlackRubyBot::MVC::Controller::Base
+  def sayhello
+    client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
+  end
+end
+MyController.new(MyModel.new, MyView.new)
+```
+Note in the above example that the Controller instance method `sayhello` does not receive any arguments. When the instance method is called, the Controller class sets up some accessor methods to provide the normal `client`, `data`, and `match` objects. These are the same objects passed to the `command` block.
+
+However, the Controller anticipates that the model and view objects should contain business logic that will also operate on the `client`, `data`, and `match` objects. The controller provides access to the model and view via the `model` and `view` accessor methods. The [inventory example](examples/inventory/inventorybot.rb) provides a full example of a Model, View, and Controller working together.
+
+A Controller may need helper methods for certain work. To prevent the helper method from creating a route that the bot will respond to directly, the instance method name should begin with an underscore (e.g. `_my_helper_method`). When building the bot routes, these methods will be skipped.
+
+Lastly, the Controller class includes `ActiveSupport::Callbacks` which allows for full flexibility in creating `before`, `after`, and `around` hooks for all methods. Again, see the [inventory example](examples/inventory/inventorybot.rb) for more information.
+
+#### Model
+
+A complex bot may need to read or write data from a database or other network resource. Setting up and tearing down these connections can be costly, so the model can do it once upon instantiation.
+
+The Model also includes `ActiveSupport::Callbacks`.
+
+```ruby
+class MyModel < SlackRubyBot::MVC::Model::Base
+  define_callbacks :sanitize
+  set_callback :sanitize, :around, :sanitize_resource
+  attr_accessor :_resource
+
+  def initialize
+    @db = setup_database_connection
+  end
+
+  def read(resource)
+    self._resource = resource
+	run_callbacks :sanitize do
+		@db.select(:column1 => resource)
+		# ... do some expensive work
+	end
+  end
+
+  private
+
+  def sanitize_resource
+    self._resource.downcase
+	result = yield
+	puts "After read, result is #{result.inspect}"
+  end
+end
+```
+
+Like Controllers, the Model is automatically loaded with the latest version of the `client`, `data`, and `match` objects each time the controller method is called. Therefore the model will always have access to the latest objects when doing its work. It will typically only use the `data` and `match` objects.
+
+Model methods are not matched to routes, so there is no restriction on how to name methods as there is in Controllers.
+
+#### View
+
+A typical bot just writes to a channel or uses the web client to react/unreact to a message. More complex bots will probably require more complex behaviors. These should be stored in a `SlackRubyBot::MVC::View::Base` subclass.
+
+```ruby
+class MyView < SlackRubyBot::MVC::View::Base
+  define_callbacks :logit
+  set_callbacks :logit, :around, :audit_trail
+
+  def initialize
+    @mailer = setup_mailer
+	@ftp = setup_ftp_handler
+  end
+
+  def email_admin(message)
+    run_callbacks :logit do
+	  @mailer.send(:administrator, message)
+	end
+  end
+
+  def react_thumbsup
+	client.web_client.reactions_add(
+	name: :thumbs_up,
+	channel: data.channel,
+	timestamp: data.ts,
+	as_user: true)
+  end
+
+  def react_thumbsdown
+	client.web_client.reactions_remove(
+	name: :thumbs_up,
+	channel: data.channel,
+	timestamp: data.ts,
+	as_user: true)
+  end
+
+  private
+
+  def audit_trail
+    Logger.audit("Sending email at [#{Time.now}]")
+	yield
+	Logger.audit("Email sent by [#{Time.now}]")
+  end
+end
+```
+Again, the View will have access to the most up to date `client`, `data`, and `match` objects. It will typically only use the `client` and `data` objects.
+
+View methods are not matched to routes, so there is no restriction on how to name methods as there is in Controllers.
+
 ### RSpec Shared Behaviors
 
 Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in your RSpec tests.
