@@ -295,7 +295,7 @@ module MyBot
 end
 ```
 
-Hooks can also be written as blocks inside the `SlackBotRuby::Server` class, for example
+Hooks can also be written as blocks inside the `SlackRubyBot::Server` class, for example
 
 ```ruby
 module MyBot
