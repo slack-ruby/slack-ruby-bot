@@ -2,7 +2,7 @@ module SlackRubyBot
   module MVC
     module Controller
       class Base
-        include ActiveSupport::Callbacks
+        include AbstractController::Callbacks
 
         class << self
           attr_reader :abstract
