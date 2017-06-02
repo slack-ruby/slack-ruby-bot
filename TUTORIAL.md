@@ -16,14 +16,13 @@ Create a `Gemfile` that uses [slack-ruby-bot](https://github.com/slack-ruby/slac
 source 'https://rubygems.org'
 
 gem 'slack-ruby-bot'
-gem 'puma'
+gem 'thin'
 gem 'sinatra'
 gem 'dotenv'
 gem 'celluloid-io'
 
 group :development, :test do
   gem 'rake'
-  gem 'foreman'
 end
 
 group :test do
@@ -102,17 +101,7 @@ Dotenv.load
 require 'slack-mathbot'
 require 'web'
 
-Thread.abort_on_exception = true
-
-Thread.new do
-  begin
-    SlackMathbot::Bot.run
-  rescue Exception => e
-    STDERR.puts "ERROR: #{e}"
-    STDERR.puts e.backtrace
-    raise e
-  end
-end
+SlackMathbot::Bot.run
 
 run SlackMathbot::Web
 ```
@@ -138,7 +127,7 @@ SLACK_API_TOKEN=...
 Create a `Procfile` which `foreman` will use when you run the `foreman start` command below.
 
 ```
-web: bundle exec puma -p $PORT
+web: bundle exec thin -p 5000 start
 ```
 
 ### Run the Bot
@@ -146,14 +135,13 @@ web: bundle exec puma -p $PORT
 Run `foreman start`. Your bot should be running.
 
 ```
-14:32:32 web.1  | Puma starting in single mode...
-14:32:32 web.1  | * Version 2.11.3 (ruby 2.1.6-p336), codename: Intrepid Squirrel
-14:32:32 web.1  | * Min threads: 0, max threads: 16
-14:32:32 web.1  | * Environment: development
-14:32:35 web.1  | * Listening on tcp://0.0.0.0:5000
-14:32:35 web.1  | Use Ctrl-C to stop
-14:32:36 web.1  | I, [2015-07-10T14:32:36.216663 #98948]  INFO -- : Welcome 'mathbot' to the 'xyz' team at https://xyz.slack.com/.
-14:32:36 web.1  | I, [2015-07-10T14:32:36.766955 #98948]  INFO -- : Successfully connected to https://xyz.slack.com/.
+21:58:06 web.1  | started with pid 8128
+21:58:09 web.1  | Using rack adapter
+21:58:09 web.1  | I, [2017-06-01T21:58:09.899562 #18032]  INFO -- : post https://slack.com/api/rtm.start
+21:58:09 web.1  | D, [2017-06-01T21:58:09.899562 #18032] DEBUG -- request: Accept: "application/json; charset=utf-8"
+21:58:09 web.1  | User-Agent: "Slack Ruby Client/0.8.1"
+21:58:09 web.1  | Content-Type: "application/x-www-form-urlencoded"
+21:58:13 web.1  | I, [2017-06-01T21:58:13.726575 #18032]  INFO -- Status: 200
 ```
 
 ### Try
