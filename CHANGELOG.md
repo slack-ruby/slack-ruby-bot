@@ -1,6 +1,5 @@
-### 0.10.2 (Next)
+### 0.10.2 (06/03/2017)
 
-* Your contribution here.
 * [#137](https://github.com/slack-ruby/slack-ruby-bot/pull/137): Add Model-View-Controller classes to allow for more explicit control over how `command`s are designed - [@chuckremes](https://github.com/chuckremes).
 * [#130](https://github.com/slack-ruby/slack-ruby-bot/issues/130): Added test dependencies in TUTORIAL.md - [@jbristow](https://github.com/jbristow).
 
