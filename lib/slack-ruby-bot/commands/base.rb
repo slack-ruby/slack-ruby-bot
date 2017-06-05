@@ -68,9 +68,9 @@ module SlackRubyBot
             called = true
             call = options[:call]
             if call
-              call.call(client, data, match)
+              call.call(client, data, match) if permitted?(client, data, match)
             elsif respond_to?(:call)
-              send(:call, client, data, match)
+              send(:call, client, data, match) if permitted?(client, data, match)
             else
               raise NotImplementedError, data.text
             end
@@ -114,6 +114,12 @@ module SlackRubyBot
         def finalize_routes!
           return if routes && routes.any?
           command default_command_name
+        end
+
+        # Intended to be overridden by subclasses to hook in an
+        # authorization mechanism.
+        def permitted?(_client, _data, _match)
+          true
         end
       end
     end
