@@ -95,3 +95,29 @@ describe SlackRubyBot::MVC::Controller::Base, 'execution' do
     expect(instance.__flag).to be_truthy
   end
 end
+
+describe SlackRubyBot::MVC::Controller::Base, 'command text conversion' do
+  let(:controller) do
+    Class.new(SlackRubyBot::MVC::Controller::Base) do
+      def quxo_foo_bar
+        client.say(channel: data.channel, text: "#{match[:command].downcase}: #{match[:expression]}")
+      end
+    end
+  end
+
+  after(:each) { controller.reset! }
+
+  it 'converts a command with spaces into a controller method with underscores separating the tokens' do
+    model = SlackRubyBot::MVC::Model::Base.new
+    view = SlackRubyBot::MVC::View::Base.new
+    controller.new(model, view)
+    expect(message: "  #{SlackRubyBot.config.user}   quxo foo bar red").to respond_with_slack_message('quxo foo bar: red')
+  end
+
+  it 'converts a command with upper case letters into a lower case method call' do
+    model = SlackRubyBot::MVC::Model::Base.new
+    view = SlackRubyBot::MVC::View::Base.new
+    controller.new(model, view)
+    expect(message: "  #{SlackRubyBot.config.user}   Quxo Foo Bar red").to respond_with_slack_message('quxo foo bar: red')
+  end
+end
