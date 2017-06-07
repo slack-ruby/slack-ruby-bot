@@ -1,6 +1,7 @@
 ### 0.10.3 (date)
 
 * Your contribution here.
+* [#144](https://github.com/slack-ruby/slack-ruby-bot/pull/144): Support usage of commands with embedded spaces when using Controller methods - [@chuckremes](https://github.com/chuckremes).
 
 ### 0.10.2 (06/03/2017)
 
