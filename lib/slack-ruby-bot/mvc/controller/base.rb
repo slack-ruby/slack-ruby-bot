@@ -55,10 +55,11 @@ module SlackRubyBot
 
             methods.each do |meth_name|
               next if meth_name[0] == '_'
+              method_name = convert_method_name(meth_name)
 
               # sprinkle a little syntactic sugar on top of existing `command` infrastructure
               command_class.class_eval do
-                command meth_name.to_s do |client, data, match|
+                command method_name do |client, data, match|
                   controller.use_args(client, data, match)
                   controller.call_command
                 end
@@ -75,6 +76,12 @@ module SlackRubyBot
           def internal_methods(controller)
             controller = controller.superclass until controller.abstract?
             controller.public_instance_methods(true)
+          end
+
+          private
+
+          def convert_method_name(name)
+            name.tr('_', ' ')
           end
         end
 
@@ -102,8 +109,14 @@ module SlackRubyBot
         # Determine the command issued and call the corresponding instance method
         def call_command
           verb = match.captures[match.names.index('command')]
-          verb = verb.downcase if verb
+          verb = normalize_command_string(verb)
           public_send(verb)
+        end
+
+        private
+
+        def normalize_command_string(string)
+          string.downcase.tr(' ', '_')
         end
       end
     end
