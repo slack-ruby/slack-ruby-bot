@@ -128,7 +128,7 @@ describe SlackRubyBot::MVC::Controller::Base, 'alternate command text conversion
       def quxo_foo_bar
         client.say(channel: data.channel, text: "quxo foo bar: #{match[:expression]}")
       end
-      alternate_name :quxo_foo_bar, :another_text_string
+      alternate_name :quxo_foo_bar, :another_text_string, :third_text_string
     end
   end
 
@@ -139,5 +139,12 @@ describe SlackRubyBot::MVC::Controller::Base, 'alternate command text conversion
     view = SlackRubyBot::MVC::View::Base.new
     controller.new(model, view)
     expect(message: "  #{SlackRubyBot.config.user}   another text string red").to respond_with_slack_message('quxo foo bar: red')
+  end
+
+  it 'allows for aliasing multiple names in a single call' do
+    model = SlackRubyBot::MVC::Model::Base.new
+    view = SlackRubyBot::MVC::View::Base.new
+    controller.new(model, view)
+    expect(message: "  #{SlackRubyBot.config.user}   third text string red").to respond_with_slack_message('quxo foo bar: red')
   end
 end
