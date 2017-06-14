@@ -105,11 +105,15 @@ module SlackRubyBot
           #  command 'quxo foo bar', 'another text string' do |*args|
           #    ..
           #  end
-          def alternate_name(original_name, alias_name)
+          def alternate_name(original_name, *alias_names)
             command_name = convert_method_name_to_command_string(original_name)
-            command_alias = convert_method_name_to_command_string(alias_name)
-            aliases[command_name] << command_alias
-            alias_method(alias_name, original_name)
+            command_aliases = alias_names.map do |name|
+              convert_method_name_to_command_string(name)
+            end
+
+            aliases[command_name] += command_aliases
+
+            alias_names.each { |alias_name| alias_method(alias_name, original_name) }
           end
 
           private
