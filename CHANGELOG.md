@@ -1,6 +1,5 @@
-### 0.10.3 (date)
+### 0.10.3 (06/15/2017)
 
-* Your contribution here.
 * [#145](https://github.com/slack-ruby/slack-ruby-bot/pull/145): Map multiple command strings to same controller method - [@chuckremes](https://github.com/chuckremes).
 * [#144](https://github.com/slack-ruby/slack-ruby-bot/pull/144): Support usage of commands with embedded spaces when using Controller methods - [@chuckremes](https://github.com/chuckremes).
 
