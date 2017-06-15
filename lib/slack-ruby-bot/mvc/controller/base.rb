@@ -16,6 +16,10 @@ module SlackRubyBot
             Base.instance_variable_get(:@command_class)
           end
 
+          def aliases
+            Base.instance_variable_get(:@aliases)
+          end
+
           def reset!
             # Remove any earlier anonymous classes from prior calls so we don't leak them
             Commands::Base.command_classes.delete(Controller::Base.command_class) if Base.command_class
@@ -43,6 +47,7 @@ module SlackRubyBot
           def register_controller(controller)
             # Only used to keep a reference around so the instance object doesn't get garbage collected
             Base.instance_variable_set(:@controllers, []) unless controllers
+            Base.instance_variable_set(:@aliases, Hash.new { |h, k| h[k] = [] }) unless aliases
             controller_ary = Base.instance_variable_get(:@controllers)
             controller_ary << controller
             klass = controller.class
@@ -53,15 +58,18 @@ module SlackRubyBot
                        # Be sure to include shadowed public instance methods of this class
                        klass.public_instance_methods(false)).uniq.map(&:to_s)
 
-            methods.each do |meth_name|
-              next if meth_name[0] == '_'
-              method_name = convert_method_name(meth_name)
+            methods.each do |name|
+              next if name[0] == '_'
+              commands = lookup_command_name(name)
 
-              # sprinkle a little syntactic sugar on top of existing `command` infrastructure
-              command_class.class_eval do
-                command method_name do |client, data, match|
-                  controller.use_args(client, data, match)
-                  controller.call_command
+              # Generates a command for each controller method *and* its aliases
+              commands.each do |command_string|
+                # sprinkle a little syntactic sugar on top of existing `command` infrastructure
+                command_class.class_eval do
+                  command command_string do |client, data, match|
+                    controller.use_args(client, data, match)
+                    controller.call_command
+                  end
                 end
               end
             end
@@ -78,10 +86,45 @@ module SlackRubyBot
             controller.public_instance_methods(true)
           end
 
+          # Maps a controller method name to an alternate command name. Used in cases where
+          # a command can be called via multiple text strings.
+          #
+          # Call this method *after* defining the original method.
+          #
+          #  Class.new(SlackRubyBot::MVC::Controller::Base) do
+          #    def quxo_foo_bar
+          #      client.say(channel: data.channel, text: "quxo foo bar: #{match[:expression]}")
+          #    end
+          #    # setup alias name after original method definition
+          #    alternate_name :quxo_foo_bar, :another_text_string
+          #  end
+          #
+          # This is equivalent to:
+          #
+          # e.g.
+          #  command 'quxo foo bar', 'another text string' do |*args|
+          #    ..
+          #  end
+          def alternate_name(original_name, *alias_names)
+            command_name = convert_method_name_to_command_string(original_name)
+            command_aliases = alias_names.map do |name|
+              convert_method_name_to_command_string(name)
+            end
+
+            aliases[command_name] += command_aliases
+
+            alias_names.each { |alias_name| alias_method(alias_name, original_name) }
+          end
+
           private
 
-          def convert_method_name(name)
-            name.tr('_', ' ')
+          def lookup_command_name(name)
+            name = convert_method_name_to_command_string(name)
+            [name] + aliases[name]
+          end
+
+          def convert_method_name_to_command_string(name)
+            name.to_s.tr('_', ' ')
           end
         end
 

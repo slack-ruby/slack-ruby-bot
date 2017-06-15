@@ -364,7 +364,7 @@ Consider the following `Agent` class which is the simplest default approach to t
 
 ```ruby
 class Agent < SlackRubyBot::Bot
-  command 'sayhello' do |client, data, match|
+  command 'sayhello', 'alternate way to call hello' do |client, data, match|
     client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
   end
 end
@@ -375,6 +375,7 @@ class MyController < SlackRubyBot::MVC::Controller::Base
   def sayhello
     client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
   end
+  alternate_name :sayhello, :alternate_way_to_call_hello
 end
 MyController.new(MyModel.new, MyView.new)
 ```
@@ -383,6 +384,8 @@ Note in the above example that the Controller instance method `sayhello` does no
 However, the Controller anticipates that the model and view objects should contain business logic that will also operate on the `client`, `data`, and `match` objects. The controller provides access to the model and view via the `model` and `view` accessor methods. The [inventory example](examples/inventory/inventorybot.rb) provides a full example of a Model, View, and Controller working together.
 
 A Controller may need helper methods for certain work. To prevent the helper method from creating a route that the bot will respond to directly, the instance method name should begin with an underscore (e.g. `_my_helper_method`). When building the bot routes, these methods will be skipped.
+
+Calling `alternate_name` after the method definition allows for method aliases similar to the regular `command` structure. When commands can be triggered by multiple text strings it's useful to have that ability map to the controller methods too.
 
 Lastly, the Controller class includes `ActiveSupport::Callbacks` which allows for full flexibility in creating `before`, `after`, and `around` hooks for all methods. Again, see the [inventory example](examples/inventory/inventorybot.rb) for more information.
 
