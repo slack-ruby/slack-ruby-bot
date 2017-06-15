@@ -368,6 +368,7 @@ class Agent < SlackRubyBot::Bot
     client.say(channel: data.channel, text: "Received command #{match[:command]} with args #{match[:expression]}")
   end
 end
+```
 
 Using the MVC functionality, we would create a controller instead to encapsulate this function.
 ```ruby
@@ -407,18 +408,18 @@ class MyModel < SlackRubyBot::MVC::Model::Base
 
   def read(resource)
     self._resource = resource
-	run_callbacks :sanitize do
-		@db.select(:column1 => resource)
-		# ... do some expensive work
-	end
+    run_callbacks :sanitize do
+      @db.select(:column1 => resource)
+      # ... do some expensive work
+    end
   end
 
   private
 
   def sanitize_resource
     self._resource.downcase
-	result = yield
-	puts "After read, result is #{result.inspect}"
+    result = yield
+    puts "After read, result is #{result.inspect}"
   end
 end
 ```
@@ -438,37 +439,37 @@ class MyView < SlackRubyBot::MVC::View::Base
 
   def initialize
     @mailer = setup_mailer
-	@ftp = setup_ftp_handler
+    @ftp = setup_ftp_handler
   end
 
   def email_admin(message)
     run_callbacks :logit do
-	  @mailer.send(:administrator, message)
-	end
+      @mailer.send(:administrator, message)
+    end
   end
 
   def react_thumbsup
-	client.web_client.reactions_add(
-	name: :thumbs_up,
-	channel: data.channel,
-	timestamp: data.ts,
-	as_user: true)
+    client.web_client.reactions_add(
+      name: :thumbs_up,
+      channel: data.channel,
+      timestamp: data.ts,
+      as_user: true)
   end
 
   def react_thumbsdown
-	client.web_client.reactions_remove(
-	name: :thumbs_up,
-	channel: data.channel,
-	timestamp: data.ts,
-	as_user: true)
+    client.web_client.reactions_remove(
+      name: :thumbs_up,
+      channel: data.channel,
+      timestamp: data.ts,
+      as_user: true)
   end
 
   private
 
   def audit_trail
     Logger.audit("Sending email at [#{Time.now}]")
-	yield
-	Logger.audit("Email sent by [#{Time.now}]")
+    yield
+    Logger.audit("Email sent by [#{Time.now}]")
   end
 end
 ```
