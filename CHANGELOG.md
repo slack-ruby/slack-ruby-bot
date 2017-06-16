@@ -1,6 +1,7 @@
 ### 0.10.4 (date)
 
 * Your contribution here.
+* [#143](https://github.com/slack-ruby/slack-ruby-bot/pull/143): Provide `permitted?` method to allow for simple authorization extensions - [@chuckremes](https://github.com/chuckremes).
 
 ### 0.10.3 (06/15/2017)
 

@@ -212,6 +212,25 @@ class Phone < SlackRubyBot::Commands::Base
 end
 ```
 
+### Authorization
+
+The framework does not provide any user authentication or command authorization capability out of the box. However, the `SlackRubyBot::Commands::Base` class does check every command invocation for permission prior to executing the command. The default method always returns true.
+
+Therefore, subclasses of `SlackRubyBot::Commands::Base` can override the `permitted?` private method to provide its own authorization logic. This method is intended to be exploited by user code or external gems that want to provide custom authorization logic for command execution.
+
+```ruby
+class AuthorizedBot < SlackRubyBot::Commands::Base
+  command 'phone home' do |client, data, match|
+    client.say(channel: data.channel, text: 'Elliot!')
+  end
+
+  # Only allow user 'Uxyzabc' to run this command
+  def self.permitted?(client, data, match)
+    data && data.user && data.user == 'Uxyzabc'
+  end
+end
+```
+
 ### Animated GIFs
 
 The `SlackRubyBot::Client` implementation comes with GIF support.
