@@ -1,6 +1,6 @@
 require 'rspec/expectations'
 
-RSpec::Matchers.define :not_respond do |expected|
+RSpec::Matchers.define :not_respond do
   match do |actual|
     client = if respond_to?(:client)
                send(:client)

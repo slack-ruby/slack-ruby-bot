@@ -12,4 +12,9 @@ describe SlackRubyBot::Commands::Unknown do
     expect(SlackRubyBot::Commands::Base).to_not receive(:send_message)
     message_hook.call(client, Hashie::Mash.new(text: ':((', channel: 'channel', user: 'user'))
   end
+  it 'invalid command does not respond when mute' do
+    SlackRubyBot::Config.mute = true
+    expect(message: "#{SlackRubyBot.config.user} foobar").to not_respond
+    SlackRubyBot::Config.mute = false
+  end
 end

@@ -23,4 +23,10 @@ MSG
 
     expect(message: "#{SlackRubyBot.config.user} help").to respond_with_slack_message(message)
   end
+
+  it 'does not respond when mute' do
+    SlackRubyBot::Config.mute = true
+    expect(message: "#{SlackRubyBot.config.user} help").to not_respond
+    SlackRubyBot::Config.mute = false
+  end
 end
