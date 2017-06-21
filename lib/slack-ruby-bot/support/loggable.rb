@@ -7,7 +7,7 @@ module SlackRubyBot
 
     module ClassMethods
       def logger
-        @logger ||= begin
+        @logger ||= SlackRubyBot::Config.logger || begin
           $stdout.sync = true
           Logger.new($stdout)
         end
