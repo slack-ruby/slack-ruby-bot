@@ -42,4 +42,15 @@ describe SlackRubyBot::Hooks::HookSupport do
       end.to change { object.hooks.handlers.size }.by(2)
     end
   end
+
+  describe '#on' do
+    subject { super().new }
+    it 'delegates to `hooks.add` method' do
+      event_name = :message_received
+      handler = ->(_, _) {}
+
+      expect(subject.hooks).to receive(:add).with(event_name, handler).and_call_original
+      subject.on(event_name, handler)
+    end
+  end
 end

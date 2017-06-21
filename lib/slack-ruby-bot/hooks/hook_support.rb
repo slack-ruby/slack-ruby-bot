@@ -21,6 +21,10 @@ module SlackRubyBot
         @hooks ||= SlackRubyBot::Hooks::Set.new
       end
 
+      def on(event_name, handler)
+        hooks.add(event_name, handler)
+      end
+
       def flush_hook_blocks
         return nil unless self.class.hook_blocks
 
