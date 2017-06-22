@@ -12,7 +12,7 @@ describe SlackRubyBot::Hooks::Set do
       end.to change(subject, :handlers)
 
       expect(subject.handlers).to have_key(:message)
-      expect(subject.handlers[:message]).to eq [handler]
+      expect(subject.handlers[:message]).to eq Set.new.add(handler)
     end
 
     it 'lets you add multiple handlers for the same hook' do
@@ -25,7 +25,7 @@ describe SlackRubyBot::Hooks::Set do
       end.to change(subject, :handlers)
 
       expect(subject.handlers).to have_key(:message)
-      expect(subject.handlers[:message]).to eq [handler_1, handler_2]
+      expect(subject.handlers[:message]).to eq Set.new([handler_1, handler_2])
     end
   end
 
