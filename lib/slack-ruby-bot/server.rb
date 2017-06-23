@@ -101,7 +101,7 @@ module SlackRubyBot
           @client = nil
           restart! unless @stopping
         end
-        hooks.client = client
+        _hooks.client = client
 
         client
       end

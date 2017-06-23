@@ -35,11 +35,11 @@ describe SlackRubyBot::Hooks::HookSupport do
     it 'registers class hook blocks as hook handlers in set' do
       object = subject.new
 
-      expect(object.hooks).to receive(:add).exactly(3).times.and_call_original
+      expect(object.send(:_hooks)).to receive(:add).exactly(3).times.and_call_original
 
       expect do
         object.flush_hook_blocks
-      end.to change { object.hooks.handlers.size }.by(2)
+      end.to change { object.send(:_hooks).handlers.size }.by(2)
     end
   end
 
@@ -49,8 +49,20 @@ describe SlackRubyBot::Hooks::HookSupport do
       event_name = :message_received
       handler = ->(_, _) {}
 
-      expect(subject.hooks).to receive(:add).with(event_name, handler).and_call_original
+      expect(subject.send(:_hooks)).to receive(:add).with(event_name, handler).and_call_original
       subject.on(event_name, handler)
+    end
+  end
+
+  describe '#hooks' do
+    subject { super().new }
+    it { expect(subject.hooks).to eq subject.send(:_hooks) }
+  end
+
+  describe '#_hooks' do
+    it 'returns a SlackRubyBot::Hooks::Set instance' do
+      hooks_set = subject.new.send(:_hooks)
+      expect(hooks_set).to be_a SlackRubyBot::Hooks::Set
     end
   end
 end
