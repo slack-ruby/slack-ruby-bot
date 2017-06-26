@@ -1,6 +1,25 @@
 Upgrading SlackRubyBot
 ======================
 
+### Upgrading to >= 0.10.4
+
+#### Replace `server.hooks.add` with `server.on`
+
+We have deprecated `SlackRubyBot::Server#hooks` in favor of `SlackRubyBot::Server#on` instance method. All users using `SlackRubyBot::Server#hooks` method should
+change their codebase and use the new method instead. Method signature is not affected.
+
+Example:
+
+```ruby
+  # Given server is an instance of SlackRubyBot::Server
+  #
+  # Before
+  server.hooks.add :hello, Greet.new
+
+  # After
+  server.on :hello, Greet.new
+```
+
 ### Upgrading to >= 0.9.0
 
 #### Add giphy to your Gemfile for GIF support

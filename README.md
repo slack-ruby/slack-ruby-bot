@@ -280,22 +280,37 @@ Hooks are event handlers and respond to Slack RTM API [events](https://api.slack
 
 A Hook Handler is any object that respond to a `call` message, like a proc, instance of an object, class with a `call` class method, etc.
 
-Hooks are registered onto the `SlackRubyBot::Server` instance, by way of a configuration hash
+Hooks can be registered using different methods based on user preference / use case. 
+Currently someone can use one of the following methods: 
+
+* Pass `hooks` in `SlackRubyBot::Server` initialization.
+* Register `hooks` on `SlackRubyBot::Server` using `on` class method.
+* Register `hooks` on `SlackRubyBot::Server` using `on` instance method.
+
+
+##### Hooks registration on `SlackRubyBot::Server` initialization
 
 ```ruby
 SlackRubyBot::Server.new(hook_handlers: {
-  hello: MyBot::Hooks::UserChange.new
+  hello: MyBot::Hooks::UserChange.new,
+  user_change: [->(client, data) {  }, ->(client, data) {}]
 })
 ```
 
-or at any time by pushing it to the `HookSet`
+##### Hooks registration on a `SlackRubyBot::Server` instance
 
 ```ruby
-# Push an object that implements the
-server.hooks.add(:hello, MyBot::Hooks::UserChange.new)
+# Register an object that implements `call` method
+class MyBot::Hooks::Hello
+  def call(client, data)
+    puts "Hello"
+  end
+end
 
-# Push a lambda to handle the event
-server.hooks.add(:hello, ->(client, data) { puts "Hello!" })
+server.on(:hello, MyBot::Hooks::Hello.new)
+
+# or register a lambda function to handle the event
+server.on(:hello, ->(client, data) { puts "Hello!" })
 ```
 
 For example, the following hook handles [user_change](https://api.slack.com/events/user_change), an event sent when a team member updates their profile or data. This can be useful to update the local user cache when a user is renamed.
@@ -307,14 +322,16 @@ module MyBot
       def call(client, data)
         # data['user']['id'] contains the user ID
         # data['user']['name'] contains the new user name
-        ...
+        # ...
       end
     end
   end
 end
 ```
 
-Hooks can also be written as blocks inside the `SlackRubyBot::Server` class, for example
+##### Hooks registration on `SlackRubyBot::Server` class
+
+Example:
 
 ```ruby
 module MyBot
@@ -323,6 +340,11 @@ module MyBot
       # data['user']['id'] contains the user ID
       # data['user']['name'] contains the new user name
     end
+    
+    on 'user_change', ->(client, data) {      
+      # data['user']['id'] contains the user ID
+      # data['user']['name'] contains the new user name
+    }
   end
 end
 ```
@@ -330,6 +352,19 @@ end
 These will get pushed into the hook set on initialization.
 
 Either by configuration, explicit assignment or hook blocks, multiple handlers can exist for the same event type.
+
+
+#### Deprecated hook registration
+
+Registering a hook method using `hooks.add` is considered deprecated and
+will be removed on future versions.
+
+```ruby
+# [DEPRECATED]
+server.hooks.add(:hello, MyBot::Hooks::UserChange.new)
+server.hooks.add(:hello, ->(client, data) { puts "Hello!" })
+
+```
 
 ### Message Loop Protection
 

@@ -18,7 +18,12 @@ module SlackRubyBot
 
       # Instance stuff
       def hooks
-        @hooks ||= SlackRubyBot::Hooks::Set.new
+        warn Kernel.caller.first + ' [DEPRECATION] `hooks` method is deprecated. Please use `server.on` instead to register a hook.'
+        _hooks
+      end
+
+      def on(event_name, handler)
+        _hooks.add(event_name, handler)
       end
 
       def flush_hook_blocks
@@ -27,11 +32,18 @@ module SlackRubyBot
         add_hook_handlers(self.class.hook_blocks)
       end
 
+      # TODO: This should be deprecated in favor of `on`
       def add_hook_handlers(handler_hash)
         handler_hash.each do |hook, handlers|
-          Array(handlers).each { |handler| hooks.add(hook, handler) }
+          Array(handlers).each { |handler| on(hook, handler) }
         end
       end
+
+      # Temp use this method in order to deprecate `hooks` and revisit
+      def _hooks
+        @hooks ||= SlackRubyBot::Hooks::Set.new
+      end
+      private :_hooks
     end
   end
 end

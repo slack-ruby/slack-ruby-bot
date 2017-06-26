@@ -11,12 +11,10 @@ module SlackRubyBot
       end
 
       def add(hook_name, handler)
-        if handlers[hook_name].present?
-          handlers[hook_name] << handler
-        else
-          handlers[hook_name] = [handler]
-          register_callback(hook_name)
-        end
+        handlers[hook_name] ||= ::Set.new
+        handlers[hook_name] << handler
+
+        register_callback(hook_name)
       end
 
       def client=(client)
