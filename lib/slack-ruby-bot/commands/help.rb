@@ -15,7 +15,7 @@ module SlackRubyBot
                  general_text
                end
 
-        client.say(channel: data.channel, text: text, gif: 'help')
+        client.say(channel: data.channel, text: text, gif: 'help') unless SlackRubyBot::Config.mute
       end
 
       class << self

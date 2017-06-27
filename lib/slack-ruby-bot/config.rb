@@ -2,7 +2,7 @@ module SlackRubyBot
   module Config
     extend self
 
-    ATTRS = [:token, :url, :aliases, :user, :user_id, :team, :team_id, :allow_message_loops, :send_gifs].freeze
+    ATTRS = [:token, :url, :aliases, :user, :user_id, :team, :team_id, :allow_message_loops, :send_gifs, :mute].freeze
     attr_accessor(*ATTRS)
 
     def allow_message_loops?

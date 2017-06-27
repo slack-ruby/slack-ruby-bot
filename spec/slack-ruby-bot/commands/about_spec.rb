@@ -11,4 +11,9 @@ describe SlackRubyBot::Commands::Default do
   it 'id' do
     expect(message: "<@#{SlackRubyBot.config.user_id}>").to respond_with_slack_message(SlackRubyBot::ABOUT)
   end
+  it 'does not respond when mute' do
+    SlackRubyBot::Config.mute = true
+    expect(message: SlackRubyBot.config.user).to not_respond
+    SlackRubyBot::Config.mute = true
+  end
 end
