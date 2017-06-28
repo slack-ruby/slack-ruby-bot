@@ -378,10 +378,20 @@ end
 
 ### Logging
 
-By default bots set a logger to `STDOUT` with `DEBUG` level. The logger is used in both the RealTime and Web clients. Silence logger as follows.
+By default bots set a logger to `$stdout` with `DEBUG` level. The logger is used in both the RealTime and Web clients.
+
+Silence logger as follows.
 
 ```ruby
 SlackRubyBot::Client.logger.level = Logger::WARN
+```
+
+If you wish to customize logger, set `logger` to your logger.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.logger = Logger.new("slack-ruby-bot.log", "daily")
+end
 ```
 
 ### Advanced Integration
