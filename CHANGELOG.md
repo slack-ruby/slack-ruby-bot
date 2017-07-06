@@ -1,3 +1,7 @@
+### 0.10.5 (date)
+
+* Your contribution here.
+
 ### 0.10.4 (07/05/2017)
 
 * [#149](https://github.com/slack-ruby/slack-ruby-bot/pull/149): Add `logger` configuration to set a custom logger - [@upscent](https://github.com/upscent).
