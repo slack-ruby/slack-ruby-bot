@@ -1,6 +1,5 @@
-### 0.10.4 (date)
+### 0.10.4 (07/05/2017)
 
-* Your contribution here.
 * [#149](https://github.com/slack-ruby/slack-ruby-bot/pull/149): Add `logger` configuration to set a custom logger - [@upscent](https://github.com/upscent).
 * [#147](https://github.com/slack-ruby/slack-ruby-bot/pull/147): Adds `server.on` as a shortcut for `hooks.add` and deprecate `hooks` method - [@laertispappas](https://github.com/laertispappas).
 * [#143](https://github.com/slack-ruby/slack-ruby-bot/pull/143): Provide `permitted?` method to allow for simple authorization extensions - [@chuckremes](https://github.com/chuckremes).
