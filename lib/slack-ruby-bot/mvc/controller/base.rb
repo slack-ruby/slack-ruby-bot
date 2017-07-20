@@ -9,24 +9,31 @@ module SlackRubyBot
           alias abstract? abstract
 
           def controllers
-            Base.instance_variable_get(:@controllers)
+            get_or_set_ivar(:@controllers, [])
           end
 
           def command_class
-            Base.instance_variable_get(:@command_class)
+            get_or_set_ivar(:@command_class, Class.new(SlackRubyBot::Commands::Base))
           end
 
           def aliases
-            Base.instance_variable_get(:@aliases)
+            get_or_set_ivar(:@aliases, Hash.new { |h, k| h[k] = [] })
+          end
+
+          def get_or_set_ivar(name, value)
+            unless (ivar = Base.instance_variable_get(name))
+              ivar = value
+              Base.instance_variable_set(name, ivar)
+            end
+            ivar
           end
 
           def reset!
             # Remove any earlier anonymous classes from prior calls so we don't leak them
             Commands::Base.command_classes.delete(Controller::Base.command_class) if Base.command_class
 
-            # Create anonymous class to hold our #commands; required by SlackRubyBot::Commands::Base
-            Base.instance_variable_set(:@command_class, Class.new(SlackRubyBot::Commands::Base))
-            Base.instance_variable_set(:@controllers, [])
+            Base.instance_variable_set(:@command_class, nil)
+            Base.instance_variable_set(:@controllers, nil)
           end
 
           # Define a controller as abstract. See internal_methods for more
@@ -46,10 +53,7 @@ module SlackRubyBot
 
           def register_controller(controller)
             # Only used to keep a reference around so the instance object doesn't get garbage collected
-            Base.instance_variable_set(:@controllers, []) unless controllers
-            Base.instance_variable_set(:@aliases, Hash.new { |h, k| h[k] = [] }) unless aliases
-            controller_ary = Base.instance_variable_get(:@controllers)
-            controller_ary << controller
+            controllers << controller
             klass = controller.class
 
             methods = (klass.public_instance_methods(true) -
