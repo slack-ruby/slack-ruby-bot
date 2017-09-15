@@ -1,7 +1,7 @@
 require 'rspec/expectations'
-
-RSpec::Matchers.define :respond_with_slack_message do |expected|
+RSpec::Matchers.define :respond_with_slack_messages do |expected|
   match do |actual|
+    raise ArgumentError, 'respond_with_slack_messages expects an array of ordered responses' unless expected.is_a? Array
     client = if respond_to?(:client)
                send(:client)
              else
@@ -15,11 +15,13 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
 
     allow(client).to receive(:message)
     message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
-    expect(client).to have_received(:message).with(channel: channel, text: expected).once
+    expected.each do |exp|
+      expect(client).to have_received(:message).with(channel: channel, text: exp).once
+    end
     true
   end
 
-  private
+private
 
   def parse(actual)
     actual = { message: actual } unless actual.is_a?(Hash)
