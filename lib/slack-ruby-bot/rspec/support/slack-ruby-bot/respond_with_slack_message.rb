@@ -1,5 +1,6 @@
 require 'rspec/expectations'
 RSpec::Matchers.define :respond_with_slack_message do |expected|
+  include SlackRubyBot::SpecHelpers
   match do |actual|
     client = respond_to?(:client) ? send(:client) : SlackRubyBot::Client.new
     def client.test_messages
@@ -27,12 +28,5 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
   failure_message do |_actual|
     message = "expected to receive message with text: #{expected} once, received #{@messages}"
     message
-  end
-
-  private
-
-  def parse(actual)
-    actual = { message: actual } unless actual.is_a?(Hash)
-    [actual[:channel] || 'channel', actual[:user] || 'user', actual[:message]]
   end
 end
