@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://slack.com/api/rtm.start
+    uri: https://slack.com/api/rtm.connect
     body:
       string: token=token
   response:
@@ -16,7 +16,7 @@ http_interactions:
   recorded_at: Tue, 28 Apr 2015 12:55:22 GMT
 - request:
     method: post
-    uri: https://slack.com/api/rtm.start
+    uri: https://slack.com/api/rtm.connect
     body:
       string: token=token
   response:

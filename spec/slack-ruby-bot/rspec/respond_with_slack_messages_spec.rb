@@ -25,4 +25,10 @@ describe RSpec do
     expect(message: "#{SlackRubyBot.config.user} respond 5 times")
       .to respond_with_slack_messages(expected_responses)
   end
+  it 'not_respond_with_multiple_messages_using_string_matches' do
+    expected_responses = []
+    6.times { |i| expected_responses.push("response #{i}") }
+    expect(message: "#{SlackRubyBot.config.user} respond 5 times")
+      .not_to respond_with_slack_messages(expected_responses)
+  end
 end
