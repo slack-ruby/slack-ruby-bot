@@ -9,8 +9,8 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
 
     def client.say(options = {})
       super
-      @test_received_messages = @test_received_messages.nil? ? '' : @test_received_messages
-      @test_received_messages += "#{options.inspect}\n"
+      @test_received_messages = @test_received_messages.nil? ? [] : @test_received_messages
+      @test_received_messages.push options
     end
 
     message_command = SlackRubyBot::Hooks::Message.new
@@ -26,7 +26,8 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
   end
 
   failure_message do |_actual|
-    message = "expected to receive message with text: #{expected} once, received #{@messages}"
+    message = "expected to receive message with text: #{expected} once,\n received:"
+    message += @messages.count.zero? ? 'No response messages received' : @messages.inspect
     message
   end
 end
