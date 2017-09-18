@@ -28,8 +28,10 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
     true
   end
   failure_message do |_actual|
-    message = "expected to receive messages in order with text: #{expected}\n received:"
-    message += @messages.count.zero? ? 'No response messages received' : @messages.inspect
+    message = ''
+    expected.each do |exp|
+      message += "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'No Response'}"
+    end
     message
   end
 end
