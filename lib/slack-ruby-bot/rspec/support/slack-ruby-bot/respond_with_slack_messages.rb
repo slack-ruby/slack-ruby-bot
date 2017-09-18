@@ -30,7 +30,7 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
   failure_message do |_actual|
     message = ''
     expected.each do |exp|
-      message += "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'No Response'}"
+      message += "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'No Response'}\n"
     end
     message
   end
