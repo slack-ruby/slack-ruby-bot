@@ -1,7 +1,8 @@
 require 'rspec/expectations'
-RSpec::Matchers.define :respond_with_slack_message do |expected|
+RSpec::Matchers.define :respond_with_slack_messages do |expected|
   include SlackRubyBot::SpecHelpers
   match do |actual|
+    raise ArgumentError, 'respond_with_slack_messages expects an array of ordered responses' unless expected.respond_to? :each
     client = respond_to?(:client) ? send(:client) : SlackRubyBot::Client.new
     def client.test_messages
       @test_received_messages
@@ -21,13 +22,17 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
     allow(client).to receive(:message)
     message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
     @messages = client.test_messages
-    expect(client).to have_received(:message).with(channel: channel, text: expected).once
+    @responses = []
+    expected.each do |exp|
+      @responses.push(expect(client).to(have_received(:message).with(channel: channel, text: exp).once))
+    end
     true
   end
-
   failure_message do |_actual|
-    message = "expected to receive message with text: #{expected} once,\n received:"
-    message += @messages.count.zero? ? 'No response messages received' : @messages.inspect
+    message = ''
+    expected.each do |exp|
+      message += "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'No Response'}\n" unless @responses[expected.index(exp)]
+    end
     message
   end
 end

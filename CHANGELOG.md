@@ -1,6 +1,7 @@
 ### 0.10.5 (Next)
 
 * Refactored `SlackRubyBot::MVC::Controller::Base`, consolidated ivar handling, centralized object allocations and DRYed up the code - [@chuckremes](https://github.com/chuckremes).
+* [#157](https://github.com/slack-ruby/slack-ruby-bot/pull/157): Added `respond_with_slack_messages` expectation - [@gcraig99](https://github.com/gcraig99).
 * Your contribution here.
 
 ### 0.10.4 (07/05/2017)
