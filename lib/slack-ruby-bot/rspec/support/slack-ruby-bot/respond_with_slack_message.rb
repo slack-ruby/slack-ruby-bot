@@ -21,7 +21,7 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
     allow(client).to receive(:message)
     message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
     @messages = client.test_messages
-    expect(client).to have_received(:message).with(channel: channel, text: expected).once
+    expect(client).to have_received(:message).with(hash_including(channel: channel, text: expected)).once
     true
   end
 

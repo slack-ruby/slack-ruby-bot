@@ -24,7 +24,7 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
     @messages = client.test_messages
     @responses = []
     expected.each do |exp|
-      @responses.push(expect(client).to(have_received(:message).with(channel: channel, text: exp).once))
+      @responses.push(expect(client).to(have_received(:message).with(hash_including(channel: channel, text: exp)).once))
     end
     true
   end

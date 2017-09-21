@@ -1,6 +1,9 @@
 describe RSpec do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
+      command 'single message with as_user' do |client, data, _match|
+        client.say(text: 'single response', channel: data.channel, as_user: true)
+      end
       command 'single message' do |client, data, _match|
         client.say(text: 'single response', channel: data.channel)
       end
@@ -30,6 +33,10 @@ describe RSpec do
   it 'respond_with_single_message_using_string_match' do
     expect(message: "#{SlackRubyBot.config.user} single message")
       .to respond_with_slack_message('single response')
+  end
+  it 'respond_with_single_message_using_regex_match_with_extra_args' do
+    expect(message: "#{SlackRubyBot.config.user} single message with as_user")
+      .to respond_with_slack_message(/single response/i)
   end
   it 'respond_with_multiple_messages_looking_for_single_match' do
     expect(message: "#{SlackRubyBot.config.user} respond 5 times")
