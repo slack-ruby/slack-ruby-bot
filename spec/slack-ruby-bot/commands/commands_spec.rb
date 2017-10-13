@@ -27,11 +27,11 @@ describe SlackRubyBot::Commands do
   end
   it 'checks that bot mentioned in message' do
     bot_names = ['rubybot', '<@deadbeef>', '<@deadbeef>:', 'rubybot:']
-    expect(command.send(:bot_mentioned_in_message?, 'rubybot', bot_names)).to be true
-    expect(command.send(:bot_mentioned_in_message?, 'rubybot ', bot_names)).to be true
-    expect(command.send(:bot_mentioned_in_message?, 'rubybotbot', bot_names)).to be false
-    expect(command.send(:bot_mentioned_in_message?, 'rubybot:', bot_names)).to be true
-    expect(command.send(:bot_mentioned_in_message?, 'rubybot: ', bot_names)).to be true
-    expect(command.send(:bot_mentioned_in_message?, 'rubybot:bot', bot_names)).to be false
+    expect(command.send(:message_begins_with_bot_mention?, 'rubybot', bot_names)).to be true
+    expect(command.send(:message_begins_with_bot_mention?, 'rubybot ', bot_names)).to be true
+    expect(command.send(:message_begins_with_bot_mention?, 'rubybotbot', bot_names)).to be false
+    expect(command.send(:message_begins_with_bot_mention?, 'rubybot:', bot_names)).to be true
+    expect(command.send(:message_begins_with_bot_mention?, 'rubybot: ', bot_names)).to be true
+    expect(command.send(:message_begins_with_bot_mention?, 'rubybot:bot', bot_names)).to be false
   end
 end
