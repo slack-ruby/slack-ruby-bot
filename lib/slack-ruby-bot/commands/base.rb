@@ -35,7 +35,7 @@ module SlackRubyBot
           CommandsHelper.instance.capture_help(self, &block)
         end
 
-        def default_command_name
+        def command_name_from_class
           name ? name.split(':').last.downcase : object_id.to_s
         end
 
@@ -52,7 +52,7 @@ module SlackRubyBot
         def invoke(client, data)
           finalize_routes!
           expression, text = parse(client, data)
-          called = false
+          return false unless expression
           routes.each_pair do |route, options|
             match_method = options[:match_method]
             case match_method
@@ -65,36 +65,38 @@ module SlackRubyBot
               match = expression.scan(route)
               next unless match.any?
             end
-            called = true
-            call = options[:call]
-            if call
-              call.call(client, data, match) if permitted?(client, data, match)
-            elsif respond_to?(:call)
-              send(:call, client, data, match) if permitted?(client, data, match)
-            else
-              raise NotImplementedError, data.text
-            end
-            break
-          end if expression
-          called
+            call_command(client, data, match, options[:block])
+            return true
+          end
+          false
         end
 
         def match(match, &block)
           self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :match, call: block }
+          self.routes[match] = { match_method: :match, block: block }
         end
 
         def scan(match, &block)
           self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :scan, call: block }
+          self.routes[match] = { match_method: :scan, block: block }
         end
 
         private
 
+        def call_command(client, data, match, block)
+          if block
+            block.call(client, data, match) if permitted?(client, data, match)
+          elsif respond_to?(:call)
+            send(:call, client, data, match) if permitted?(client, data, match)
+          else
+            raise NotImplementedError, data.text
+          end
+        end
+
         def parse(client, data)
           text = data.text
           return text unless direct_message?(data) && message_from_another_user?(data)
-          return text if bot_mentioned_in_message?(text, client.names)
+          return text if message_begins_with_bot_mention?(text, client.names)
           ["#{client.name} #{text}", text]
         end
 
@@ -106,14 +108,14 @@ module SlackRubyBot
           data.user && data.user != SlackRubyBot.config.user_id
         end
 
-        def bot_mentioned_in_message?(text, bot_names)
+        def message_begins_with_bot_mention?(text, bot_names)
           bot_names = bot_names.join('|')
           !!text.downcase.match(/\A(#{bot_names})\s|\A(#{bot_names})\z/)
         end
 
         def finalize_routes!
           return if routes && routes.any?
-          command default_command_name
+          command command_name_from_class
         end
 
         # Intended to be overridden by subclasses to hook in an
