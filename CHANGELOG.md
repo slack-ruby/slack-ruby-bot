@@ -4,6 +4,7 @@
 * [#157](https://github.com/slack-ruby/slack-ruby-bot/pull/157): Added `respond_with_slack_messages` expectation - [@gcraig99](https://github.com/gcraig99).
 * [#160](https://github.com/slack-ruby/slack-ruby-bot/pull/160): Fixed `respond_with_slack_message(s)` expectation failures - [@gcraig99](https://github.com/gcraig99).
 * [#163](https://github.com/slack-ruby/slack-ruby-bot/pull/163): Allow `command` to accept regular expressions - [@kstole](https://github.com/kstole).
+* [#166](https://github.com/slack-ruby/slack-ruby-bot/pull/166): Allow special characters and capitals in bot aliases - [@kstole](https://github.com/kstole).
 * Your contribution here.
 
 ### 0.10.4 (07/05/2017)
