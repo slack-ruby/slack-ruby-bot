@@ -14,8 +14,8 @@ module SlackRubyBot
       [
         SlackRubyBot::Config.user,
         self.self ? self.self.name : nil,
-        aliases,
-        SlackRubyBot::Config.aliases,
+        aliases ? aliases.map(&:downcase) : nil,
+        SlackRubyBot::Config.aliases ? SlackRubyBot::Config.aliases.map(&:downcase) : nil,
         self.self && self.self.id ? "<@#{self.self.id.downcase}>" : nil,
         SlackRubyBot::Config.user_id ? "<@#{SlackRubyBot::Config.user_id.downcase}>" : nil,
         self.self && self.self.id ? "<@#{self.self.id.downcase}>:" : nil,

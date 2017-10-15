@@ -46,7 +46,7 @@ module SlackRubyBot
 
         def command(*values, &block)
           values = values.map { |value| value.is_a?(Regexp) ? value.source : Regexp.escape(value) }.join('|')
-          match Regexp.new("^(?<bot>[[:alnum:][:punct:]@<>]*)[\\s]+(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE), &block
+          match Regexp.new("^#{bot_matcher}[\\s]+(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE), &block
         end
 
         def invoke(client, data)
@@ -79,6 +79,10 @@ module SlackRubyBot
         def scan(match, &block)
           self.routes ||= ActiveSupport::OrderedHash.new
           self.routes[match] = { match_method: :scan, block: block }
+        end
+
+        def bot_matcher
+          '(?<bot>\S*)'
         end
 
         private
