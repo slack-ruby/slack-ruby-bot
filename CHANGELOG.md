@@ -1,3 +1,7 @@
+### 0.10.6 (Next)
+
+* Your contribution here.
+
 ### 0.10.5 (10/15/2017)
 
 * Refactored `SlackRubyBot::MVC::Controller::Base`, consolidated ivar handling, centralized object allocations and DRYed up the code - [@chuckremes](https://github.com/chuckremes).
