@@ -106,6 +106,21 @@ end
 
 Operator match data includes `match['operator']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` setting.
 
+You can reply to a message in a thread (or keep sending to the current thread) :
+
+```ruby
+command('reply in thread') do |client, data, match|
+  client.say(
+    channel: data.channel,
+    text: "let's avoid spamming everyone, I will tell you what you need in this thread",
+    thread_ts: (data.thread_ts || data.ts) 
+  )
+end
+```
+Note that using only `thread_ts: data.ts` can cause some permanent issues where Slack will keep reporting inaccessible messages as unread. As recommended by the slack documentation, the replies to a thread should always be sent to message `ts` that started the thread, available as `thread_ts` for subsequent messages. Hence `data.thread_ts || data.ts`.
+
+For additional options including broadcasting, refer to [slack-ruby-client#chat_postMessage](https://github.com/slack-ruby/slack-ruby-client/blob/41539c647ac877400f20aa338aa42d2ebfd2866b/lib/slack/web/api/endpoints/chat.rb#L105)
+
 ### Bot Aliases
 
 A bot will always respond to its name (eg. `rubybot`) and Slack ID (eg. `@rubybot`), but you can specify multiple aliases via the `SLACK_RUBY_BOT_ALIASES` environment variable or via an explicit configuration.
