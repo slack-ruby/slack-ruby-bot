@@ -106,14 +106,16 @@ end
 
 Operator match data includes `match['operator']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` setting.
 
+### Threaded Messages
+
 You can reply to a message in a thread (or keep sending to the current thread) :
 
 ```ruby
-command('reply in thread') do |client, data, match|
+command 'reply in thread' do |client, data, match|
   client.say(
     channel: data.channel,
     text: "let's avoid spamming everyone, I will tell you what you need in this thread",
-    thread_ts: (data.thread_ts || data.ts) 
+    thread_ts: data.thread_ts || data.ts
   )
 end
 ```
