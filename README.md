@@ -106,6 +106,28 @@ end
 
 Operator match data includes `match['operator']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` setting.
 
+### Threaded Messages
+
+To reply to a message in a thread you must provide a reference to the first message that initiated the thread, which is available as either `data.ts` if no threaded messages have been sent, or `data.thread_ts` if the message being replied to is already in a thread. See [message-threading](https://api.slack.com/docs/message-threading) for more information.
+
+```ruby
+command 'reply in thread' do |client, data, match|
+  client.say(
+    channel: data.channel,
+    text: "let's avoid spamming everyone, I will tell you what you need in this thread",
+    thread_ts: data.thread_ts || data.ts
+  )
+end
+```
+
+_Note that sending a message using only `thread_ts: data.ts` can cause some permanent issues where Slack will keep reporting inaccessible messages as unread. At the time of writing the slack team is still having problems clearing those notifications. As recommended by the slack documentation ..._
+
+> A true parent's thread_ts should be used when replying. Providing a child's message ID will result in a new, detached thread breaking all context and sense.
+
+_... the replies to a thread should always be sent to the message `ts` that started the thread, available as `thread_ts` for subsequent messages. Hence `data.thread_ts || data.ts`._
+
+For additional options, including broadcasting, see [slack-ruby-client#chat_postMessage](https://github.com/slack-ruby/slack-ruby-client/blob/41539c647ac877400f20aa338aa42d2ebfd2866b/lib/slack/web/api/endpoints/chat.rb#L105).
+
 ### Bot Aliases
 
 A bot will always respond to its name (eg. `rubybot`) and Slack ID (eg. `@rubybot`), but you can specify multiple aliases via the `SLACK_RUBY_BOT_ALIASES` environment variable or via an explicit configuration.
@@ -292,8 +314,8 @@ Hooks are event handlers and respond to Slack RTM API [events](https://api.slack
 
 A Hook Handler is any object that respond to a `call` message, like a proc, instance of an object, class with a `call` class method, etc.
 
-Hooks can be registered using different methods based on user preference / use case. 
-Currently someone can use one of the following methods: 
+Hooks can be registered using different methods based on user preference / use case.
+Currently someone can use one of the following methods:
 
 * Pass `hooks` in `SlackRubyBot::Server` initialization.
 * Register `hooks` on `SlackRubyBot::Server` using `on` class method.
@@ -352,8 +374,8 @@ module MyBot
       # data['user']['id'] contains the user ID
       # data['user']['name'] contains the new user name
     end
-    
-    on 'user_change', ->(client, data) {      
+
+    on 'user_change', ->(client, data) {
       # data['user']['id'] contains the user ID
       # data['user']['name'] contains the new user name
     }
