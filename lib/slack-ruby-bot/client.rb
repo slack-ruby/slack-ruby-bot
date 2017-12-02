@@ -48,12 +48,14 @@ module SlackRubyBot
       keywords = options.delete(:gif)
       # text
       text = options.delete(:text)
-      gif = begin
-        Giphy.random(keywords)
-      rescue StandardError => e
-        logger.warn "Giphy.random: #{e.message}"
-        nil
-      end if keywords && send_gifs?
+      if keywords && send_gifs?
+        gif = begin
+          Giphy.random(keywords)
+        rescue StandardError => e
+          logger.warn "Giphy.random: #{e.message}"
+          nil
+        end
+      end
       text = [text, gif && gif.image_url.to_s].compact.join("\n")
       message({ text: text }.merge(options))
     end

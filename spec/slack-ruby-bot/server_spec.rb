@@ -26,8 +26,8 @@ describe SlackRubyBot::Server do
     end
 
     it 'aliases' do
-      server = SlackRubyBot::Server.new(aliases: %w(foo bar))
-      expect(server.send(:client).aliases).to eq %w(foo bar)
+      server = SlackRubyBot::Server.new(aliases: %w[foo bar])
+      expect(server.send(:client).aliases).to eq %w[foo bar]
       expect(server.send(:client).names).to include 'foo'
     end
   end

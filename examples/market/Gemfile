@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
 
-gem 'slack-ruby-bot', path: '../..'
 gem 'faye-websocket'
+gem 'slack-ruby-bot', path: '../..'
 gem 'yahoo-finance'

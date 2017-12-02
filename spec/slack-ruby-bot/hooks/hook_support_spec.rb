@@ -20,7 +20,7 @@ describe SlackRubyBot::Hooks::HookSupport do
   describe 'hook code blocks' do
     it "let's you define class level code blocks" do
       expect(subject.hook_blocks.size).to eq(2)
-      expect(subject.hook_blocks.keys).to eq %w(hello goodbye)
+      expect(subject.hook_blocks.keys).to eq %w[hello goodbye]
 
       expect(subject.hook_blocks['hello'].size).to eq(2)
       expect(subject.hook_blocks['goodbye'].size).to eq(1)

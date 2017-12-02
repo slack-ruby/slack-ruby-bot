@@ -5,7 +5,7 @@ SlackRubyBot::Client.logger.level = Logger::WARN
 
 class MarketBot < SlackRubyBot::Bot
   scan(/([A-Z]{2,5}+)/) do |client, data, stocks|
-    YahooFinance::Client.new.quotes(stocks, [:name, :symbol, :last_trade_price, :change, :change_in_percent]).each do |quote|
+    YahooFinance::Client.new.quotes(stocks, %i[name symbol last_trade_price change change_in_percent]).each do |quote|
       next if quote.symbol == 'N/A'
       client.web_client.chat_postMessage(
         channel: data.channel,
