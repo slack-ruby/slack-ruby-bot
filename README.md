@@ -108,7 +108,8 @@ Operator match data includes `match['operator']` and `match['expression']`. The 
 
 ### Threaded Messages
 
-You can reply to a message in a thread (or keep sending to the current thread) :
+You can reply to a message in a thread (or keep sending to the current thread). In order to send a message in a thread you must give a reference to the first message that initiated the thread : it is available as either `data.ts` if no threaded messages have been sent yet, or `data.thread_ts` if the message being replied to is already in a thread as explained in the [message-threading](https://api.slack.com/docs/message-threading) section of the slack documentation.
+
 
 ```ruby
 command 'reply in thread' do |client, data, match|
@@ -119,7 +120,12 @@ command 'reply in thread' do |client, data, match|
   )
 end
 ```
-Note that using only `thread_ts: data.ts` can cause some permanent issues where Slack will keep reporting inaccessible messages as unread. As recommended by the slack documentation, the replies to a thread should always be sent to message `ts` that started the thread, available as `thread_ts` for subsequent messages. Hence `data.thread_ts || data.ts`.
+
+_Note that sending a message using only `thread_ts: data.ts` can cause some permanent issues where Slack will keep reporting inaccessible messages as unread. At the time of writing the slack team is still having problems clearing those notifications. As recommended by the slack documentation..._
+
+> A true parent's thread_ts should be used when replying. Providing a child's message ID will result in a new, detached thread breaking all context and sense
+
+_...the replies to a thread should always be sent to the message `ts` that started the thread, available as `thread_ts` for subsequent messages. Hence `data.thread_ts || data.ts`._
 
 For additional options including broadcasting, refer to [slack-ruby-client#chat_postMessage](https://github.com/slack-ruby/slack-ruby-client/blob/41539c647ac877400f20aa338aa42d2ebfd2866b/lib/slack/web/api/endpoints/chat.rb#L105)
 
@@ -309,8 +315,8 @@ Hooks are event handlers and respond to Slack RTM API [events](https://api.slack
 
 A Hook Handler is any object that respond to a `call` message, like a proc, instance of an object, class with a `call` class method, etc.
 
-Hooks can be registered using different methods based on user preference / use case. 
-Currently someone can use one of the following methods: 
+Hooks can be registered using different methods based on user preference / use case.
+Currently someone can use one of the following methods:
 
 * Pass `hooks` in `SlackRubyBot::Server` initialization.
 * Register `hooks` on `SlackRubyBot::Server` using `on` class method.
@@ -369,8 +375,8 @@ module MyBot
       # data['user']['id'] contains the user ID
       # data['user']['name'] contains the new user name
     end
-    
-    on 'user_change', ->(client, data) {      
+
+    on 'user_change', ->(client, data) {
       # data['user']['id'] contains the user ID
       # data['user']['name'] contains the new user name
     }
