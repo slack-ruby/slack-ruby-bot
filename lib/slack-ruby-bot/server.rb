@@ -6,7 +6,7 @@ module SlackRubyBot
 
     include SlackRubyBot::Hooks::HookSupport
 
-    TRAPPED_SIGNALS = %w(INT TERM).freeze
+    TRAPPED_SIGNALS = %w[INT TERM].freeze
 
     def initialize(options = {})
       @token = options[:token]

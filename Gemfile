@@ -3,6 +3,9 @@ source 'http://rubygems.org'
 gemspec
 
 gem ENV['CONCURRENCY'], require: false if ENV.key?('CONCURRENCY')
+
+# rubocop:enable Bundler/OrderedGems
+
 gem 'giphy', require: false if ENV.key?('WITH_GIPHY')
 
 group :test do

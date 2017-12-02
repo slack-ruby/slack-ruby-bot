@@ -22,14 +22,16 @@ module SlackRubyBot
     private
 
     def hello(client, _data)
-      SlackRubyBot.configure do |config|
-        config.url = "https://#{client.team.domain}.slack.com"
-        config.team = client.team.name
-        config.team_id = client.team.id
-        config.user = client.self.name
-        config.user_id = client.self.id
-        logger.info "Welcome #{config.user} to the #{config.team} team."
-      end if client.team && client.self
+      if client.team && client.self
+        SlackRubyBot.configure do |config|
+          config.url = "https://#{client.team.domain}.slack.com"
+          config.team = client.team.name
+          config.team_id = client.team.id
+          config.user = client.self.name
+          config.user_id = client.self.id
+          logger.info "Welcome #{config.user} to the #{config.team} team."
+        end
+      end
       super
     end
 
