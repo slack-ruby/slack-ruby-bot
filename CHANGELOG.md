@@ -1,6 +1,7 @@
 ### 0.10.6 (Next)
 
-* [#168](https://github.com/slack-ruby/slack-ruby-bot/pull/168): Add a note regarding replying in a thread - [@Startouf](https://github.com/Startouf).
+* Your contribution here.
+* [#168](https://github.com/slack-ruby/slack-ruby-bot/pull/168): Add a note concerning replying in a thread - [@Startouf](https://github.com/Startouf).
 
 ### 0.10.5 (10/15/2017)
 
