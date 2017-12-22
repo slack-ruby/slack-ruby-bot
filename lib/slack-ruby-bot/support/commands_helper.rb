@@ -35,14 +35,14 @@ module SlackRubyBot
       "#{command_name_and_desc(help_attrs)}\n\n#{help_attrs.command_long_desc}"
     end
 
-    private
-
     def find_command_help_attrs(name)
       help_attrs = commands_help_attrs.find { |k| k.command_name == name }
       return help_attrs if help_attrs
       commands_help_attrs.each { |k| k.commands.each { |c| return c if c.command_name == name } }
       nil
     end
+
+    private
 
     def collect_help_attrs(help_attrs)
       help_attrs_with_present_names(help_attrs).map do |ha|

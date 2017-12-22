@@ -219,6 +219,22 @@ class Deploy < SlackRubyBot::Commands::Base
 end
 ```
 
+### Customize your command help output
+
+If you've used the `help` block described above to document your
+commands, you can provide your own implementation of outputting help
+for commands like so:
+
+```ruby
+class Market < SlackRubyBot::Bot
+  command 'help' do |client, data, match|
+    user_command = match[:expression]
+    help_attrs = SlackRubyBot::CommandsHelper.instance.find_command_help_attrs(user_command)
+    client.say(channel: data.channel, text: "#{help_attrs.command_desc}\n\n#{help_attrs.command_long_desc}"
+  end
+end
+```
+
 ### SlackRubyBot::Commands::Base
 
 The `SlackRubyBot::Bot` class is DSL sugar deriving from `SlackRubyBot::Commands::Base`. For more involved bots you can organize the bot implementation into subclasses of `SlackRubyBot::Commands::Base` manually. By default a command class responds, case-insensitively, to its name. A class called `Phone` that inherits from `SlackRubyBot::Commands::Base` responds to `phone` and `Phone` and calls the `call` method when implemented.

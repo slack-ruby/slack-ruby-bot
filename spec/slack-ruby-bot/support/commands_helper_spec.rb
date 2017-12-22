@@ -59,6 +59,20 @@ describe SlackRubyBot::CommandsHelper do
     end
   end
 
+  describe '#find_command_help_attrs' do
+    let(:hello_help_attrs) { commands_helper.find_command_help_attrs('hello') }
+
+    before(:each) do
+      command_class
+    end
+
+    it 'returns help attrs for hello command' do
+      expect(hello_help_attrs.command_name).to eq('hello')
+      expect(hello_help_attrs.command_desc).to eq('Says hello.')
+      expect(hello_help_attrs.command_long_desc).to eq('The long description')
+    end
+  end
+
   describe '#bot_desc_and_commands' do
     let(:bot_desc_and_commands) { commands_helper.bot_desc_and_commands }
     let(:bot_desc) { bot_desc_and_commands.first }

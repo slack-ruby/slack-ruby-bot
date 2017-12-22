@@ -1,6 +1,7 @@
 ### 0.10.6 (Next)
 
 * Your contribution here.
+* [#173](https://github.com/slack-ruby/slack-ruby-bot/pull/173): Exposing SlackRubyBot::CommandsHelper.find_command_help_attrs - [@alexagranov](https://github.com/alexagranov).
 
 ### 0.10.5 (10/15/2017)
 
