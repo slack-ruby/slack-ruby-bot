@@ -460,6 +460,12 @@ end
 
 For an example of advanced integration that supports multiple teams, see [slack-gamebot](https://github.com/dblock/slack-gamebot) and [playplay.io](http://playplay.io) that is built on top of it.
 
+### Proxy Configuration
+
+There are [a few proxy options](https://github.com/slack-ruby/slack-ruby-client#web-client-options) that can be configured on the `Slack::Web::Client`; but you can also control what proxy options are used by modifying the `http_proxy` environment variable per [Net::HTTP's documentation](https://docs.ruby-lang.org/en/2.0.0/Net/HTTP.html#class-Net::HTTP-label-Proxies).
+
+Be aware that Docker on OSX seems to set this erroneously, [causing an unexpected Faraday error](https://github.com/slack-ruby/slack-ruby-bot/issues/155) (`ERROR -- : Failed to open TCP connection to : (getaddrinfo: Name or service not known) (Faraday::ConnectionFailed)`).  You may need to manually unset it on the command line in this case (`http_proxy="" bundle exec ruby ./my_bot.rb`).
+
 ### Model-View-Controller Design
 
 The `command` method is essentially a controller method that receives input from the outside and acts upon it. Complex behaviors could lead to a long and difficult-to-understand `command` block. A complex `command` block is a candidate for separation into classes conforming to the Model-View-Controller pattern popularized by Rails.
