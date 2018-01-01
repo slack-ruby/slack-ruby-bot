@@ -464,7 +464,7 @@ For an example of advanced integration that supports multiple teams, see [slack-
 
 There are [a few proxy options](https://github.com/slack-ruby/slack-ruby-client#web-client-options) that can be configured on the `Slack::Web::Client`; but you can also control what proxy options are used by modifying the `http_proxy` environment variable per [Net::HTTP's documentation](https://docs.ruby-lang.org/en/2.0.0/Net/HTTP.html#class-Net::HTTP-label-Proxies).
 
-Be aware that Docker on OSX seems to set this erroneously, [causing weird Faraday errors](https://github.com/slack-ruby/slack-ruby-bot/issues/155).  You may need to manually unset it on the command line in this case (`http_proxy="" bundle exec ruby ./my_bot.rb`).
+Be aware that Docker on OSX seems to set this erroneously, [causing an unexpected Faraday error](https://github.com/slack-ruby/slack-ruby-bot/issues/155) (`ERROR -- : Failed to open TCP connection to : (getaddrinfo: Name or service not known) (Faraday::ConnectionFailed)`).  You may need to manually unset it on the command line in this case (`http_proxy="" bundle exec ruby ./my_bot.rb`).
 
 ### Model-View-Controller Design
 
