@@ -30,4 +30,13 @@ module Testing
       long_desc 'The long description'
     end
   end
+
+  class GreetingsController < SlackRubyBot::MVC::Controller::Base
+  end
+
+  class Greetings < SlackRubyBot::Commands::Base
+    model = SlackRubyBot::MVC::Model::Base.new
+    view = SlackRubyBot::MVC::View::Base.new
+    @controller = GreetingsController.new(model, view)
+  end
 end
