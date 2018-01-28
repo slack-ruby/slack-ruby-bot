@@ -32,6 +32,9 @@ module Testing
   end
 
   class GreetingsController < SlackRubyBot::MVC::Controller::Base
+    def hallo; end
+
+    def hola; end
   end
 
   class Greetings < SlackRubyBot::Commands::Base
