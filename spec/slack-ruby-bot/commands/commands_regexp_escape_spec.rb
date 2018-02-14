@@ -6,10 +6,16 @@ describe SlackRubyBot::Commands do
       end
     end
   end
+
   def app
     SlackRubyBot::App.new
   end
+
   it 'does not return error' do
     expect(message: "#{SlackRubyBot.config.user} ( /").to respond_with_slack_message('(: /')
+  end
+
+  it 'allows multiline expression' do
+    expect(message: "#{SlackRubyBot.config.user} (\n1\n2").to respond_with_slack_message("(: 1\n2")
   end
 end
