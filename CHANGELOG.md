@@ -2,6 +2,7 @@
 
 * Your contribution here.
 * [#173](https://github.com/slack-ruby/slack-ruby-bot/pull/173): Exposing SlackRubyBot::CommandsHelper.find_command_help_attrs - [@alexagranov](https://github.com/alexagranov).
+* [#179](https://github.com/slack-ruby/slack-ruby-bot/pull/179): Allow multiline expression - [@tiagotex](https://github.com/tiagotex).
 
 ### 0.10.5 (10/15/2017)
 

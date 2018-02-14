@@ -46,7 +46,7 @@ module SlackRubyBot
 
         def command(*values, &block)
           values = values.map { |value| value.is_a?(Regexp) ? value.source : Regexp.escape(value) }.join('|')
-          match Regexp.new("^#{bot_matcher}[\\s]+(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE), &block
+          match Regexp.new("^#{bot_matcher}[\\s]+(?<command>#{values})([\\s]+(?<expression>.*)|)$", Regexp::IGNORECASE | Regexp::MULTILINE), &block
         end
 
         def invoke(client, data)
