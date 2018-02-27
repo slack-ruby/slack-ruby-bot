@@ -12,6 +12,9 @@ describe RSpec do
           client.say(text: "response #{i}", channel: data.channel)
         end
       end
+      attachment 'respond with attachment text' do |client, data, _match|
+        client.say(text: data.attachments[0].text.to_s, channel: data.channel)
+      end
     end
   end
 
@@ -45,5 +48,13 @@ describe RSpec do
   it 'respond_with_multiple_messages_no_match' do
     expect(message: "#{SlackRubyBot.config.user} respond 5 times")
       .not_to respond_with_slack_message('response 7')
+  end
+  it 'respond_with_single_message_using_attachment_match' do
+    attachment = {
+      pretext: 'respond with attachment text',
+      text: 'foobar'
+    }
+    expect(attachments: [attachment])
+      .to respond_with_slack_message('foobar')
   end
 end

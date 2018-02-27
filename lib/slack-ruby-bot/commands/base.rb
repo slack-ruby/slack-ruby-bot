@@ -52,18 +52,24 @@ module SlackRubyBot
         def invoke(client, data)
           finalize_routes!
           expression, text = parse(client, data)
-          return false unless expression
+          return false unless expression || data.attachments
           routes.each_pair do |route, options|
             match_method = options[:match_method]
             case match_method
             when :match
+              next unless expression
               match = route.match(expression)
               match ||= route.match(text) if text
               next unless match
               next if match.names.include?('bot') && !client.name?(match['bot'])
             when :scan
+              next unless expression
               match = expression.scan(route)
               next unless match.any?
+            when :attachment
+              next unless data.attachments && !data.attachments.empty?
+              match = match_attachments(data, route)
+              next unless match
             end
             call_command(client, data, match, options[:block])
             return true
@@ -79,6 +85,11 @@ module SlackRubyBot
         def scan(match, &block)
           self.routes ||= ActiveSupport::OrderedHash.new
           self.routes[match] = { match_method: :scan, block: block }
+        end
+
+        def attachment(match, &block)
+          self.routes ||= ActiveSupport::OrderedHash.new
+          self.routes[match] = { match_method: :attachment, block: block }
         end
 
         def bot_matcher
@@ -120,6 +131,18 @@ module SlackRubyBot
         def finalize_routes!
           return if routes && routes.any?
           command command_name_from_class
+        end
+
+        def match_attachments(data, route)
+          fields_to_scan = %i[pretext text title]
+          data.attachments.each do |attachment|
+            fields_to_scan.each do |field|
+              next unless attachment[field]
+              match = route.match(attachment[field])
+              return match if match
+            end
+          end
+          false
         end
 
         # Intended to be overridden by subclasses to hook in an
