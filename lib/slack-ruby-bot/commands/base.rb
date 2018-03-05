@@ -1,3 +1,5 @@
+require_relative 'help/match.rb'
+
 module SlackRubyBot
   module Commands
     class Base
@@ -62,14 +64,16 @@ module SlackRubyBot
               match ||= route.match(text) if text
               next unless match
               next if match.names.include?('bot') && !client.name?(match['bot'])
+              match = Help::Match.new(match)
             when :scan
               next unless expression
               match = expression.scan(route)
               next unless match.any?
             when :attachment
               next unless data.attachments && !data.attachments.empty?
-              match = match_attachments(data, route)
+              match, attachment, field = match_attachments(data, route)
               next unless match
+              match = Help::Match.new(match, attachment, field)
             end
             call_command(client, data, match, options[:block])
             return true
@@ -139,7 +143,7 @@ module SlackRubyBot
             fields_to_scan.each do |field|
               next unless attachment[field]
               match = route.match(attachment[field])
-              return match if match
+              return match, attachment, field if match
             end
           end
           false
