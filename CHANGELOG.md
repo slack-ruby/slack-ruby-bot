@@ -1,6 +1,7 @@
 ### 0.10.6 (Next)
 
 * Your contribution here.
+* [#180](https://github.com/slack-ruby/slack-ruby-bot/pull/180): Allow to respond to text in attachments #177 - [@mdudzinski](https://github.com/mdudzinski).
 * [#173](https://github.com/slack-ruby/slack-ruby-bot/pull/173): Exposing SlackRubyBot::CommandsHelper.find_command_help_attrs - [@alexagranov](https://github.com/alexagranov).
 * [#179](https://github.com/slack-ruby/slack-ruby-bot/pull/179): Allow multiline expression - [@tiagotex](https://github.com/tiagotex).
 

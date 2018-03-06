@@ -178,6 +178,46 @@ end
 
 See [examples/market](examples/market/marketbot.rb) for a working example.
 
+### Matching text in message attachments
+
+You can respond to text in [attachments](https://api.slack.com/docs/message-attachments) with 
+`attachment`. It will scan `text`, `pretext` and `title` fields in each attachment until a first
+match is found.
+
+For example you can match [this example attachment](http://goo.gl/K0cLkH)
+by its `title` with the following bot:
+
+```ruby
+class Attachment < SlackRubyBot::Bot
+  attachment 'Slack API Documentation' do |client, data, match|
+    client.say(channel: data.channel, text: "Matched by #{match.attachment_field}.")
+    client.say(channel: data.channel, text: "The attachment's text: #{match.attachment.text}.")
+  end
+end
+```
+
+You can also define which fields in attachment object should be scanned.
+
+Scan only a single field:
+
+```ruby
+class Attachment < SlackRubyBot::Bot
+  attachment 'Slack API Documentation', :title do |client, data, match|
+    # implementation details
+  end
+end
+```
+
+Scan multiple fields:
+
+```ruby
+class Attachment < SlackRubyBot::Bot
+  attachment 'Slack API Documentation', %i[text pretext author_name] do |client, data, match|
+    # implementation details
+  end
+end
+```
+
 ### Providing description for your bot and commands
 
 You can specify help information for bot or commands with `help` block, for example:
