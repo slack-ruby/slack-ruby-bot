@@ -71,7 +71,7 @@ module SlackRubyBot
               next unless match.any?
             when :attachment
               next unless data.attachments && !data.attachments.empty?
-              match, attachment, field = match_attachments(data, route)
+              match, attachment, field = match_attachments(data, route, options[:fields_to_scan])
               next unless match
               match = Help::Match.new(match, attachment, field)
             end
@@ -91,9 +91,14 @@ module SlackRubyBot
           self.routes[match] = { match_method: :scan, block: block }
         end
 
-        def attachment(match, &block)
+        def attachment(match, fields_to_scan = nil, &block)
           self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :attachment, block: block }
+          fields_to_scan = [fields_to_scan] unless fields_to_scan.nil? || fields_to_scan.is_a?(Array)
+          self.routes[match] = {
+            match_method: :attachment,
+            block: block,
+            fields_to_scan: fields_to_scan
+          }
         end
 
         def bot_matcher
@@ -137,8 +142,8 @@ module SlackRubyBot
           command command_name_from_class
         end
 
-        def match_attachments(data, route)
-          fields_to_scan = %i[pretext text title]
+        def match_attachments(data, route, fields_to_scan = nil)
+          fields_to_scan ||= %i[pretext text title]
           data.attachments.each do |attachment|
             fields_to_scan.each do |field|
               next unless attachment[field]
