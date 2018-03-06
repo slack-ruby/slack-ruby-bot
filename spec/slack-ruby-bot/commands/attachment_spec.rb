@@ -15,26 +15,26 @@ describe SlackRubyBot::Commands do
       attachment = {
         text3: 'Match by text3 field'
       }
-      expect(attachments: [attachment]).to respond_with_slack_message("The matched field: 'text3'")
+      expect(attachments: attachment).to respond_with_slack_message("The matched field: 'text3'")
     end
 
     it 'matches by text2 field' do
       attachment = {
         text2: 'Match by either title or text2 field'
       }
-      expect(attachments: [attachment]).to respond_with_slack_message("The matched field: 'text2'")
+      expect(attachments: attachment).to respond_with_slack_message("The matched field: 'text2'")
     end
     it 'matches by title field' do
       attachment = {
         title: 'Match by either title or text2 field'
       }
-      expect(attachments: [attachment]).to respond_with_slack_message("The matched field: 'title'")
+      expect(attachments: attachment).to respond_with_slack_message("The matched field: 'title'")
     end
     it 'does not match by default pretext field' do
       attachment = {
         pretext: 'Match by either title or text2 field'
       }
-      expect(attachments: [attachment]).to not_respond
+      expect(attachments: attachment).to not_respond
     end
   end
 
@@ -74,7 +74,7 @@ describe SlackRubyBot::Commands do
         pretext: 'New comment matched by pretext #12345',
         text: 'foo bar'
       }
-      expect(attachments: [attachment]).to respond_with_slack_messages(expected_responses)
+      expect(attachments: attachment).to respond_with_slack_messages(expected_responses)
     end
     it 'matches text' do
       expected_responses << "The matched field: 'text'"
@@ -82,7 +82,7 @@ describe SlackRubyBot::Commands do
         text: 'New comment matched by text #12345',
         title: 'foo bar'
       }
-      expect(attachments: [attachment]).to respond_with_slack_messages(expected_responses)
+      expect(attachments: attachment).to respond_with_slack_messages(expected_responses)
     end
     it 'matches title' do
       expected_responses << "The matched field: 'title'"
@@ -90,13 +90,13 @@ describe SlackRubyBot::Commands do
         title: 'New comment matched by title #12345',
         pretext: 'foo bar'
       }
-      expect(attachments: [attachment]).to respond_with_slack_messages(expected_responses)
+      expect(attachments: attachment).to respond_with_slack_messages(expected_responses)
     end
     it 'does not respond' do
       attachment = {
         text: 'no match'
       }
-      expect(attachments: [attachment]).to not_respond
+      expect(attachments: attachment).to not_respond
     end
   end
 end

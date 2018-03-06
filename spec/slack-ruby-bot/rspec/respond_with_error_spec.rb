@@ -17,6 +17,6 @@ describe RSpec do
     expect(message: "#{SlackRubyBot.config.user} raise").to respond_with_error(ArgumentError, 'raise')
   end
   it 'respond_with_error_using_attachment_match' do
-    expect(attachments: [{ pretext: 'raise' }]).to respond_with_error(ArgumentError, 'raise')
+    expect(attachments: { pretext: 'raise' }).to respond_with_error(ArgumentError, 'raise')
   end
 end

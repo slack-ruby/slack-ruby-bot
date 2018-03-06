@@ -54,7 +54,7 @@ describe RSpec do
       pretext: 'respond with attachment text',
       text: 'foobar'
     }
-    expect(attachments: [attachment])
+    expect(attachments: attachment)
       .to respond_with_slack_message('foobar')
   end
 end

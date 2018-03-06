@@ -4,7 +4,9 @@ module SlackRubyBot
 
     def parse(actual)
       actual = { message: actual } unless actual.is_a?(Hash)
-      [actual[:channel] || 'channel', actual[:user] || 'user', actual[:message], actual[:attachments]]
+      attachments = actual[:attachments]
+      attachments = [attachments] unless attachments.nil? || attachments.is_a?(Array)
+      [actual[:channel] || 'channel', actual[:user] || 'user', actual[:message], attachments]
     end
   end
 end
