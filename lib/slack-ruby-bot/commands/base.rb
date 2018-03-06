@@ -4,7 +4,6 @@ module SlackRubyBot
   module Commands
     class Base
       include Loggable
-      class_attribute :routes
 
       class << self
         attr_accessor :command_classes
@@ -82,19 +81,16 @@ module SlackRubyBot
         end
 
         def match(match, &block)
-          self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :match, block: block }
+          routes[match] = { match_method: :match, block: block }
         end
 
         def scan(match, &block)
-          self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :scan, block: block }
+          routes[match] = { match_method: :scan, block: block }
         end
 
         def attachment(match, fields_to_scan = nil, &block)
-          self.routes ||= ActiveSupport::OrderedHash.new
           fields_to_scan = [fields_to_scan] unless fields_to_scan.nil? || fields_to_scan.is_a?(Array)
-          self.routes[match] = {
+          routes[match] = {
             match_method: :attachment,
             block: block,
             fields_to_scan: fields_to_scan
@@ -103,6 +99,10 @@ module SlackRubyBot
 
         def bot_matcher
           '(?<bot>\S*)'
+        end
+
+        def routes
+          @routes ||= ActiveSupport::OrderedHash.new
         end
 
         private
