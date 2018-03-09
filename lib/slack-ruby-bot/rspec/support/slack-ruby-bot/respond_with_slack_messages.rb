@@ -15,12 +15,12 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
     end
 
     message_command = SlackRubyBot::Hooks::Message.new
-    channel, user, message = parse(actual)
+    channel, user, message, attachments = parse(actual)
 
     allow(Giphy).to receive(:random) if defined?(Giphy)
 
     allow(client).to receive(:message)
-    message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
+    message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user, attachments: attachments))
     @messages = client.test_messages
     @responses = []
     expected.each do |exp|

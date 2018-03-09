@@ -9,13 +9,13 @@ RSpec::Matchers.define :respond_with_error do |error, error_message|
              end
 
     message_command = SlackRubyBot::Hooks::Message.new
-    channel, user, message = parse(actual)
+    channel, user, message, attachments = parse(actual)
 
     allow(Giphy).to receive(:random) if defined?(Giphy)
 
     begin
       expect do
-        message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user))
+        message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user, attachments: attachments))
       end.to raise_error error, error_message
     rescue RSpec::Expectations::ExpectationNotMetError => e
       @error_message = e.message
@@ -33,6 +33,8 @@ RSpec::Matchers.define :respond_with_error do |error, error_message|
 
   def parse(actual)
     actual = { message: actual } unless actual.is_a?(Hash)
-    [actual[:channel] || 'channel', actual[:user] || 'user', actual[:message]]
+    attachments = actual[:attachments]
+    attachments = [attachments] unless attachments.nil? || attachments.is_a?(Array)
+    [actual[:channel] || 'channel', actual[:user] || 'user', actual[:message], attachments]
   end
 end

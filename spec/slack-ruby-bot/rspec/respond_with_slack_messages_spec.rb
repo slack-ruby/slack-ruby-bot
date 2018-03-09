@@ -11,6 +11,11 @@ describe RSpec do
           client.say(text: "response #{i}", channel: data.channel)
         end
       end
+      attachment 'respond with attachment title' do |client, data, _match|
+        data[:attachments].each do |attachment|
+          client.say(text: "response #{attachment.title}", channel: data.channel)
+        end
+      end
     end
   end
 
@@ -40,6 +45,16 @@ describe RSpec do
     expected_responses = []
     5.times { |i| expected_responses.push("response #{i}") }
     expect(message: "#{SlackRubyBot.config.user} respond with as_user")
+      .to respond_with_slack_messages(expected_responses)
+  end
+  it 'respond_with_multiple_messages_using_attachment_match' do
+    attachments = []
+    expected_responses = []
+    5.times do |i|
+      attachments.push(title: "title #{i}", pretext: 'respond with attachment title')
+      expected_responses.push("response title #{i}")
+    end
+    expect(attachments: attachments)
       .to respond_with_slack_messages(expected_responses)
   end
 end

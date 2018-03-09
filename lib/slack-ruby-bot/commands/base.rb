@@ -1,8 +1,9 @@
+require_relative 'help/match.rb'
+
 module SlackRubyBot
   module Commands
     class Base
       include Loggable
-      class_attribute :routes
 
       class << self
         attr_accessor :command_classes
@@ -52,18 +53,26 @@ module SlackRubyBot
         def invoke(client, data)
           finalize_routes!
           expression, text = parse(client, data)
-          return false unless expression
+          return false unless expression || data.attachments
           routes.each_pair do |route, options|
             match_method = options[:match_method]
             case match_method
             when :match
+              next unless expression
               match = route.match(expression)
               match ||= route.match(text) if text
               next unless match
               next if match.names.include?('bot') && !client.name?(match['bot'])
+              match = Help::Match.new(match)
             when :scan
+              next unless expression
               match = expression.scan(route)
               next unless match.any?
+            when :attachment
+              next unless data.attachments && !data.attachments.empty?
+              match, attachment, field = match_attachments(data, route, options[:fields_to_scan])
+              next unless match
+              match = Help::Match.new(match, attachment, field)
             end
             call_command(client, data, match, options[:block])
             return true
@@ -72,17 +81,28 @@ module SlackRubyBot
         end
 
         def match(match, &block)
-          self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :match, block: block }
+          routes[match] = { match_method: :match, block: block }
         end
 
         def scan(match, &block)
-          self.routes ||= ActiveSupport::OrderedHash.new
-          self.routes[match] = { match_method: :scan, block: block }
+          routes[match] = { match_method: :scan, block: block }
+        end
+
+        def attachment(match, fields_to_scan = nil, &block)
+          fields_to_scan = [fields_to_scan] unless fields_to_scan.nil? || fields_to_scan.is_a?(Array)
+          routes[match] = {
+            match_method: :attachment,
+            block: block,
+            fields_to_scan: fields_to_scan
+          }
         end
 
         def bot_matcher
           '(?<bot>\S*)'
+        end
+
+        def routes
+          @routes ||= ActiveSupport::OrderedHash.new
         end
 
         private
@@ -120,6 +140,18 @@ module SlackRubyBot
         def finalize_routes!
           return if routes && routes.any?
           command command_name_from_class
+        end
+
+        def match_attachments(data, route, fields_to_scan = nil)
+          fields_to_scan ||= %i[pretext text title]
+          data.attachments.each do |attachment|
+            fields_to_scan.each do |field|
+              next unless attachment[field]
+              match = route.match(attachment[field])
+              return match, attachment, field if match
+            end
+          end
+          false
         end
 
         # Intended to be overridden by subclasses to hook in an
