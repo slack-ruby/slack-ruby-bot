@@ -1,6 +1,6 @@
 module SlackRubyBot
   module Commands
-    module Help
+    module Support
       class Match
         extend Forwardable
 

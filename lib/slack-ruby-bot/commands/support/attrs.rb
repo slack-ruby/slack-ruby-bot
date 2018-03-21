@@ -1,6 +1,6 @@
 module SlackRubyBot
   module Commands
-    module Help
+    module Support
       class Attrs
         attr_accessor :command_name, :command_desc, :command_long_desc
         attr_reader :klass, :commands

@@ -10,7 +10,7 @@ module SlackRubyBot
         command = match[:expression]
 
         text = if command.present?
-                 CommandsHelper.instance.command_full_desc(command)
+                 Support::Help.instance.command_full_desc(command)
                else
                  general_text
                end
@@ -22,8 +22,8 @@ module SlackRubyBot
         private
 
         def general_text
-          bot_desc = CommandsHelper.instance.bot_desc_and_commands
-          other_commands_descs = CommandsHelper.instance.other_commands_descs
+          bot_desc = Support::Help.instance.bot_desc_and_commands
+          other_commands_descs = Support::Help.instance.other_commands_descs
           <<TEXT
 #{bot_desc.join("\n")}
 

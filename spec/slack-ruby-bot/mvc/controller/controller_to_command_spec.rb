@@ -59,7 +59,7 @@ describe SlackRubyBot::MVC::Controller::Base, 'setup' do
     expect(message: "  #{SlackRubyBot.config.user}   quxo red").to respond_with_slack_message('quxo: red')
     expect(model.client).to be_kind_of(SlackRubyBot::Client)
     expect(model.data).to be_kind_of(Hash)
-    expect(model.match).to be_kind_of(SlackRubyBot::Commands::Help::Match)
+    expect(model.match).to be_kind_of(SlackRubyBot::Commands::Support::Match)
   end
 
   it 'passes client, data, and match args to the view' do
@@ -69,7 +69,7 @@ describe SlackRubyBot::MVC::Controller::Base, 'setup' do
     expect(message: "  #{SlackRubyBot.config.user}   quxo red").to respond_with_slack_message('quxo: red')
     expect(view.client).to be_kind_of(SlackRubyBot::Client)
     expect(view.data).to be_kind_of(Hash)
-    expect(view.match).to be_kind_of(SlackRubyBot::Commands::Help::Match)
+    expect(view.match).to be_kind_of(SlackRubyBot::Commands::Support::Match)
   end
 end
 
