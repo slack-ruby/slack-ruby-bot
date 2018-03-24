@@ -650,6 +650,7 @@ Require `slack-ruby-bot/rspec` in your `spec_helper.rb` along with the following
 
 ```ruby
 group :development, :test do
+  gem 'rack-test'
   gem 'rspec'
   gem 'vcr'
   gem 'webmock'

@@ -4,6 +4,7 @@
 * [#180](https://github.com/slack-ruby/slack-ruby-bot/pull/180): Allow to respond to text in attachments #177 - [@mdudzinski](https://github.com/mdudzinski).
 * [#173](https://github.com/slack-ruby/slack-ruby-bot/pull/173): Exposing SlackRubyBot::CommandsHelper.find_command_help_attrs - [@alexagranov](https://github.com/alexagranov).
 * [#179](https://github.com/slack-ruby/slack-ruby-bot/pull/179): Allow multiline expression - [@tiagotex](https://github.com/tiagotex).
+* [#183](https://github.com/slack-ruby/slack-ruby-bot/pull/183): Add missing test dependency to readme.md - [@hoshinotsuyoshi](https://github.com/hoshinotsuyoshi).
 
 ### 0.10.5 (10/15/2017)
 
