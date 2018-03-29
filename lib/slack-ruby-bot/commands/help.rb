@@ -1,6 +1,6 @@
 module SlackRubyBot
   module Commands
-    class HelpCommand < Base
+    class Help < Base
       help do
         title 'help'
         desc 'Shows help information.'

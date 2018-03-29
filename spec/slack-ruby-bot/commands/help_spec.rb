@@ -1,4 +1,4 @@
-describe SlackRubyBot::Commands::HelpCommand do
+describe SlackRubyBot::Commands::Help do
   def app
     SlackRubyBot::App.new
   end
