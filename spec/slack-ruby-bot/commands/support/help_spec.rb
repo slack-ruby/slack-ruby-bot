@@ -1,10 +1,10 @@
-describe SlackRubyBot::CommandsHelper do
+describe SlackRubyBot::Commands::Support::Help do
   let(:bot_class) { Testing::WeatherBot }
   let(:command_class) { Testing::HelloCommand }
-  let(:commands_helper) { described_class.instance }
+  let(:help) { described_class.instance }
 
   describe '#capture_help' do
-    let(:help_attrs) { commands_helper.commands_help_attrs }
+    let(:help_attrs) { help.commands_help_attrs }
     let(:bot_help_attrs) { help_attrs.find { |k| k.klass == bot_class } }
     let(:command_help_attrs) { help_attrs.find { |k| k.klass == command_class } }
 
@@ -60,7 +60,7 @@ describe SlackRubyBot::CommandsHelper do
   end
 
   describe '#find_command_help_attrs' do
-    let(:hello_help_attrs) { commands_helper.find_command_help_attrs('hello') }
+    let(:hello_help_attrs) { help.find_command_help_attrs('hello') }
 
     before(:each) do
       command_class
@@ -74,7 +74,7 @@ describe SlackRubyBot::CommandsHelper do
   end
 
   describe '#bot_desc_and_commands' do
-    let(:bot_desc_and_commands) { commands_helper.bot_desc_and_commands }
+    let(:bot_desc_and_commands) { help.bot_desc_and_commands }
     let(:bot_desc) { bot_desc_and_commands.first }
 
     it 'returns bot name and description' do
@@ -121,7 +121,7 @@ describe SlackRubyBot::CommandsHelper do
       end
     end
 
-    let(:other_commands_descs) { commands_helper.other_commands_descs }
+    let(:other_commands_descs) { help.other_commands_descs }
     let(:hello_command_desc) { other_commands_descs.find { |desc| desc =~ /\*hello\*/ } }
 
     it 'returns command name and description' do
@@ -136,7 +136,7 @@ describe SlackRubyBot::CommandsHelper do
   describe '#command_full_desc' do
     context 'for bot commands' do
       it 'returns long description' do
-        full_desc = commands_helper.command_full_desc("What's the weather in &lt;city&gt;?")
+        full_desc = help.command_full_desc("What's the weather in &lt;city&gt;?")
         expect(full_desc).to include "Accurate 10 Day Weather Forecasts for thousands of places around the World.\n" \
           'We provide detailed Weather Forecasts over a 10 day period updated four times a day.'
       end
@@ -144,18 +144,18 @@ describe SlackRubyBot::CommandsHelper do
 
     context 'for other commands' do
       it 'returns long description' do
-        full_desc = commands_helper.command_full_desc('hello')
+        full_desc = help.command_full_desc('hello')
         expect(full_desc).to include 'The long description'
       end
     end
 
     it 'returns correct message if there is no such command' do
-      full_desc = commands_helper.command_full_desc('deploy')
+      full_desc = help.command_full_desc('deploy')
       expect(full_desc).to eq "There's no command *deploy*"
     end
 
     it 'returns correct message if there is no long description for the command' do
-      full_desc = commands_helper.command_full_desc('clouds')
+      full_desc = help.command_full_desc('clouds')
       expect(full_desc).to eq "There's no description for command *clouds*"
     end
   end

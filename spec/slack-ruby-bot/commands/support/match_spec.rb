@@ -1,4 +1,4 @@
-describe SlackRubyBot::Commands::Help::Match do
+describe SlackRubyBot::Commands::Support::Match do
   context 'initialized with invalid args' do
     subject { -> { described_class.new('invalid-match-data') } }
     it 'raises ArgumentError' do

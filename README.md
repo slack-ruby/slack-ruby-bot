@@ -269,7 +269,7 @@ for commands like so:
 class Market < SlackRubyBot::Bot
   command 'help' do |client, data, match|
     user_command = match[:expression]
-    help_attrs = SlackRubyBot::CommandsHelper.instance.find_command_help_attrs(user_command)
+    help_attrs = SlackRubyBot::Commands::Support::Help.instance.find_command_help_attrs(user_command)
     client.say(channel: data.channel, text: "#{help_attrs.command_desc}\n\n#{help_attrs.command_long_desc}"
   end
 end

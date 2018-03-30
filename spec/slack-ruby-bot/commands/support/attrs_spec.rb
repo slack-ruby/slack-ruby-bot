@@ -1,4 +1,4 @@
-describe SlackRubyBot::Commands::Help::Attrs do
+describe SlackRubyBot::Commands::Support::Attrs do
   let(:help_attrs) { described_class.new('WeatherBot') }
 
   it 'captures commands help attributes' do
