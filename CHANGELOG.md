@@ -1,3 +1,7 @@
+### 0.11.1 (Next)
+
+* Your contribution here.
+
 ### 0.11.0 (04/02/2018)
 
 * [#182](https://github.com/slack-ruby/slack-ruby-bot/pull/182): Refactor CommandsHelper class and Help module - [@mdudzinski](https://github.com/mdudzinski).
