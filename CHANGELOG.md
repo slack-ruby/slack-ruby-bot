@@ -1,6 +1,5 @@
-### 0.10.6 (Next)
+### 0.11.0 (04/02/2018)
 
-* Your contribution here.
 * [#182](https://github.com/slack-ruby/slack-ruby-bot/pull/182): Refactor CommandsHelper class and Help module - [@mdudzinski](https://github.com/mdudzinski).
 * [#180](https://github.com/slack-ruby/slack-ruby-bot/pull/180): Allow to respond to text in attachments #177 - [@mdudzinski](https://github.com/mdudzinski).
 * [#173](https://github.com/slack-ruby/slack-ruby-bot/pull/173): Exposing SlackRubyBot::CommandsHelper.find_command_help_attrs - [@alexagranov](https://github.com/alexagranov).
