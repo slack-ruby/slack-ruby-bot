@@ -59,7 +59,7 @@ describe SlackRubyBot::Server do
       allow(subject).to receive(:sleep)
       allow(SlackRubyBot::Server).to receive(:auth!)
       expect(Slack::RealTime::Client).to receive(:new).twice.and_return(client)
-      expect(logger).to receive(:error).twice
+      allow(logger).to receive(:error)
     end
     it 'migration_in_progress', vcr: { cassette_name: 'migration_in_progress' } do
       expect do
