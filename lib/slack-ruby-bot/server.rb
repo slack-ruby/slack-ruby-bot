@@ -79,7 +79,8 @@ module SlackRubyBot
       logger.error e
       sleep 1 # ignore, try again
     rescue StandardError => e
-      logger.error e
+      logger.error e.message
+      logger.error e.backtrace.join("\n")
       raise e
     ensure
       @client = nil

@@ -1,5 +1,6 @@
 ### 0.11.1 (Next)
 
+* [#185](https://github.com/slack-ruby/slack-ruby-bot/pull/185): Log backtrace of exceptions - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.11.0 (04/02/2018)
