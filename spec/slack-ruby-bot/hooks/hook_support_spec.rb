@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Hooks::HookSupport do
   subject do
     Class.new do

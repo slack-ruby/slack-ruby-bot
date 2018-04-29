@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Hooks::Set do
   let(:client) { Slack::RealTime::Client.new }
 

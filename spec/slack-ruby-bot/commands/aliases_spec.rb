@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot do
   def client
     SlackRubyBot::Client.new aliases: %w[:emoji: alias каспаров B0?.@(*^$]
