@@ -5,7 +5,7 @@ describe SlackRubyBot::Hooks::Set do
     subject { described_class.new(client) }
 
     it 'lets you add hook handlers' do
-      handler = ->(_, _) {}
+      handler = ->(_, _){}
 
       expect do
         subject.add(:message, handler)
@@ -16,8 +16,8 @@ describe SlackRubyBot::Hooks::Set do
     end
 
     it 'lets you add multiple handlers for the same hook' do
-      handler_1 = ->(_, _) {}
-      handler_2 = ->(_, _) {}
+      handler_1 = ->(_, _){}
+      handler_2 = ->(_, _){}
 
       expect do
         subject.add(:message, handler_1)
@@ -34,12 +34,12 @@ describe SlackRubyBot::Hooks::Set do
 
     it "doesn't barf when add callbacks prior to injecting client" do
       expect do
-        subject.add(:hook, ->(_, _) {})
+        subject.add(:hook, ->(_, _){})
       end.to_not raise_error
     end
 
     it 'triggers hooks when client is configured later' do
-      handler = ->(_, _) {}
+      handler = ->(_, _){}
 
       subject.add(:hook, handler)
 
