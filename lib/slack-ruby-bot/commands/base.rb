@@ -139,7 +139,7 @@ module SlackRubyBot
         end
 
         def finalize_routes!
-          return if routes && routes.any?
+          return if routes&.any?
           command command_name_from_class
         end
 

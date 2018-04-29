@@ -4,7 +4,7 @@ module SlackRubyBot
       def call(client, data)
         data.text = +data.text if data.text   # Thawing data.text
         return if message_to_self_not_allowed? && message_to_self?(client, data)
-        data.text.strip! if data.text
+        data.text&.strip!
         result = child_command_classes.detect { |d| d.invoke(client, data) }
         result ||= built_in_command_classes.detect { |d| d.invoke(client, data) }
         result ||= SlackRubyBot::Commands::Unknown.tap { |d| d.invoke(client, data) }
@@ -37,7 +37,7 @@ module SlackRubyBot
       #
       def child_command_classes
         command_classes.reject do |k|
-          k.name && k.name.starts_with?('SlackRubyBot::Commands::')
+          k.name&.starts_with?('SlackRubyBot::Commands::')
         end
       end
 
@@ -48,7 +48,7 @@ module SlackRubyBot
       #
       def built_in_command_classes
         command_classes.select do |k|
-          k.name && k.name.starts_with?('SlackRubyBot::Commands::') && k != SlackRubyBot::Commands::Unknown
+          k.name&.starts_with?('SlackRubyBot::Commands::') && k != SlackRubyBot::Commands::Unknown
         end
       end
     end
