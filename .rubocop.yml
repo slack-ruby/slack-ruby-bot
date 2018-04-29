@@ -3,5 +3,9 @@ AllCops:
     - vendor/**/*
     - examples/**/vendor/**/*
     - bin/**/*
+  TargetRubyVersion: 2.5
 
 inherit_from: .rubocop_todo.yml
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
