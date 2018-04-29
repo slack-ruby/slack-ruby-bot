@@ -7,5 +7,5 @@ AllCops:
 
 inherit_from: .rubocop_todo.yml
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
+#Style/FrozenStringLiteralComment:
+#  Enabled: false
