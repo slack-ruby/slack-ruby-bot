@@ -1,6 +1,7 @@
 ### 0.11.1 (Next)
 
 * Your contribution here.
+* [#186](https://github.com/slack-ruby/slack-ruby-bot/pull/186): Update syntaxes for ruby 2.5 - [@hanasuke](https://github.com/hanasuke).
 
 ### 0.11.0 (04/02/2018)
 
