@@ -56,7 +56,7 @@ module SlackRubyBot
           nil
         end
       end
-      text = [text, gif && gif.image_url.to_s].compact.join("\n")
+      text = [text, gif&.image_url.to_s].compact.join('')
       message({ text: text }.merge(options))
     end
   end
