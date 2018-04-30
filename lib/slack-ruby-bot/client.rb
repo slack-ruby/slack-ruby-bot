@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   class Client < Slack::RealTime::Client
     include Loggable

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'support/match'
 require_relative 'support/help'
 
