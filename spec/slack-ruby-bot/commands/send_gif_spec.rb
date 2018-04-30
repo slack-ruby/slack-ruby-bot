@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Commands, if: ENV.key?('WITH_GIPHY') do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do

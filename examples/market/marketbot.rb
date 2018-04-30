@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'slack-ruby-bot'
 require 'yahoo-finance'
 
@@ -15,7 +17,7 @@ class MarketBot < SlackRubyBot::Bot
             fallback: "#{quote.name} (#{quote.symbol}): $#{quote.last_trade_price}",
             title: "#{quote.name} (#{quote.symbol})",
             text: "$#{quote.last_trade_price} (#{quote.change_in_percent})",
-            color: quote.change.to_f > 0 ? '#00FF00' : '#FF0000'
+            color: quote.change.to_f.positive? ? '#00FF00' : '#FF0000'
           }
         ]
       )

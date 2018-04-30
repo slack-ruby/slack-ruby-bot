@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Commands::Support::Help do
   let(:bot_class) { Testing::WeatherBot }
   let(:command_class) { Testing::HelloCommand }

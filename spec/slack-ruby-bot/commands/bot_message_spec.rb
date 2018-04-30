@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Commands::Unknown do
   def app
     SlackRubyBot::App.new

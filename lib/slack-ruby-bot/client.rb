@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   class Client < Slack::RealTime::Client
     include Loggable
@@ -16,11 +18,11 @@ module SlackRubyBot
         self.self ? self.self.name : nil,
         aliases ? aliases.map(&:downcase) : nil,
         SlackRubyBot::Config.aliases ? SlackRubyBot::Config.aliases.map(&:downcase) : nil,
-        self.self && self.self.id ? "<@#{self.self.id.downcase}>" : nil,
+        self.self&.id ? "<@#{self.self.id.downcase}>" : nil,
         SlackRubyBot::Config.user_id ? "<@#{SlackRubyBot::Config.user_id.downcase}>" : nil,
-        self.self && self.self.id ? "<@#{self.self.id.downcase}>:" : nil,
+        self.self&.id ? "<@#{self.self.id.downcase}>:" : nil,
         SlackRubyBot::Config.user_id ? "<@#{SlackRubyBot::Config.user_id.downcase}>:" : nil,
-        self.self && self.self.name ? "#{self.self.name.downcase}:" : nil,
+        self.self&.name ? "#{self.self.name.downcase}:" : nil,
         SlackRubyBot::Config.user ? "#{SlackRubyBot::Config.user}:" : nil
       ].compact.flatten
     end
@@ -35,7 +37,7 @@ module SlackRubyBot
     end
 
     def name
-      SlackRubyBot.config.user || (self.self && self.self.name)
+      SlackRubyBot.config.user || self.self&.name
     end
 
     def url
@@ -56,7 +58,7 @@ module SlackRubyBot
           nil
         end
       end
-      text = [text, gif && gif.image_url.to_s].compact.join("\n")
+      text = [text, gif&.image_url.to_s].compact.join('')
       message({ text: text }.merge(options))
     end
   end

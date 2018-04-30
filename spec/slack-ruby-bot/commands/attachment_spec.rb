@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Commands do
   context 'optional fields to scan' do
     let! :command do

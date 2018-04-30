@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Hooks::HookSupport do
   subject do
     Class.new do
@@ -47,7 +49,7 @@ describe SlackRubyBot::Hooks::HookSupport do
     subject { super().new }
     it 'delegates to `hooks.add` method' do
       event_name = :message_received
-      handler = ->(_, _) {}
+      handler = ->(_, _){}
 
       expect(subject.send(:_hooks)).to receive(:add).with(event_name, handler).and_call_original
       subject.on(event_name, handler)

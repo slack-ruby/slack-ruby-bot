@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Loggable do
   let!(:class_with_logger)       { Class.new SlackRubyBot::Commands::Base }
   let!(:child_class_with_logger) { Class.new class_with_logger }
