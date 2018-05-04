@@ -1,4 +1,4 @@
-describe SlackRubyBot::Commands, if: ENV.key?('WITH_GIPHY') do
+describe SlackRubyBot::Commands, if: Giphy.env? do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
       command 'send_message_with_gif_spec' do |client, data, match|
@@ -6,10 +6,11 @@ describe SlackRubyBot::Commands, if: ENV.key?('WITH_GIPHY') do
       end
     end
   end
+
   let(:gif_image_url) { 'http://media2.giphy.com/media/pzOijFsdDrsS4/giphy.gif' }
+  let(:gif) { OpenStruct.new('image_url' => gif_image_url) }
 
   it 'sends a message with gif' do
-    gif = Giphy::RandomGif.new('image_url' => gif_image_url)
     expect(Giphy).to receive(:random).and_return(gif)
     expect(message: "#{SlackRubyBot.config.user} send_message_with_gif_spec message").to respond_with_slack_message("message\n#{gif_image_url}")
   end

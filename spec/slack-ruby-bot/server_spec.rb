@@ -13,12 +13,12 @@ describe SlackRubyBot::Server do
       expect(server.send(:client).token).to eq 'token'
     end
 
-    it 'send_gifs is false without giphy', unless: ENV.key?('WITH_GIPHY') do
+    it 'send_gifs is false without giphy', unless: Giphy.env? do
       server = SlackRubyBot::Server.new(send_gifs: true)
       expect(server.send(:client).send_gifs?).to be false
     end
 
-    it 'send_gifs', if: ENV.key?('WITH_GIPHY') do
+    it 'send_gifs', if: Giphy.env? do
       server = SlackRubyBot::Server.new(send_gifs: true)
       expect(server.send(:client).send_gifs?).to be true
       server = SlackRubyBot::Server.new(send_gifs: false)

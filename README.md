@@ -180,7 +180,7 @@ See [examples/market](examples/market/marketbot.rb) for a working example.
 
 ### Matching text in message attachments
 
-You can respond to text in [attachments](https://api.slack.com/docs/message-attachments) with 
+You can respond to text in [attachments](https://api.slack.com/docs/message-attachments) with
 `attachment`. It will scan `text`, `pretext` and `title` fields in each attachment until a first
 match is found.
 
@@ -323,8 +323,8 @@ end
 
 ### Animated GIFs
 
-The `SlackRubyBot::Client` implementation comes with GIF support.
-To enable it simply add `gem 'giphy'` to your **Gemfile**.
+The `SlackRubyBot::Client` implementation comes with GIF support. To enable it add `gem GiphyClient` (official Giphy SDK) or `gem giphy` (older SDK, deprecated) to your **Gemfile** and set a Giphy key via `ENV['GIPHY_API_KEY']`. Obtain one from [developers.giphy.com](https://developers.giphy.com).
+
 **Note:** Bots send animated GIFs in default commands and errors.
 
 ```ruby
@@ -335,6 +335,22 @@ class Phone < SlackRubyBot::Commands::Base
     client.say(channel: data.channel, text: 'called', gif: 'phone')
     # Sends the text 'called' and a random GIF that matches the keyword 'phone'.
   end
+end
+```
+
+Giphy API key is set automatically via `ENV['GIPHY_API_KEY']`. You can override this manually.
+
+```ruby
+Giphy.configure do |config|
+  config.api_key = 'key'
+end
+```
+
+With `GiphyClient` you can configure the default GIF rating, which supports Y, G, PG, PG-13, and R. The default value is `G`.
+
+```ruby
+Giphy.configure do |config|
+  config.rating = 'Y' # illustrated content only, i.e. cartoons
 end
 ```
 

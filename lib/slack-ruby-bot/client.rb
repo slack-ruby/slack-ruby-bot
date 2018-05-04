@@ -30,7 +30,7 @@ module SlackRubyBot
     end
 
     def send_gifs?
-      return false unless defined?(Giphy)
+      return false unless defined?(Giphy) && Giphy.respond_to?(:random)
       send_gifs.nil? ? SlackRubyBot::Config.send_gifs? : send_gifs
     end
 
