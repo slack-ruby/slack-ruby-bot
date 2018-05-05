@@ -1,5 +1,6 @@
 ### 0.11.1 (Next)
 
+* [#187](https://github.com/slack-ruby/slack-ruby-bot/pull/187): Added support for the [official Giphy SDK](https://github.com/Giphy/giphy-ruby-client) - [@dblock](https://github.com/dblock).
 * [#185](https://github.com/slack-ruby/slack-ruby-bot/pull/185): Log backtrace of exceptions - [@dblock](https://github.com/dblock).
 * Your contribution here.
 

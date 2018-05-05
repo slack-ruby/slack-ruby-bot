@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.giphy.com/v1/gifs/random?api_key=giphy-api-key&rating=Y&tag=burrito
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Ranges:
+      - bytes
+      - bytes
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Content-Type, Accept, x-requested-with, cache-control
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Age:
+      - '0'
+      X-Robots-Tag:
+      - noindex
+      X-Kong-Upstream-Latency:
+      - '150'
+      X-Kong-Proxy-Latency:
+      - '0'
+      Content-Length:
+      - '6419'
+      Date:
+      - Fri, 04 May 2018 12:22:29 GMT
+      X-Served-By:
+      - cache-den19627-DEN
+      X-Cache:
+      - MISS
+      - MISS from 3
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1525436549.420736,VS0,VE202
+      Vary:
+      - Accept-Encoding, Accept-Encoding
+      Via:
+      - kong/0.11.0.3-enterprise-edition, 1.1 varnish, 1.1 3 (squid)
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"data":{"type":"gif","id":"hkdKLmIgB3ane","slug":"cartoonhangover-cartoon-hangover-bee-and-puppycat-deckard-hkdKLmIgB3ane","url":"https:\/\/giphy.com\/gifs\/cartoonhangover-cartoon-hangover-bee-and-puppycat-deckard-hkdKLmIgB3ane","bitly_gif_url":"http:\/\/gph.is\/1qsLT19","bitly_url":"http:\/\/gph.is\/1qsLT19","embed_url":"https:\/\/giphy.com\/embed\/hkdKLmIgB3ane","username":"beeandpuppycat","source":"http:\/\/hangover.cartoonhangover.com\/post\/101982802617\/texts-from-bae-watch-now","content_url":"","source_tld":"hangover.cartoonhangover.com","source_post_url":"http:\/\/hangover.cartoonhangover.com\/post\/101982802617\/texts-from-bae-watch-now","is_sticker":0,"import_datetime":"2014-11-07
+        04:00:33","trending_datetime":"1970-01-01 00:00:00","user":{"avatar_url":"https:\/\/media.giphy.com\/avatars\/beeandpuppycat\/cyT9kR6MIqbK.gif","banner_url":"https:\/\/media.giphy.com\/headers\/beeandpuppycat\/TLNhReAxLFI9.jpg","profile_url":"https:\/\/giphy.com\/beeandpuppycat\/","username":"beeandpuppycat","display_name":"Bee
+        and Puppycat","twitter":"","is_verified":true},"images":{"fixed_height_still":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200_s.gif","width":"356","height":"200"},"original_still":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy_s.gif","width":"400","height":"225"},"fixed_width":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w.gif","width":"200","height":"113","size":"499059","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w.mp4","mp4_size":"159807","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w.webp","webp_size":"1023352"},"fixed_height_small_still":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100_s.gif","width":"178","height":"100"},"fixed_height_downsampled":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200_d.gif","width":"356","height":"200","size":"334553","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200_d.webp","webp_size":"140458"},"preview":{"width":"400","height":"224","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-preview.mp4","mp4_size":"44780"},"fixed_height_small":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100.gif","width":"178","height":"100","size":"892868","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100.mp4","mp4_size":"87596","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100.webp","webp_size":"544088"},"downsized_still":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-downsized_s.gif","width":"400","height":"225","size":"62328"},"downsized":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-downsized.gif","width":"400","height":"225","size":"1002923"},"downsized_large":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.gif","width":"400","height":"225","size":"1002923"},"fixed_width_small_still":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100w_s.gif","width":"100","height":"56"},"preview_webp":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-preview.webp","width":"174","height":"98","size":"48566"},"fixed_width_still":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w_s.gif","width":"200","height":"113"},"fixed_width_small":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100w.gif","width":"100","height":"56","size":"499059","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100w.mp4","mp4_size":"30578","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100w.webp","webp_size":"226546"},"downsized_small":{"width":"400","height":"224","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-downsized-small.mp4","mp4_size":"44780"},"fixed_width_downsampled":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w_d.gif","width":"200","height":"113","size":"132991","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w_d.webp","webp_size":"55952"},"downsized_medium":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.gif","width":"400","height":"225","size":"1002923"},"original":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.gif","width":"400","height":"225","size":"1002923","frames":"112","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.mp4","mp4_size":"827796","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.webp","webp_size":"1819838"},"fixed_height":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200.gif","width":"356","height":"200","size":"892868","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200.mp4","mp4_size":"322931","webp":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200.webp","webp_size":"2597356"},"looping":{"mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-loop.mp4","mp4_size":"3392324"},"original_mp4":{"width":"480","height":"270","mp4":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.mp4","mp4_size":"827796"},"preview_gif":{"url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy-preview.gif","width":"249","height":"140","size":"49584"},"480w_still":{"url":"hkdKLmIgB3ane\/480w_s.jpg","width":"480","height":"270"}},"title":"animation
+        cartoon hangover GIF by Bee and Puppycat","image_original_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.gif","image_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.gif","image_mp4_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/giphy.mp4","image_frames":"112","image_width":"400","image_height":"225","fixed_height_downsampled_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200_d.gif","fixed_height_downsampled_width":"356","fixed_height_downsampled_height":"200","fixed_width_downsampled_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/200w_d.gif","fixed_width_downsampled_width":"200","fixed_width_downsampled_height":"113","fixed_height_small_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100.gif","fixed_height_small_still_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100_s.gif","fixed_height_small_width":"178","fixed_height_small_height":"100","fixed_width_small_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100w.gif","fixed_width_small_still_url":"https:\/\/media3.giphy.com\/media\/hkdKLmIgB3ane\/100w_s.gif","fixed_width_small_width":"100","fixed_width_small_height":"56","caption":""},"meta":{"status":200,"msg":"OK","response_id":"5aec508574684177590570c1"}}'
+    http_version:
+  recorded_at: Fri, 04 May 2018 12:22:30 GMT
+recorded_with: VCR 3.0.3
