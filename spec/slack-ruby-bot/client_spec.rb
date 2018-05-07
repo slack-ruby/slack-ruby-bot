@@ -1,6 +1,6 @@
 describe SlackRubyBot::Client do
   describe '#send_gifs?' do
-    context 'without giphy is false', unless: Giphy.env? do
+    context 'without giphy is false', unless: WithGiphy.env? do
       it 'by default' do
         expect(subject.send_gifs?).to be false
       end
@@ -16,7 +16,7 @@ describe SlackRubyBot::Client do
       end
     end
 
-    context 'with giphy', if: Giphy.env? do
+    context 'with giphy', if: WithGiphy.env? do
       it 'default is true' do
         expect(subject.send_gifs?).to be true
       end
