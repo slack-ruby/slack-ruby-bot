@@ -2,7 +2,7 @@ describe SlackRubyBot::Config do
   describe '.send_gifs?' do
     after { ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS' }
 
-    context 'without giphy is false', unless: Giphy.env? do
+    context 'without giphy is false', unless: WithGiphy.env? do
       it 'by default' do
         expect(SlackRubyBot::Config.send_gifs?).to be false
       end
@@ -15,7 +15,7 @@ describe SlackRubyBot::Config do
         expect(SlackRubyBot::Config.send_gifs?).to be false
       end
     end
-    context 'with giphy', if: Giphy.env? do
+    context 'with giphy', if: WithGiphy.env? do
       it 'default is true' do
         expect(SlackRubyBot::Config.send_gifs?).to be true
       end

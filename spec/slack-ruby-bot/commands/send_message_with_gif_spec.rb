@@ -1,4 +1,4 @@
-describe SlackRubyBot::Commands, if: Giphy.env? do
+describe SlackRubyBot::Commands, if: WithGiphy.env? do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
       command 'send_message_with_gif_spec' do |client, data, match|
