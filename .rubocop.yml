@@ -4,4 +4,13 @@ AllCops:
     - examples/**/vendor/**/*
     - bin/**/*
 
+Metrics:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 512
+
+Style/Documentation:
+  Enabled: false
+
 inherit_from: .rubocop_todo.yml
