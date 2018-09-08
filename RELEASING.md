@@ -7,7 +7,7 @@ There are no particular rules about when to release slack-ruby-bot. Release bug 
 Run tests, check that all tests succeed locally.
 
 ```
-export CONCURRENCY=celluloid-io
+export CONCURRENCY=async-websocket
 bundle install
 rake
 ```

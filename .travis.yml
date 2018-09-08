@@ -19,6 +19,8 @@ matrix:
       env: CONCURRENCY=celluloid-io WITH_GIPHY_CLIENT=true
     - rvm: 2.3.0
       env: CONCURRENCY=faye-websocket WITH_GIPHY_CLIENT=true
+    - rvm: 2.5
+      env: CONCURRENCY=async-websocket WITH_GIPHY_CLIENT=true
     - rvm: ruby-head
     - rvm: jruby-head
   allow_failures:
