@@ -1,6 +1,15 @@
 describe SlackRubyBot::Hooks::Message do
   let(:message_hook) { described_class.new }
 
+  describe '#call' do
+    it 'doesn\'t raise an error when message is a frozen string' do
+      message_hook.call(
+        SlackRubyBot::Client.new,
+        Hashie::Mash.new(text: 'message'.freeze)
+      )
+    end
+  end
+
   describe '#child_command_classes' do
     it 'returns only child command classes' do
       child_command_classes = message_hook.send(:child_command_classes)
