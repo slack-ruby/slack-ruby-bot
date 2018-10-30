@@ -5,7 +5,7 @@ Upgrading SlackRubyBot
 
 #### Remove any references to `SlackRubyBot::Server#restart!`
 
-We have deprecated `SlackRubyBot::Server#restart!` since the [`slack-ruby-client`](https://github.com/slack-ruby/slack-ruby-client/blob/master/CHANGELOG.md) now restarts any connection that was not intentionally stopped via `SlackRubyBot::Server#stop!`.
+We have removed `SlackRubyBot::Server#restart!` since the [`slack-ruby-client`](https://github.com/slack-ruby/slack-ruby-client/blob/master/CHANGELOG.md) now restarts any connection that was not intentionally stopped via `SlackRubyBot::Server#stop!`.
 
 ### Upgrading to >= 0.10.4
 

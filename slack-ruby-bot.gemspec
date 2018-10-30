@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
   s.summary = 'The easiest way to write a Slack bot in Ruby.'
   s.add_dependency 'hashie'
-  s.add_dependency 'slack-ruby-client', '>= 0.13.2'
+  s.add_dependency 'slack-ruby-client', git: "git@github.com:slack-ruby/slack-ruby-client.git"
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
