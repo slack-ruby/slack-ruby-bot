@@ -32,19 +32,14 @@ module SlackRubyBot
     end
 
     def start!
-      @stopping = false
-      @async = false
       client.start!
     end
 
     def start_async
-      @stopping = false
-      @async = true
       client.start_async
     end
 
     def stop!
-      @stopping = true
       client.stop! if @client
     end
 
