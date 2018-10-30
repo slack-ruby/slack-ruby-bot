@@ -2,6 +2,7 @@
 
 * [#198](https://github.com/slack-ruby/slack-ruby-bot/pull/198): Recommend using `async-websocket` instead of `celluloid-io` - [@dblock](https://github.com/dblock).
 * [#202](https://github.com/slack-ruby/slack-ruby-bot/pull/202): Allow frozen string in Hooks::Message - [@jonosenior](https://github.com/jonosenior).
+* * [#203](https://github.com/slack-ruby/slack-ruby-bot/pull/203): Removing restart logic - [@RodneyU215](https://github.com/RodneyU215).
 * Your contribution here.
 
 ### 0.11.1 (05/06/2018)
