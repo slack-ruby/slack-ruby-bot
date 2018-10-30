@@ -1,3 +1,3 @@
 module SlackRubyBot
-  VERSION = '0.12.0'.freeze
+  VERSION = '0.11.2'.freeze
 end
