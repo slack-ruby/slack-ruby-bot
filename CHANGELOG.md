@@ -1,3 +1,7 @@
+### 0.11.3 (Next)
+
+* Your contribution here.
+
 ### 0.11.2 (2018/12/01)
 
 * [#198](https://github.com/slack-ruby/slack-ruby-bot/pull/198): Recommend using `async-websocket` instead of `celluloid-io` - [@dblock](https://github.com/dblock).
