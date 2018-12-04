@@ -84,7 +84,7 @@ end
 
 Command match data includes `match['bot']`, `match['command']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` and `SlackRubyBot::Config.user_id` values obtained when the bot starts.
 
-The `command` method can take strings, which will have be escaped with `Regexp.escape`, and regular expressions.
+The `command` method can take strings, which will have to be escaped with `Regexp.escape`, and regular expressions.
 
 ```ruby
 class CallBot < SlackRubyBot::Bot
@@ -146,7 +146,7 @@ This is particularly fun with emoji.
 
 ![](screenshots/aliases.gif)
 
-Bots also will respond to a direct message, with or without the bot name in the message itself.
+Bots will also respond to a direct message, with or without the bot name in the message itself.
 
 ![](screenshots/dms.gif)
 
