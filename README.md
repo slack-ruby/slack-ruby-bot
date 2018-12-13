@@ -33,7 +33,7 @@ See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING
 source 'https://rubygems.org'
 
 gem 'slack-ruby-bot'
-gem 'celluloid-io'
+gem 'async-websocket'
 ```
 
 #### pongbot.rb
