@@ -20,7 +20,7 @@ If you are not familiar with Slack bots or Slack API concepts, you might want to
 ## Stable Release
 
 You're reading the documentation for the **next** release of slack-ruby-bot.
-Please see the documentation for the [last stable release, v0.11.1](https://github.com/slack-ruby/slack-ruby-bot/tree/v0.11.1) unless you're integrating with HEAD.
+Please see the documentation for the [last stable release, v0.11.2](https://github.com/slack-ruby/slack-ruby-bot/tree/v0.11.2) unless you're integrating with HEAD.
 See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
 
 ## Usage
@@ -33,7 +33,7 @@ See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING
 source 'https://rubygems.org'
 
 gem 'slack-ruby-bot'
-gem 'celluloid-io'
+gem 'async-websocket'
 ```
 
 #### pongbot.rb
@@ -84,7 +84,7 @@ end
 
 Command match data includes `match['bot']`, `match['command']` and `match['expression']`. The `bot` match always checks against the `SlackRubyBot::Config.user` and `SlackRubyBot::Config.user_id` values obtained when the bot starts.
 
-The `command` method can take strings, which will have be escaped with `Regexp.escape`, and regular expressions.
+The `command` method can take strings, which will have to be escaped with `Regexp.escape`, and regular expressions.
 
 ```ruby
 class CallBot < SlackRubyBot::Bot
@@ -146,7 +146,7 @@ This is particularly fun with emoji.
 
 ![](screenshots/aliases.gif)
 
-Bots also will respond to a direct message, with or without the bot name in the message itself.
+Bots will also respond to a direct message, with or without the bot name in the message itself.
 
 ![](screenshots/dms.gif)
 
