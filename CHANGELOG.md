@@ -1,5 +1,6 @@
-### 0.11.3 (Next)
+### 0.12.0 (Next)
 
+* [#203](https://github.com/slack-ruby/slack-ruby-bot/pull/203): Removing restart logic - [@RodneyU215](https://github.com/RodneyU215).
 * Your contribution here.
 
 ### 0.11.2 (2018/12/01)
