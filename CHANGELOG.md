@@ -1,19 +1,18 @@
-### 0.12.0 (Next)
+### 0.12.0 (2019/2/25)
 
 * [#203](https://github.com/slack-ruby/slack-ruby-bot/pull/203): Removing restart logic - [@RodneyU215](https://github.com/RodneyU215).
-* Your contribution here.
 
-### 0.11.2 (2018/12/01)
+### 0.11.2 (2018/12/1)
 
 * [#198](https://github.com/slack-ruby/slack-ruby-bot/pull/198): Recommend using `async-websocket` instead of `celluloid-io` - [@dblock](https://github.com/dblock).
 * [#202](https://github.com/slack-ruby/slack-ruby-bot/pull/202): Allow frozen string in Hooks::Message - [@jonosenior](https://github.com/jonosenior).
 
-### 0.11.1 (2018/05/06)
+### 0.11.1 (2018/5/6)
 
 * [#187](https://github.com/slack-ruby/slack-ruby-bot/pull/187): Added support for the [official Giphy SDK](https://github.com/Giphy/giphy-ruby-client) - [@dblock](https://github.com/dblock).
 * [#185](https://github.com/slack-ruby/slack-ruby-bot/pull/185): Log backtrace of exceptions - [@dblock](https://github.com/dblock).
 
-### 0.11.0 (2018/04/02)
+### 0.11.0 (2018/4/2)
 
 * [#182](https://github.com/slack-ruby/slack-ruby-bot/pull/182): Refactor CommandsHelper class and Help module - [@mdudzinski](https://github.com/mdudzinski).
 * [#180](https://github.com/slack-ruby/slack-ruby-bot/pull/180): Allow to respond to text in attachments #177 - [@mdudzinski](https://github.com/mdudzinski).
@@ -29,18 +28,18 @@
 * [#163](https://github.com/slack-ruby/slack-ruby-bot/pull/163): Allow `command` to accept regular expressions - [@kstole](https://github.com/kstole).
 * [#166](https://github.com/slack-ruby/slack-ruby-bot/pull/166): Allow special characters and capitals in bot aliases - [@kstole](https://github.com/kstole).
 
-### 0.10.4 (2017/07/05)
+### 0.10.4 (2017/7/5)
 
 * [#149](https://github.com/slack-ruby/slack-ruby-bot/pull/149): Add `logger` configuration to set a custom logger - [@upscent](https://github.com/upscent).
 * [#147](https://github.com/slack-ruby/slack-ruby-bot/pull/147): Adds `server.on` as a shortcut for `hooks.add` and deprecate `hooks` method - [@laertispappas](https://github.com/laertispappas).
 * [#143](https://github.com/slack-ruby/slack-ruby-bot/pull/143): Provide `permitted?` method to allow for simple authorization extensions - [@chuckremes](https://github.com/chuckremes).
 
-### 0.10.3 (2017/06/15)
+### 0.10.3 (2017/6/15)
 
 * [#145](https://github.com/slack-ruby/slack-ruby-bot/pull/145): Map multiple command strings to same controller method - [@chuckremes](https://github.com/chuckremes).
 * [#144](https://github.com/slack-ruby/slack-ruby-bot/pull/144): Support usage of commands with embedded spaces when using Controller methods - [@chuckremes](https://github.com/chuckremes).
 
-### 0.10.2 (2017/06/03)
+### 0.10.2 (2017/6/3)
 
 * [#137](https://github.com/slack-ruby/slack-ruby-bot/pull/137): Add Model-View-Controller classes to allow for more explicit control over how `command`s are designed - [@chuckremes](https://github.com/chuckremes).
 * [#130](https://github.com/slack-ruby/slack-ruby-bot/issues/130): Added test dependencies in TUTORIAL.md - [@jbristow](https://github.com/jbristow).
