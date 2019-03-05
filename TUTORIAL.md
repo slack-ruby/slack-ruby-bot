@@ -150,11 +150,19 @@ web: bundle exec puma -p $PORT
 If you want to use passenger locally change it to:
 
 ```
-web: bundle exec passenger
+web: bundle exec passenger -p $PORT
 ```
 
 Add the following folders to your project root: 'tmp/', 'log/', 'public/' 
 Passenger will automatically save the local logs to these folders.
+
+Optional: Change the port in a `Passenger.json`
+
+```
+{
+  "port": "1234" 
+}
+```
 
 ### Run the Bot
 
