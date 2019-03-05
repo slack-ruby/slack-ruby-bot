@@ -1,6 +1,7 @@
 ### 0.12.1 (Next)
 
 * Your contribution here.
+* [#214](https://github.com/slack-ruby/slack-ruby-bot/pull/214): Add passenger deployment documentation - [@cybercrediators](https://github.com/cybercrediators).
 
 ### 0.12.0 (2019/2/25)
 
