@@ -36,6 +36,10 @@ end
 
 Run `bundle install` to get all the gems.
 
+##### Passenger
+
+To use passenger standalone change `gem 'puma'` to `gem 'passenger'`
+
 #### Application
 
 Create a folder called `slack-mathbot` and inside of it create `bot.rb`.
@@ -139,6 +143,25 @@ Create a `Procfile` which `foreman` will use when you run the `foreman start` co
 
 ```
 web: bundle exec puma -p $PORT
+```
+
+#### Passenger
+
+If you want to use passenger locally change it to:
+
+```
+web: bundle exec passenger -p $PORT
+```
+
+Add the following folders to your project root: 'tmp/', 'log/', 'public/' 
+Passenger will automatically save the local logs to these folders.
+
+Optional: Change the port in a `Passenger.json`
+
+```
+{
+  "port": "1234" 
+}
 ```
 
 ### Run the Bot
