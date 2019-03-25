@@ -2,11 +2,7 @@ require 'rspec/expectations'
 
 RSpec::Matchers.define :respond_with_error do |error, error_message|
   match do |actual|
-    client = if respond_to?(:client)
-               send(:client)
-             else
-               SlackRubyBot::Client.new
-             end
+    client = respond_to?(:client) ? send(:client) : SlackRubyBot::Client.new
 
     message_command = SlackRubyBot::Hooks::Message.new
     channel, user, message, attachments = parse(actual)

@@ -1,38 +1,45 @@
 require 'rspec/expectations'
+
 RSpec::Matchers.define :respond_with_slack_messages do |expected|
   include SlackRubyBot::SpecHelpers
-  match do |actual|
-    raise ArgumentError, 'respond_with_slack_messages expects an array of ordered responses' unless expected.respond_to? :each
-    client = respond_to?(:client) ? send(:client) : SlackRubyBot::Client.new
-    def client.test_messages
-      @test_received_messages
-    end
 
-    def client.say(options = {})
-      super
-      @test_received_messages = @test_received_messages.nil? ? [] : @test_received_messages
-      @test_received_messages.push options
-    end
+  match do |actual|
+    raise ArgumentError, 'respond_with_slack_messages expects an array of ordered responses' if expected && !expected.respond_to?(:each)
+
+    client = respond_to?(:client) ? send(:client) : SlackRubyBot::Client.new
 
     message_command = SlackRubyBot::Hooks::Message.new
     channel, user, message, attachments = parse(actual)
 
     allow(Giphy).to receive(:random) if defined?(Giphy)
 
-    allow(client).to receive(:message)
-    message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user, attachments: attachments))
-    @messages = client.test_messages
-    @responses = []
-    expected.each do |exp|
-      @responses.push(expect(client).to(have_received(:message).with(hash_including(channel: channel, text: exp)).once))
+    @messages ||= []
+    allow(client).to receive(:message) do |options|
+      @messages.push options
     end
+
+    message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user, attachments: attachments))
+
+    @responses = []
+
+    if expected && expected.any?
+      expected.each do |exp|
+        @responses.push(expect(client).to(have_received(:message).with(hash_including(channel: channel, text: exp)).once))
+      end
+    else
+      expect(@messages.size).to be > 1
+    end
+
     true
   end
+
   failure_message do |_actual|
-    message = ''
-    expected.each do |exp|
-      message += "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'No Response'}\n" unless @responses[expected.index(exp)]
+    if expected && expected.any?
+      expected.map do |exp|
+        "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'none'}" unless @responses[expected.index(exp)]
+      end.compact.join("\n")
+    else
+      "Expected to receive multiple messages, got #{@messages.any? ? @messages.size : 'none'}"
     end
-    message
   end
 end

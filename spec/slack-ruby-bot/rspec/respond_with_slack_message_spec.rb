@@ -1,6 +1,8 @@
 describe RSpec do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
+      command 'no message' do |client, data, _match|
+      end
       command 'single message with as_user' do |client, data, _match|
         client.say(text: 'single response', channel: data.channel, as_user: true)
       end
@@ -24,6 +26,22 @@ describe RSpec do
   it 'respond_with_single_message_using_regex_match' do
     expect(message: "#{SlackRubyBot.config.user} single message")
       .to respond_with_slack_message(/single response/i)
+  end
+  it 'respond with any message' do
+    expect(message: "#{SlackRubyBot.config.user} single message")
+      .to respond_with_slack_message
+  end
+  it 'correctly reports error' do
+    expect do
+      expect(message: "#{SlackRubyBot.config.user} single message")
+        .to respond_with_slack_message('another response')
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, "expected to receive message with text: another response once,\n received:[{:text=>\"single response\", :channel=>\"channel\"}]"
+  end
+  it 'correctly reports error without message' do
+    expect do
+      expect(message: "#{SlackRubyBot.config.user} no message")
+        .to respond_with_slack_message('another response')
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, "expected to receive message with text: another response once,\n received:none"
   end
   it 'respond_with_single_message_using_partial_regex_match' do
     expect(message: "#{SlackRubyBot.config.user} single message")

@@ -1,7 +1,9 @@
 ### 0.12.1 (Next)
 
-* Your contribution here.
+* [#209](https://github.com/slack-ruby/slack-ruby-bot/pull/209): Allow `respond_to_slack_message` and `respond_to_slack_messages` without arguments - [@dblock](https://github.com/dblock).
+* [#216](https://github.com/slack-ruby/slack-ruby-bot/pull/216): Added `start_typing` RSpec matcher - [@dblock](https://github.com/dblock).
 * [#214](https://github.com/slack-ruby/slack-ruby-bot/pull/214): Add passenger deployment documentation - [@cybercrediators](https://github.com/cybercrediators).
+* Your contribution here.
 
 ### 0.12.0 (2019/2/25)
 
