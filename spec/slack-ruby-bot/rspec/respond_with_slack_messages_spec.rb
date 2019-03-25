@@ -1,6 +1,11 @@
 describe RSpec do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do
+      command 'do not respond' do |client, data, _match|
+      end
+      command 'respond once' do |client, data, _match|
+        client.say(text: 'response', channel: data.channel, as_user: true)
+      end
       command 'respond with as_user' do |client, data, _match|
         5.times do |i|
           client.say(text: "response #{i}", channel: data.channel, as_user: true)
@@ -29,6 +34,26 @@ describe RSpec do
     expect(message: "#{SlackRubyBot.config.user} respond 5 times")
       .to respond_with_slack_messages(expected_responses)
   end
+  it 'respond with multiple messages' do
+    expect(message: "#{SlackRubyBot.config.user} respond 5 times")
+      .to respond_with_slack_messages
+  end
+  it 'respond once' do
+    expect do
+      expect(message: "#{SlackRubyBot.config.user} respond once")
+        .to respond_with_slack_messages
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, 'Expected to receive multiple messages, got 1'
+  end
+  it 'do not respond' do
+    expect(message: "#{SlackRubyBot.config.user} do not respond")
+      .to_not respond_with_slack_messages
+  end
+  it 'correctly reports error on do not respond' do
+    expect do
+      expect(message: "#{SlackRubyBot.config.user} do not respond")
+        .to respond_with_slack_messages
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, 'Expected to receive multiple messages, got none'
+  end
   it 'respond_with_multiple_messages_using_string_matches' do
     expected_responses = []
     5.times { |i| expected_responses.push("response #{i}") }
@@ -47,7 +72,7 @@ describe RSpec do
       6.times { |i| expected_responses.push("response #{i}") }
       expect(message: "#{SlackRubyBot.config.user} respond 5 times")
         .to respond_with_slack_messages(expected_responses)
-    end.to raise_error RSpec::Expectations::ExpectationNotMetError, "Expected text: response 5, got none\n"
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, 'Expected text: response 5, got none'
   end
 
   it 'respond_with_multiple_messages_using_string_matches_with_extra_arg' do

@@ -680,8 +680,34 @@ Use the `respond_with_slack_message` matcher.
 
 ```ruby
 describe SlackRubyBot::Commands do
- it 'says hi' do
+  it 'responds with any message' do
+    expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message
+  end
+  it 'says hi' do
     expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message('hi')
+  end
+end
+```
+
+Use the `respond_with_slack_messages` matcher for multiple messages.
+
+```ruby
+describe SlackRubyBot::Commands do
+  it 'responds with more than one message' do
+    expect(message: "#{SlackRubyBot.config.user} count").to respond_with_slack_messages
+  end
+  it 'says one and two' do
+    expect(message: "#{SlackRubyBot.config.user} count").to respond_with_slack_messages(['one', 'two'])
+  end
+end
+```
+
+Message matchers support regular expressions.
+
+```ruby
+describe SlackRubyBot::Commands do
+  it 'says hi' do
+    expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message(/hi/)
   end
 end
 ```

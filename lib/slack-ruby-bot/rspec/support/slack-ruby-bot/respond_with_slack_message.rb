@@ -17,13 +17,18 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
     end
 
     message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user, attachments: attachments))
-    expect(client).to have_received(:message).with(hash_including(channel: channel, text: expected)).once
+
+    matcher = have_received(:message).once
+    matcher = matcher.with(hash_including(channel: channel, text: expected)) if channel && expected
+
+    expect(client).to matcher
+
     true
   end
 
   failure_message do |_actual|
     message = "expected to receive message with text: #{expected} once,\n received:"
-    message += @messages.count.zero? ? 'none' : @messages.inspect
+    message += @messages && @messages.any? ? @messages.inspect : 'none'
     message
   end
 end
