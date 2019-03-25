@@ -25,6 +25,12 @@ describe RSpec do
     expect(message: "#{SlackRubyBot.config.user} single message")
       .to respond_with_slack_message(/single response/i)
   end
+  it 'correctly reports error' do
+    expect do
+      expect(message: "#{SlackRubyBot.config.user} single message")
+        .to respond_with_slack_message('another response')
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, "expected to receive message with text: another response once,\n received:[{:text=>\"single response\", :channel=>\"channel\"}]"
+  end
   it 'respond_with_single_message_using_partial_regex_match' do
     expect(message: "#{SlackRubyBot.config.user} single message")
       .to respond_with_slack_message(/si[n|N]gle/)

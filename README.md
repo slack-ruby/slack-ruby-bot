@@ -663,7 +663,7 @@ Slack-ruby-bot comes with a number of shared RSpec behaviors that can be used in
 * [respond with slack message](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_slack_message.rb): The bot responds with a message.
 * [respond with slack messages](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_slack_messages.rb): The bot responds with a multiple messages.
 * [respond with error](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_error.rb): An exception is raised inside a bot command.
-* [starts typing](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/start_typing.rb): The bot calls `client.start_typing`.
+* [start typing](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/start_typing.rb): The bot calls `client.start_typing`.
 
 Require `slack-ruby-bot/rspec` in your `spec_helper.rb` along with the following dependencies in Gemfile.
 

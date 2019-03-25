@@ -41,6 +41,15 @@ describe RSpec do
     expect(message: "#{SlackRubyBot.config.user} respond 5 times")
       .not_to respond_with_slack_messages(expected_responses)
   end
+  it 'correctly reports error' do
+    expect do
+      expected_responses = []
+      6.times { |i| expected_responses.push("response #{i}") }
+      expect(message: "#{SlackRubyBot.config.user} respond 5 times")
+        .to respond_with_slack_messages(expected_responses)
+    end.to raise_error RSpec::Expectations::ExpectationNotMetError, "Expected text: response 5, got none\n"
+  end
+
   it 'respond_with_multiple_messages_using_string_matches_with_extra_arg' do
     expected_responses = []
     5.times { |i| expected_responses.push("response #{i}") }
