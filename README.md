@@ -382,7 +382,7 @@ Get help.
 
 Hooks are event handlers and respond to Slack RTM API [events](https://api.slack.com/events), such as [hello](lib/slack-ruby-bot/hooks/hello.rb) or [message](lib/slack-ruby-bot/hooks/message.rb). You can implement your own in a couple of ways:
 
-#### Implement and register a Hook Handler
+#### Implementing and registering a Hook Handler
 
 A Hook Handler is any object that respond to a `call` message, like a proc, instance of an object, class with a `call` class method, etc.
 
@@ -653,14 +653,17 @@ Again, the View will have access to the most up to date `client`, `data`, and `m
 
 View methods are not matched to routes, so there is no restriction on how to name methods as there is in Controllers.
 
-### RSpec Shared Behaviors
+### Testing
 
-Slack-ruby-bot ships with a number of shared RSpec behaviors that can be used in your RSpec tests.
+#### RSpec Shared Behaviors
+
+Slack-ruby-bot comes with a number of shared RSpec behaviors that can be used in your RSpec tests.
 
 * [behaves like a slack bot](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/it_behaves_like_a_slack_bot.rb): A bot quacks like a Slack Ruby bot.
 * [respond with slack message](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_slack_message.rb): The bot responds with a message.
 * [respond with slack messages](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_slack_messages.rb): The bot responds with a multiple messages.
 * [respond with error](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/respond_with_error.rb): An exception is raised inside a bot command.
+* [starts typing](lib/slack-ruby-bot/rspec/support/slack-ruby-bot/start_typing.rb): The bot calls `client.start_typing`.
 
 Require `slack-ruby-bot/rspec` in your `spec_helper.rb` along with the following dependencies in Gemfile.
 
@@ -670,6 +673,46 @@ group :development, :test do
   gem 'rspec'
   gem 'vcr'
   gem 'webmock'
+end
+```
+
+Use the `respond_with_slack_message` matcher.
+
+```ruby
+describe SlackRubyBot::Commands do
+ it 'says hi' do
+    expect(message: "#{SlackRubyBot.config.user} hi").to respond_with_slack_message('hi')
+  end
+end
+```
+
+Check that the bot called `client.start_typing(channel: 'channel')`.
+
+```ruby
+describe SlackRubyBot::Commands do
+ it 'starts typing on channel' do
+    expect(message: "#{SlackRubyBot.config.user} hi").to start_typing(channel: 'channel')
+  end
+end
+```
+
+#### Testing Lower Level Messages
+
+You can test client behavior at a lower level by fetching the message hook. The following example expects a bot command to call `client.typing(channel: data.channel)`.
+
+```ruby
+describe SlackRubyBot::Commands do
+  let(:app) { Server.new }
+  let(:client) { app.send(:client) }
+  let(:message_hook) { SlackRubyBot::Hooks::Message.new }
+  it 'receives a typing event' do
+      expect(client).to receive(:typing)
+      message_hook.call(
+        client,
+        Hashie::Mash.new(text: "#{SlackRubyBot.config.user} type something", channel: 'channel')
+      )
+    end
+  end
 end
 ```
 
