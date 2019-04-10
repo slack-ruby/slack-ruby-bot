@@ -626,7 +626,7 @@ class MyView < SlackRubyBot::MVC::View::Base
 
   def react_thumbsup
     client.web_client.reactions_add(
-      name: :thumbs_up,
+      name: :thumbsup,
       channel: data.channel,
       timestamp: data.ts,
       as_user: true)
@@ -634,7 +634,7 @@ class MyView < SlackRubyBot::MVC::View::Base
 
   def react_thumbsdown
     client.web_client.reactions_remove(
-      name: :thumbs_up,
+      name: :thumbsup,
       channel: data.channel,
       timestamp: data.ts,
       as_user: true)
