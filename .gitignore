@@ -1,4 +1,5 @@
-.env
-pkg
-Gemfile.lock
 .bundle
+.DS_Store
+.env
+Gemfile.lock
+pkg

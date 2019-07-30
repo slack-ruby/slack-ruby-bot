@@ -1,16 +1,20 @@
 ## Installation
 
-Create a new Bot Integration under [services/new/bot](http://slack.com/services/new/bot).
+To integrate your bot with Slack, you must first create a new [Slack App](https://api.slack.com/apps).
 
-![](screenshots/register-bot.png)
-
-On the next screen, note the API token.
+![](screenshots/create-app.png)
 
 ### Environment
 
+#### OAuth Code Grant
+
+Once created, go to the app's Basic Info tab and grab the Client ID and Client Secret.  You'll need these in order complete an [OAuth code grant flow](https://api.slack.com/docs/oauth#flow) as described at [slack-ruby-bot-server](https://github.com/slack-ruby/slack-ruby-bot-server).  A successful flow will result in the receipt of an API token for the specific team that is granting access.
+
+Alternatively, you can still [generate a legacy API token](https://api.slack.com/custom-integrations/legacy-tokens) for your app and use it for some interactions.
+
 #### SLACK_API_TOKEN
 
-Set SLACK_API_TOKEN from the Bot integration settings on Slack.
+Set the SLACK_API_TOKEN environment variable using the token received above.
 
 ```
 heroku config:add SLACK_API_TOKEN=...
@@ -43,10 +47,10 @@ Deploying on your self-hosted server is fairly easy, it's pretty much following 
 + Clone the repository on your server (You could create a separate user for this) and install the dependencies, by running `bundle install` ([More information](https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/nginx/oss/xenial/deploy_app.html))
 + Edit the web-server configuration according to the examples below
   + `PassengerMaxPreloaderIdleTime 0` or `passenger_max_preloader_idle_time 0;` makes sure to not automatically shut down the process after 5 minutes
-  + `PassengerPreStart http://url:port` or `passenger_pre_start http://url:port` will startup the application instantly, without the first HTTP GET-request needed for passenger 
+  + `PassengerPreStart http://url:port` or `passenger_pre_start http://url:port` will startup the application instantly, without the first HTTP GET-request needed for passenger
   + To get the `/path/to/ruby` run `passenger-config about ruby-command` and copy the displayed path
   + Check the config (`nginx -t`) and restart the server with `service nginx restart`
-  + Execute `passenger-status --verbose` to check if your app is working correctly 
+  + Execute `passenger-status --verbose` to check if your app is working correctly
   + Optional: restart the passenger app via `passenger-config restart-app /var/www/bot`
 
 #### Nginx
