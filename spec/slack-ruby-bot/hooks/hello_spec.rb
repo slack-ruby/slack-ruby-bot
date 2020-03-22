@@ -8,18 +8,21 @@ describe SlackRubyBot::Hooks::Hello do
     let(:team_domain) { 'example' }
     let(:team) { double(:team, name: team_name, id: team_id, domain: team_domain) }
     let(:client) { instance_double(SlackRubyBot::Client, team: team) }
-    subject { hello_hook.call(client, double) }
+
+    def receive_hello
+      hello_hook.call(client, double)
+    end
 
     it 'logs the connection' do
       expect(logger).to receive(:info).with("Successfully connected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.")
-      subject
+      receive_hello
     end
 
     context 'with no client' do
       let(:client) { nil }
       it 'does nothing' do
         expect(logger).not_to receive(:info)
-        subject
+        receive_hello
       end
     end
 
@@ -27,19 +30,19 @@ describe SlackRubyBot::Hooks::Hello do
       let(:team) { nil }
       it 'does nothing' do
         expect(logger).not_to receive(:info)
-        subject
+        receive_hello
       end
     end
 
     context 'when hook is received multiple times' do
       before do
-        hello_hook.call(client, double)
+        receive_hello
       end
 
       it 'logs a reconnection' do
         expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.").twice
-        hello_hook.call(client, double)
-        hello_hook.call(client, double)
+        receive_hello
+        receive_hello
       end
     end
   end
