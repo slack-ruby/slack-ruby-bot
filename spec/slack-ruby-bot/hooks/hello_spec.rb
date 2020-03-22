@@ -13,10 +13,20 @@ describe SlackRubyBot::Hooks::Hello do
     let(:team_id) { SecureRandom.uuid }
     let(:team_domain) { 'example' }
     let(:team) { double(:team, name: team_name, id: team_id, domain: team_domain) }
-    let(:client) { instance_double(SlackRubyBot::Client, team: team ) }
+    let(:client) { instance_double(SlackRubyBot::Client, team: team) }
+    subject { hello_hook.call(client, double) }
+
     it 'logs the connection' do
       expect(logger).to receive(:info).with("Successfully connected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.")
-      hello_hook.call(client, double)
+      subject
+    end
+
+    context 'with no client' do
+      let(:client) { nil }
+      it 'does nothing' do
+        expect(logger).not_to receive(:info)
+        subject
+      end
     end
   end
 end
