@@ -28,5 +28,13 @@ describe SlackRubyBot::Hooks::Hello do
         subject
       end
     end
+
+    context 'when client has no team' do
+      let(:team) { nil }
+      it 'does nothing' do
+        expect(logger).not_to receive(:info)
+        subject
+      end
+    end
   end
 end
