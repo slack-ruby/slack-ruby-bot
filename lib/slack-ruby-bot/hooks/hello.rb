@@ -5,6 +5,7 @@ module SlackRubyBot
 
       def initialize(logger)
         self.logger = logger
+        @reconnected = false
       end
 
       def call(client, _data)
