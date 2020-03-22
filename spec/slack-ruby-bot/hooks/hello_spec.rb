@@ -2,12 +2,6 @@ describe SlackRubyBot::Hooks::Hello do
   let(:logger) { double(:logger, info: nil) }
   let(:hello_hook) { described_class.new(logger) }
 
-  describe '#initialize' do
-    it 'sets reconnected' do
-      expect(hello_hook.instance_variable_get(:@reconnected)).to eq(false)
-    end
-  end
-
   describe '#call' do
     let(:team_name) { 'Example Team' }
     let(:team_id) { SecureRandom.uuid }
@@ -43,7 +37,8 @@ describe SlackRubyBot::Hooks::Hello do
       end
 
       it 'logs a reconnection' do
-        expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.")
+        expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.").twice
+        hello_hook.call(client, double)
         hello_hook.call(client, double)
       end
     end
