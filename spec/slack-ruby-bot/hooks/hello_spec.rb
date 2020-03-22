@@ -36,5 +36,16 @@ describe SlackRubyBot::Hooks::Hello do
         subject
       end
     end
+
+    context 'when hook is received multiple times' do
+      before do
+        hello_hook.call(client, double)
+      end
+
+      it 'logs a reconnection' do
+        expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.")
+        hello_hook.call(client, double)
+      end
+    end
   end
 end
