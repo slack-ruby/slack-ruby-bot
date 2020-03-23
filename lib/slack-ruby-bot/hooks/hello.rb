@@ -10,7 +10,7 @@ module SlackRubyBot
       def call(client, _data)
         return unless client && client.team
         logger.info "Successfully #{@connected_at ? 'reconnected' : 'connected'} team #{client.team.name} (#{client.team.id}) to https://#{client.team.domain}.slack.com."
-        @connected_at = Time.now.utc
+        self.connected_at ||= Time.now.utc
       end
     end
   end
