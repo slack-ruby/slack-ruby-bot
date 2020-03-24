@@ -36,19 +36,16 @@ describe SlackRubyBot::Hooks::Hello do
 
     context 'when hook is received multiple times' do
       before do
-        allow(logger).to receive(:info).with(anything).at_least(:once)
         receive_hello
       end
 
-      it 'logs a reconnection' do
-        expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.").twice
+      it 'logs the reconnections' do
+        expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.").ordered
+        expect(logger).to receive(:info).with(/Time elapsed since last connection\: [\d.]+ seconds/).ordered
         receive_hello
-        receive_hello
-      end
 
-      it 'logs the time since last connection' do
-        expect(logger).to receive(:info).with(/Time elapsed since last connection\: [\d.]+ seconds/).twice
-        receive_hello
+        expect(logger).to receive(:info).with("Successfully reconnected team #{team_name} (#{team_id}) to https://#{team_domain}.slack.com.").ordered
+        expect(logger).to receive(:info).with(/Time elapsed since last connection\: [\d.]+ seconds/).ordered
         receive_hello
       end
     end
