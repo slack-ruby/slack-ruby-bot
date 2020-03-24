@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 if ENV.key?('WITH_GIPHY')
   describe Giphy do
     let(:burrito_gif) { 'https://media3.giphy.com/media/xTiTndNDuNFxUW5Xoc/giphy.gif' }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rspec/expectations'
 
 RSpec::Matchers.define :start_typing do |expected|
@@ -18,7 +16,7 @@ RSpec::Matchers.define :start_typing do |expected|
     message_command.call(client, Hashie::Mash.new(text: message, channel: channel, user: user, attachments: attachments))
 
     matcher = have_received(:typing).once
-    matcher = matcher.with(expected) if expected&.any?
+    matcher = matcher.with(expected) if expected && expected.any?
     expect(client).to matcher
 
     true
@@ -26,7 +24,7 @@ RSpec::Matchers.define :start_typing do |expected|
 
   failure_message do |_actual|
     message = "expected to receive typing with: #{expected} once,\n received:"
-    message += @test_options&.any? ? @test_options.inspect : ' none'
+    message += @test_options && @test_options.any? ? @test_options.inspect : ' none'
     message
   end
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe SlackRubyBot::Commands::Base do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do

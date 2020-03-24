@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'slack-ruby-bot'
 
 class Bot < SlackRubyBot::Bot

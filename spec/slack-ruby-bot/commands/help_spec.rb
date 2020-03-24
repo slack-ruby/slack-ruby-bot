@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe SlackRubyBot::Commands::Help do
   def app
     SlackRubyBot::App.new

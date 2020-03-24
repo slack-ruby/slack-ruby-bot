@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SlackRubyBot
   class App < Server
     def initialize(options = {})

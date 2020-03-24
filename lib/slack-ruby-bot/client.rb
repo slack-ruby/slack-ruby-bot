@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module SlackRubyBot
   class Client < Slack::RealTime::Client
     include Loggable
@@ -37,7 +35,7 @@ module SlackRubyBot
     end
 
     def name
-      SlackRubyBot.config.user || (self.self&.name)
+      SlackRubyBot.config.user || (self.self && self.self.name)
     end
 
     def url

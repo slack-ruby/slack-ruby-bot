@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe SlackRubyBot::MVC::Controller::Base, 'initialization' do
   let(:model) { double('model') }
   let(:view) { double('view') }

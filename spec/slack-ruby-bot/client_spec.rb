@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe SlackRubyBot::Client do
   describe '#send_gifs?' do
     context 'without giphy is false', unless: WithGiphy.env? do

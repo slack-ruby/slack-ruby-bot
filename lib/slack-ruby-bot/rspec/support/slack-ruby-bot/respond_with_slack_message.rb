@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rspec/expectations'
 
 RSpec::Matchers.define :respond_with_slack_message do |expected|
@@ -30,7 +28,7 @@ RSpec::Matchers.define :respond_with_slack_message do |expected|
 
   failure_message do |_actual|
     message = "expected to receive message with text: #{expected} once,\n received:"
-    message += @messages&.any? ? @messages.inspect : 'none'
+    message += @messages && @messages.any? ? @messages.inspect : 'none'
     message
   end
 end

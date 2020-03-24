@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rspec/expectations'
 
 RSpec::Matchers.define :respond_with_slack_messages do |expected|
@@ -24,7 +22,7 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
 
     @responses = []
 
-    if expected&.any?
+    if expected && expected.any?
       expected.each do |exp|
         @responses.push(expect(client).to(have_received(:message).with(hash_including(channel: channel, text: exp)).once))
       end
@@ -36,7 +34,7 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
   end
 
   failure_message do |_actual|
-    if expected&.any?
+    if expected && expected.any?
       expected.map do |exp|
         "Expected text: #{exp}, got #{@messages[expected.index(exp)] || 'none'}" unless @responses[expected.index(exp)]
       end.compact.join("\n")
