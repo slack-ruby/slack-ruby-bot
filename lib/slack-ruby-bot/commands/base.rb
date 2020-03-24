@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'support/match'
 require_relative 'support/help'
 
@@ -139,7 +141,7 @@ module SlackRubyBot
         end
 
         def finalize_routes!
-          return if routes && routes.any?
+          return if routes&.any?
           command command_name_from_class
         end
 

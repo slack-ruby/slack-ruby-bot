@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module Hooks
     class Message
@@ -36,7 +38,7 @@ module SlackRubyBot
       #
       def child_command_classes
         command_classes.reject do |k|
-          k.name && k.name.starts_with?('SlackRubyBot::Commands::')
+          k.name&.starts_with?('SlackRubyBot::Commands::')
         end
       end
 
@@ -47,7 +49,7 @@ module SlackRubyBot
       #
       def built_in_command_classes
         command_classes.select do |k|
-          k.name && k.name.starts_with?('SlackRubyBot::Commands::') && k != SlackRubyBot::Commands::Unknown
+          k.name&.starts_with?('SlackRubyBot::Commands::') && k != SlackRubyBot::Commands::Unknown
         end
       end
     end
