@@ -36,7 +36,7 @@ describe SlackRubyBot::Hooks::Hello do
 
     context 'when hook is received multiple times' do
       before do
-        allow(logger).to receive(:info).at_least(:once)
+        allow(logger).to receive(:info).with(anything).at_least(:once)
         receive_hello
       end
 
