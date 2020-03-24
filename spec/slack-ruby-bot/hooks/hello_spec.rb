@@ -44,6 +44,12 @@ describe SlackRubyBot::Hooks::Hello do
         receive_hello
         receive_hello
       end
+
+      it 'logs the time since last connection' do
+        expect(logger).to receive(:info).with(/Time elapsed since last connection\: [\d.]+ seconds/).twice
+        receive_hello
+        receive_hello
+      end
     end
   end
 end
