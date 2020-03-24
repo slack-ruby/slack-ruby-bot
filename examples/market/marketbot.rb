@@ -18,7 +18,7 @@ class MarketBot < SlackRubyBot::Bot
             fallback: "#{quote.company_name} (#{quote.symbol}): $#{quote.latest_price}",
             title: "#{quote.company_name} (#{quote.symbol})",
             text: "$#{quote.latest_price} (#{quote.change_percent})",
-            color: quote.change.to_f > 0 ? '#00FF00' : '#FF0000'
+            color: quote.change.to_f.positive? ? '#00FF00' : '#FF0000'
           }
         ]
       )
