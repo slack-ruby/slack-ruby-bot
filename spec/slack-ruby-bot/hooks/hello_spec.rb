@@ -40,7 +40,7 @@ describe SlackRubyBot::Hooks::Hello do
       end
 
       it 'logs the reconnections' do
-        expect(logger).to receive(:info).with(/^Successfully reconnected .+ after \S+ seconds\.$/).twice
+        expect(logger).to receive(:info).with(/^Successfully reconnected .+ after \S+s\.$/).twice
         receive_hello
         receive_hello
       end
