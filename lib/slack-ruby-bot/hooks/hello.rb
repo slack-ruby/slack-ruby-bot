@@ -12,9 +12,9 @@ module SlackRubyBot
         new_connected_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
         log = [
           'Successfully',
-          self.connected_at ? 'reconnected' : 'connected',
+          connected_at ? 'reconnected' : 'connected',
           "team #{client.team.name} (#{client.team.id}) to https://#{client.team.domain}.slack.com",
-          self.connected_at ? "after #{last_connection_till(new_connected_at)}s" : nil,
+          connected_at ? "after #{last_connection_till(new_connected_at)}s" : nil
         ].compact.join(' ') + '.'
 
         logger.info log
@@ -25,7 +25,7 @@ module SlackRubyBot
       private
 
       def last_connection_till(time)
-        (time - self.connected_at).round(2)
+        (time - connected_at).round(2)
       end
     end
   end
