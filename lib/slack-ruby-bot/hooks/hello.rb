@@ -9,15 +9,23 @@ module SlackRubyBot
 
       def call(client, _data)
         return unless client && client.team
-        log = ["Successfully #{@connected_at ? 'reconnected' : 'connected'} team #{client.team.name} (#{client.team.id}) to https://#{client.team.domain}.slack.com"]
+        new_connected_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        log = [
+          'Successfully',
+          self.connected_at ? 'reconnected' : 'connected',
+          "team #{client.team.name} (#{client.team.id}) to https://#{client.team.domain}.slack.com",
+          self.connected_at ? "after #{last_connection_till(new_connected_at)}s" : nil,
+        ].compact.join(' ') + '.'
 
-        connected_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-        log << "after #{(connected_at - self.connected_at).round(2)}s" if self.connected_at
+        logger.info log
 
-        puts log
-        logger.info "#{log.join(' ')}."
+        self.connected_at = new_connected_at
+      end
 
-        self.connected_at = connected_at
+      private
+
+      def last_connection_till(time)
+        (time - self.connected_at).round(2)
       end
     end
   end
