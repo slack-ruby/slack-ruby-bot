@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   class Client < Slack::RealTime::Client
     include Loggable
@@ -31,11 +33,12 @@ module SlackRubyBot
 
     def send_gifs?
       return false unless defined?(Giphy)
+
       send_gifs.nil? ? SlackRubyBot::Config.send_gifs? : send_gifs
     end
 
     def name
-      SlackRubyBot.config.user || (self.self && self.self.name)
+      SlackRubyBot.config.user || self.self&.name
     end
 
     def url
@@ -51,9 +54,9 @@ module SlackRubyBot
       if keywords && send_gifs?
         gif = begin
           Giphy.random(keywords)
-        rescue StandardError => e
-          logger.warn "Giphy.random: #{e.message}"
-          nil
+              rescue StandardError => e
+                logger.warn "Giphy.random: #{e.message}"
+                nil
         end
       end
       text = [text, gif && gif.image_url.to_s].compact.join("\n")

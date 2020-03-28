@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'singleton'
 require_relative 'attrs'
 
@@ -34,12 +36,14 @@ module SlackRubyBot
           help_attrs = find_command_help_attrs(unescaped_name)
           return "There's no command *#{unescaped_name}*" unless help_attrs
           return "There's no description for command *#{unescaped_name}*" if help_attrs.command_long_desc.blank?
+
           "#{command_name_and_desc(help_attrs)}\n\n#{help_attrs.command_long_desc}"
         end
 
         def find_command_help_attrs(name)
           help_attrs = commands_help_attrs.find { |k| k.command_name == name }
           return help_attrs if help_attrs
+
           commands_help_attrs.each { |k| k.commands.each { |c| return c if c.command_name == name } }
           nil
         end

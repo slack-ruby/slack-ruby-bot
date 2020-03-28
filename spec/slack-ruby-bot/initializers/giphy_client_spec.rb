@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV.key?('WITH_GIPHY_CLIENT')
   describe Giphy do
     before do

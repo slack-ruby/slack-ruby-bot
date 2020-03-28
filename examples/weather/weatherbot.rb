@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'slack-ruby-bot'
 
 SlackRubyBot::Client.logger.level = Logger::WARN

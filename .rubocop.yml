@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.2.0
+  TargetRubyVersion: 2.3
   Exclude:
     - vendor/**/*
     - examples/**/vendor/**/*
@@ -8,10 +8,22 @@ AllCops:
 Metrics:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 512
 
 Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/ModuleFunction:
   Enabled: false
 
 inherit_from: .rubocop_todo.yml

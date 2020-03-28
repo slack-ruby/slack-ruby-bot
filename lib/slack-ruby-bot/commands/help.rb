@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module Commands
     class Help < Base
@@ -24,16 +26,16 @@ module SlackRubyBot
         def general_text
           bot_desc = Support::Help.instance.bot_desc_and_commands
           other_commands_descs = Support::Help.instance.other_commands_descs
-          <<TEXT
-#{bot_desc.join("\n")}
+          <<~TEXT
+            #{bot_desc.join("\n")}
 
-*Other commands:*
-#{other_commands_descs.join("\n")}
+            *Other commands:*
+            #{other_commands_descs.join("\n")}
 
-For getting description of the command use: *help <command>*
+            For getting description of the command use: *help <command>*
 
-For more information see https://github.com/slack-ruby/slack-ruby-bot, please.
-TEXT
+            For more information see https://github.com/slack-ruby/slack-ruby-bot, please.
+          TEXT
         end
       end
     end

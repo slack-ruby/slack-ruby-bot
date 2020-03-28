@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module Config
     extend self
@@ -11,6 +13,7 @@ module SlackRubyBot
 
     def send_gifs?
       return false unless defined?(Giphy)
+
       v = boolean_from_env('SLACK_RUBY_BOT_SEND_GIFS')
       send_gifs.nil? ? (v.nil? || v) : send_gifs
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Commands::Support::Match do
   context 'initialized with invalid args' do
     subject { -> { described_class.new('invalid-match-data') } }

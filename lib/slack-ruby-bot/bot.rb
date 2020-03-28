@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   class Bot < SlackRubyBot::Commands::Base
     delegate :client, to: :instance

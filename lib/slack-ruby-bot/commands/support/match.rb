@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module Commands
     module Support
@@ -9,9 +11,8 @@ module SlackRubyBot
         attr_reader :attachment, :attachment_field
 
         def initialize(match_data, attachment = nil, attachment_field = nil)
-          unless match_data.is_a? MatchData
-            raise ArgumentError, 'match_data should be a type of MatchData'
-          end
+          raise ArgumentError, 'match_data should be a type of MatchData' unless match_data.is_a? MatchData
+
           @match_data = match_data
           @attachment = attachment
           @attachment_field = attachment_field

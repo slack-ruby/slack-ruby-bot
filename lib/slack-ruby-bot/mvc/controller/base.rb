@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module MVC
     module Controller
@@ -45,9 +47,7 @@ module SlackRubyBot
           def inherited(klass) # :nodoc:
             # Define the abstract ivar on subclasses so that we don't get
             # uninitialized ivar warnings
-            unless klass.instance_variable_defined?(:@abstract)
-              klass.instance_variable_set(:@abstract, false)
-            end
+            klass.instance_variable_set(:@abstract, false) unless klass.instance_variable_defined?(:@abstract)
             super
           end
 
@@ -64,6 +64,7 @@ module SlackRubyBot
 
             methods.each do |name|
               next if name[0] == '_'
+
               commands = lookup_command_name(name)
 
               # Generates a command for each controller method *and* its aliases

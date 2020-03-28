@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'slack-ruby-bot'
 require 'sqlite3'
 
@@ -56,6 +58,7 @@ class InventoryController < SlackRubyBot::MVC::Controller::Base
   def notify_admin
     row = _row.first
     return if row[:quantity].to_i.zero?
+
     view.email_admin("Inventory item #{row[:name]} needs to be refilled.")
     view.say(channel: data.channel, text: "Administrator notified via email to refill #{row[:name]}.")
   end
@@ -93,6 +96,7 @@ class InventoryModel < SlackRubyBot::MVC::Model::Base
     count = 0
     count += 1 while results.next
     return if count < 4
+
     add_item "'Audi',3,52642"
     add_item "'Mercedes',1,57127"
     add_item "'Skoda',5,9000"
@@ -241,7 +245,7 @@ class InventoryBot < SlackRubyBot::Bot
   view = InventoryView.new
   @controller = InventoryController.new(model, view)
   @controller.class.command_class.routes.each do |route|
-    STDERR.puts route.inspect
+    warn route.inspect
   end
 end
 

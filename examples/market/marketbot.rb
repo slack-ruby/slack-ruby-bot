@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'iex-ruby-client'
 require 'slack-ruby-bot'
 

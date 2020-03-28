@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe RSpec do
   let! :command do
     Class.new(SlackRubyBot::Commands::Base) do

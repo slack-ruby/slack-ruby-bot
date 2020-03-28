@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Hooks::Hello do
   let(:logger) { double(:logger, info: nil) }
   let(:hello_hook) { described_class.new(logger) }
