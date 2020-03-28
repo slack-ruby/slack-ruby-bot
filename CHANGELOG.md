@@ -1,4 +1,4 @@
-### 0.13.0 (Next)
+### 0.13.0 (2020/3/28)
 
 * [#244](https://github.com/slack-ruby/slack-ruby-bot/pull/244): Change log message when the bot is reconnected - [@wasabigeek](https://github.com/wasabigeek).
 * [#209](https://github.com/slack-ruby/slack-ruby-bot/pull/209): Allow `respond_to_slack_message` and `respond_to_slack_messages` without arguments - [@dblock](https://github.com/dblock).
@@ -6,8 +6,6 @@
 * [#214](https://github.com/slack-ruby/slack-ruby-bot/pull/214): Add passenger deployment documentation - [@cybercrediators](https://github.com/cybercrediators).
 * [#220](https://github.com/slack-ruby/slack-ruby-bot/pull/220): Updated examples/market to pull from IEX instead of defunct yahoo service - [@corprew](https://github.com/corprew).
 * [#246](https://github.com/slack-ruby/slack-ruby-bot/pull/246): Drop support for Ruby 2.2 - [@dblock](https://github.com/dblock).
-* Your contribution here.
-
 
 ### 0.12.0 (2019/2/25)
 
