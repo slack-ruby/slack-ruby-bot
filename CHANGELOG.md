@@ -1,3 +1,7 @@
+### 0.13.1 (Next)
+
+* Your contribution here.
+
 ### 0.13.0 (2020/3/28)
 
 * [#244](https://github.com/slack-ruby/slack-ruby-bot/pull/244): Change log message when the bot is reconnected - [@wasabigeek](https://github.com/wasabigeek).
