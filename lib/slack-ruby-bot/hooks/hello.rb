@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module Hooks
     class Hello
@@ -8,7 +10,8 @@ module SlackRubyBot
       end
 
       def call(client, _data)
-        return unless client && client.team
+        return unless client&.team
+
         new_connected_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
         log = [
           'Successfully',

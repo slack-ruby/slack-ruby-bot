@@ -1,6 +1,14 @@
 Upgrading SlackRubyBot
 ======================
 
+### Upgrading to >= 0.13.0
+
+#### Minimum Ruby Version
+
+Ruby 2.3 or later is now required.
+
+See [#246](https://github.com/slack-ruby/slack-ruby-bot/pull/246) for more information.
+
 ### Upgrading to >= 0.12.0
 
 #### Remove any references to `SlackRubyBot::Server#restart!`

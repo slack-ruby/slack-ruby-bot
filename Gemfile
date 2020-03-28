@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'http://rubygems.org'
 
 gemspec
@@ -10,8 +12,6 @@ if ENV.key?('CONCURRENCY')
     gem ENV['CONCURRENCY'], require: false
   end
 end
-
-# rubocop:enable Bundler/OrderedGems
 
 gem 'giphy', require: false if ENV.key?('WITH_GIPHY')
 gem 'GiphyClient', require: false if ENV.key?('WITH_GIPHY_CLIENT')

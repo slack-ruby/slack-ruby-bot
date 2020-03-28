@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Hooks::Message do
   let(:message_hook) { described_class.new }
 
@@ -5,7 +7,7 @@ describe SlackRubyBot::Hooks::Message do
     it 'doesn\'t raise an error when message is a frozen string' do
       message_hook.call(
         SlackRubyBot::Client.new,
-        Hashie::Mash.new(text: 'message'.freeze)
+        Hashie::Mash.new(text: 'message')
       )
     end
   end

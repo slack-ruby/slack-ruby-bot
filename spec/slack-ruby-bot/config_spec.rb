@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Config do
   describe '.send_gifs?' do
     after { ENV.delete 'SLACK_RUBY_BOT_SEND_GIFS' }

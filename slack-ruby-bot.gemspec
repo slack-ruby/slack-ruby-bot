@@ -1,4 +1,6 @@
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'slack-ruby-bot/version'
 
 Gem::Specification.new do |s|
@@ -14,12 +16,13 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/slack-ruby/slack-ruby-bot'
   s.licenses = ['MIT']
   s.summary = 'The easiest way to write a Slack bot in Ruby.'
+  s.required_ruby_version = '>= 2.3'
   s.add_dependency 'hashie'
   s.add_dependency 'slack-ruby-client', '>= 0.14.0'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rubocop', '0.58.2'
+  s.add_development_dependency 'rubocop', '0.80.1'
   s.add_development_dependency 'vcr'
   s.add_development_dependency 'webmock'
 end

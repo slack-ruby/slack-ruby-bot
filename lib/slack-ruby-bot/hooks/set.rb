@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SlackRubyBot
   module Hooks
     class Set
@@ -36,7 +38,7 @@ module SlackRubyBot
       end
 
       def flush_handlers
-        handlers.keys.each { |hook| register_callback(hook) }
+        handlers.each_key { |hook| register_callback(hook) }
       end
     end
   end

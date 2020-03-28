@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples 'a slack ruby bot' do
   context 'not configured' do
     before do

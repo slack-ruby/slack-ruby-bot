@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe SlackRubyBot::Commands::Support::Attrs do
   let(:help_attrs) { described_class.new('WeatherBot') }
 
