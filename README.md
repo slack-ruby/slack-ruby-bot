@@ -472,6 +472,16 @@ server.hooks.add(:hello, ->(client, data) { puts "Hello!" })
 
 ```
 
+### Bot Message Protection
+
+By default bots do not respond to self or other bots. If you wish to change that behavior, set `allow_bot_messages` to `true`.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.allow_bot_messages = true
+end
+```
+
 ### Message Loop Protection
 
 By default bots do not respond to their own messages. If you wish to change that behavior, set `allow_message_loops` to `true`.
