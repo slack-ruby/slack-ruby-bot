@@ -1,6 +1,6 @@
 ## Installation
 
-To integrate your bot with Slack, you must first create a new [Classic Slack App](https://api.slack.com/authentication/migration#classic) and create a [legacy bot](https://api.slack.com/legacy/custom-integrations/bot-users).
+To integrate your bot with Slack, you must first create a new [Classic Slack App](https://api.slack.com/authentication/migration#classic) and a [legacy bot](https://api.slack.com/legacy/custom-integrations/bot-users).
 
 ![](screenshots/create-classic-app.png)
 
