@@ -50,6 +50,24 @@ describe SlackRubyBot::Hooks::Message do
       end
     end
   end
+  describe '#bot_message_not_allowed?' do
+    context 'with allow_bot_messages set to true' do
+      before do
+        SlackRubyBot::Config.allow_bot_messages = true
+      end
+      it do
+        expect(message_hook.send(:bot_message_not_allowed?)).to be false
+      end
+    end
+    context 'with allow_bot_messages set to false' do
+      before do
+        SlackRubyBot::Config.allow_bot_messages = false
+      end
+      it do
+        expect(message_hook.send(:bot_message_not_allowed?)).to be true
+      end
+    end
+  end
   describe '#message_to_self?' do
     let(:client) { Hashie::Mash.new(self: { 'id' => 'U0K8CKKT1' }) }
     context 'with message to self' do

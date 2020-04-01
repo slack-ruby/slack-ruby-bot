@@ -1,6 +1,20 @@
 Upgrading SlackRubyBot
 ======================
 
+### Upgrading to >= 0.14.0
+
+#### Bot Messages Disabled
+
+By default bots will no longer respond to other bots. This caused confusing "I don't understand this command." errors when DMing the bot and rendering URLs that were being sent back as DMs. If you wish to restore the old behavior, set `allow_bot_messages` to `true`.
+
+```ruby
+SlackRubyBot.configure do |config|
+  config.allow_bot_messages = true
+end
+```
+
+See [#250](https://github.com/slack-ruby/slack-ruby-bot/pull/250) for more information.
+
 ### Upgrading to >= 0.13.0
 
 #### Minimum Ruby Version
