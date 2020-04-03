@@ -1,7 +1,6 @@
-### 0.14.0 (Next)
+### 0.14.0 (2020/4/2)
 
 * [#250](https://github.com/slack-ruby/slack-ruby-bot/pull/250): Added `config.allow_bot_messages`, defaults to `false` - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 0.13.0 (2020/3/28)
 
