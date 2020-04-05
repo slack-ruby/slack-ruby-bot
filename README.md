@@ -346,11 +346,11 @@ Giphy.configure do |config|
 end
 ```
 
-With `GiphyClient` you can configure the default GIF rating, which supports Y, G, PG, PG-13, and R. The default value is `G`.
+With `GiphyClient` you can configure the default GIF [content rating](https://developers.giphy.com/docs/optional-settings#rating), which supports G, PG, PG-13, and R. The default value is `G`.
 
 ```ruby
 Giphy.configure do |config|
-  config.rating = 'Y' # illustrated content only, i.e. cartoons
+  config.rating = 'PG'
 end
 ```
 
