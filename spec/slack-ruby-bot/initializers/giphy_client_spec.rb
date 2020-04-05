@@ -14,15 +14,15 @@ if ENV.key?('WITH_GIPHY_CLIENT')
         expect(Giphy.random('burrito').image_url).to eq burrito_gif
       end
     end
-    context 'rated y' do
+    context 'rated pg' do
       before do
-        Giphy.config.rating = 'Y'
+        Giphy.config.rating = 'PG'
       end
       after do
         Giphy.config.rating = 'G'
       end
-      let(:burrito_gif) { 'https://media3.giphy.com/media/hkdKLmIgB3ane/giphy.gif' }
-      it 'random', vcr: { cassette_name: 'giphy_client_burrito_rated_y' } do
+      let(:burrito_gif) { 'https://media0.giphy.com/media/3o6gb3OJb2tWB76uwE/giphy.gif' }
+      it 'random', vcr: { cassette_name: 'giphy_client_burrito_rated_pg' } do
         expect(Giphy.random('burrito').image_url).to eq burrito_gif
       end
     end
