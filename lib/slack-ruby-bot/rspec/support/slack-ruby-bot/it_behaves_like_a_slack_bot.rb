@@ -12,7 +12,7 @@ shared_examples 'a slack ruby bot' do
       ENV['SLACK_API_TOKEN'] = @slack_api_token
     end
     it 'requires SLACK_API_TOKEN' do
-      expect { subject }.to raise_error RuntimeError, "Missing ENV['SLACK_API_TOKEN']."
+      expect { described_class.instance }.to raise_error RuntimeError, "Missing ENV['SLACK_API_TOKEN']."
     end
   end
 
@@ -22,7 +22,7 @@ shared_examples 'a slack ruby bot' do
       allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(token)
       SlackRubyBot.configure { |config| config.token = nil }
 
-      expect(app.config.token).to eq(token)
+      expect(described_class.instance.config.token).to eq(token)
     end
   end
 
@@ -32,7 +32,7 @@ shared_examples 'a slack ruby bot' do
       allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(nil)
       SlackRubyBot.configure { |config| config.token = token }
 
-      expect(app.config.token).to eq(token)
+      expect(described_class.instance.config.token).to eq(token)
     end
   end
 
@@ -43,7 +43,7 @@ shared_examples 'a slack ruby bot' do
       allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(token2)
       SlackRubyBot.configure { |config| config.token = token }
 
-      expect(app.config.token).to eq(token)
+      expect(described_class.instance.config.token).to eq(token)
     end
   end
 end

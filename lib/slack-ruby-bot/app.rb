@@ -3,6 +3,23 @@
 module SlackRubyBot
   class App < Server
     def initialize(options = {})
+      super
+    end
+
+    def config
+      SlackRubyBot.config
+    end
+
+    def self.instance
+      @instance ||= begin
+        configure!
+        new
+      end
+    end
+
+    private
+
+    def self.configure!
       SlackRubyBot.configure do |config|
         config.token ||= ENV['SLACK_API_TOKEN']
         raise("Missing ENV['SLACK_API_TOKEN'].") if config.token.nil?
@@ -12,18 +29,8 @@ module SlackRubyBot
       Slack.configure do |config|
         config.token = SlackRubyBot.config.token
       end
-      super
     end
-
-    def config
-      SlackRubyBot.config
-    end
-
-    def self.instance
-      @instance ||= new
-    end
-
-    private
+    private_class_method :configure!
 
     def hello(client, _data)
       if client.team && client.self
