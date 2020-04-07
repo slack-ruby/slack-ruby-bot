@@ -1,6 +1,7 @@
 ### 0.14.1 (Next)
 
 * Your contribution here.
+* [#253](https://github.com/slack-ruby/slack-ruby-bot/pull/253): Remove reference to unsupported Giphy content rating - [@wasabigeek](https://github.com/wasabigeek).
 
 ### 0.14.0 (2020/4/2)
 
