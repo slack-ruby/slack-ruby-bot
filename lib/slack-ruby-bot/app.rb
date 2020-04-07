@@ -3,7 +3,8 @@
 module SlackRubyBot
   class App < Server
     def initialize(options = {})
-      super
+      server_options = options.select { |k, _| k.to_sym == :token }
+      super(server_options)
     end
 
     def config
@@ -13,7 +14,7 @@ module SlackRubyBot
     def self.instance
       @instance ||= begin
         configure!
-        new
+        new(token: SlackRubyBot.config.token)
       end
     end
 

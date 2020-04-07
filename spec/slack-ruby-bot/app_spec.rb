@@ -11,6 +11,12 @@ describe SlackRubyBot::App do
       klass = Class.new(SlackRubyBot::App)
       expect(klass.instance.class).to be klass
     end
+
+    it 'sets the token' do
+      token = 'slack-api-token'
+      SlackRubyBot.configure { |config| config.token = token }
+      expect(described_class.instance.token).to eq(token)
+    end
   end
 
   describe 'executable' do
