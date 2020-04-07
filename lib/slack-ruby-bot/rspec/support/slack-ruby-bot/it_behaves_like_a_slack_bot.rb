@@ -46,14 +46,4 @@ shared_examples 'a slack ruby bot' do
       expect(app.config.token).to eq(token)
     end
   end
-
-  context 'when SLACK_API_TOKEN is not defined in ENV or config' do
-    it 'raises error' do
-      allow(ENV).to receive(:[]).at_least(:once)
-      allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(nil)
-      SlackRubyBot.configure { |config| config.token = nil }
-
-      expect { app }.to raise_error("Missing ENV['SLACK_API_TOKEN'].")
-    end
-  end
 end
