@@ -3,7 +3,7 @@
 module SlackRubyBot
   class App < Server
     def initialize(options = {})
-      server_options = options.select { |k, _| k.to_sym == :token }
+      server_options = { token: options[:token] }
       super(server_options)
     end
 
