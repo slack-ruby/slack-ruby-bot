@@ -12,7 +12,7 @@ shared_examples 'a slack ruby bot' do
       ENV['SLACK_API_TOKEN'] = @slack_api_token
     end
     it 'requires SLACK_API_TOKEN' do
-      expect { described_class.instance }.to raise_error RuntimeError, "Missing ENV['SLACK_API_TOKEN']."
+      expect { described_class.instance }.to raise_error RuntimeError, 'Missing Slack API Token.'
     end
   end
 

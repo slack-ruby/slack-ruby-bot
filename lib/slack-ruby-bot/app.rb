@@ -23,7 +23,7 @@ module SlackRubyBot
     def self.configure!
       SlackRubyBot.configure do |config|
         config.token = ENV['SLACK_API_TOKEN'] if ENV.key?('SLACK_API_TOKEN')
-        raise("Missing ENV['SLACK_API_TOKEN'].") if config.token.nil?
+        raise('Missing Slack API Token.') if config.token.nil?
 
         config.aliases = ENV['SLACK_RUBY_BOT_ALIASES'].split(' ') if ENV['SLACK_RUBY_BOT_ALIASES']
       end
