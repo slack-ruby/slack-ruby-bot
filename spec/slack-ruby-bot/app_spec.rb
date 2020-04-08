@@ -10,50 +10,44 @@ describe SlackRubyBot::App do
     let(:token) { 'slack-api-token' }
     let(:klass) { Class.new(SlackRubyBot::App) }
 
-    before do
-      allow(ENV).to receive(:[]).and_call_original.at_least(:once)
-    end
-
     it 'creates an instance of the App subclass' do
       expect(klass.instance.class).to be klass
     end
 
     context 'when SLACK_API_TOKEN is not defined' do
-      it 'raises error' do
-        allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(false)
-        SlackRubyBot.configure { |config| config.token = nil }
+      before do
+        ENV.delete('SLACK_API_TOKEN')
+        SlackRubyBot::Config.token = nil
+      end
 
+      it 'raises error' do
         expect { klass.instance }.to raise_error RuntimeError, 'Missing Slack API Token.'
       end
     end
 
     context 'when SLACK_API_TOKEN is defined in ENV but not config' do
-      it 'sets config.token from ENV' do
-        allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(true)
-        allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(token)
-        SlackRubyBot.configure { |config| config.token = nil }
+      before do
+        SlackRubyBot::Config.token = nil
+      end
 
-        expect(klass.instance.config.token).to eq(token)
+      it 'sets config.token from ENV' do
+        expect(klass.instance.config.token).to eq('test')
       end
     end
 
     context 'when SLACK_API_TOKEN is not defined in ENV but is defined in config' do
-      it 'sets config.token from config' do
-        allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(false)
-        SlackRubyBot.configure { |config| config.token = token }
+      before do
+        ENV.delete('SLACK_API_TOKEN')
+      end
 
-        expect(klass.instance.config.token).to eq(token)
+      it 'sets config.token from config' do
+        expect(klass.instance.config.token).to eq('testtoken')
       end
     end
 
     context 'when SLACK_API_TOKEN is defined in ENV and config' do
       it 'sets config.token from ENV' do
-        token2 = 'another-api-token'
-        allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(true)
-        allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(token2)
-        SlackRubyBot.configure { |config| config.token = token }
-
-        expect(klass.instance.config.token).to eq(token2)
+        expect(klass.instance.config.token).to eq('test')
       end
     end
   end
