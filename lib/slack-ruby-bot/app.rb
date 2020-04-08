@@ -2,11 +2,6 @@
 
 module SlackRubyBot
   class App < Server
-    def initialize(options = {})
-      server_options = { token: options[:token] }
-      super(server_options)
-    end
-
     def config
       SlackRubyBot.config
     end
