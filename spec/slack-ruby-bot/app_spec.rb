@@ -14,7 +14,11 @@ describe SlackRubyBot::App do
       expect(klass.instance.class).to be klass
     end
 
-    context 'when SLACK_API_TOKEN is not defined' do
+    it 'sets config.token from ENV' do
+      expect(klass.instance.config.token).to eq('test')
+    end
+
+    context 'when token is not defined' do
       before do
         ENV.delete('SLACK_API_TOKEN')
         SlackRubyBot::Config.token = nil
@@ -25,7 +29,7 @@ describe SlackRubyBot::App do
       end
     end
 
-    context 'when SLACK_API_TOKEN is defined in ENV but not config' do
+    context 'when token is defined in ENV but not config' do
       before do
         SlackRubyBot::Config.token = nil
       end
@@ -35,7 +39,7 @@ describe SlackRubyBot::App do
       end
     end
 
-    context 'when SLACK_API_TOKEN is not defined in ENV but is defined in config' do
+    context 'when token is not defined in ENV but is defined in config' do
       before do
         ENV.delete('SLACK_API_TOKEN')
       end
@@ -45,22 +49,27 @@ describe SlackRubyBot::App do
       end
     end
 
-    context 'when SLACK_API_TOKEN is defined in ENV and config' do
-      it 'sets config.token from ENV' do
-        expect(klass.instance.config.token).to eq('test')
+    context 'when aliases are defined in config only' do
+      let(:aliases) { %w[alias alias2] }
+      before do
+        SlackRubyBot::Config.aliases = aliases
+      end
+
+      it 'sets config.aliases' do
+        expect(klass.instance.config.aliases).to eq(aliases)
       end
     end
 
-    context 'when SLACK_RUBY_BOT_ALIASES is defined in ENV' do
+    context 'when aliases are defined in ENV only' do
       before do
-        ENV['SLACK_RUBY_BOT_ALIASES'] = 'alias alias2'
+        ENV['SLACK_RUBY_BOT_ALIASES'] = 'alias3 alias4'
       end
       after do
         ENV.delete('SLACK_RUBY_BOT_ALIASES')
       end
 
-      it 'sets config.aliases' do
-        expect(klass.instance.config.aliases).to eq(%w[alias alias2])
+      it 'sets config.aliases from env' do
+        expect(klass.instance.config.aliases).to eq(%w[alias3 alias4])
       end
     end
   end
