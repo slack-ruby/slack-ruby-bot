@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 shared_examples 'a slack ruby bot' do
-  let(:token) { 'slack-api-token' }
-
   context 'not configured' do
     before do
       @slack_api_token = ENV.delete('SLACK_API_TOKEN')
@@ -13,38 +11,6 @@ shared_examples 'a slack ruby bot' do
     end
     it 'requires SLACK_API_TOKEN' do
       expect { described_class.instance }.to raise_error RuntimeError, 'Missing Slack API Token.'
-    end
-  end
-
-  context 'when SLACK_API_TOKEN is defined in ENV but not config' do
-    it 'sets config.token from ENV' do
-      allow(ENV).to receive(:[]).and_call_original.at_least(:once)
-      allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(true)
-      allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(token)
-      SlackRubyBot.configure { |config| config.token = nil }
-
-      expect(described_class.instance.config.token).to eq(token)
-    end
-  end
-
-  context 'when SLACK_API_TOKEN is not defined in ENV but is defined in config' do
-    it 'sets config.token from config' do
-      allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(false)
-      SlackRubyBot.configure { |config| config.token = token }
-
-      expect(described_class.instance.config.token).to eq(token)
-    end
-  end
-
-  context 'when SLACK_API_TOKEN is defined in ENV and config' do
-    it 'sets config.token from config' do
-      token2 = 'another-api-token'
-      allow(ENV).to receive(:[]).and_call_original.at_least(:once)
-      allow(ENV).to receive(:key?).with('SLACK_API_TOKEN').and_return(true)
-      allow(ENV).to receive(:[]).with('SLACK_API_TOKEN').and_return(token2)
-      SlackRubyBot.configure { |config| config.token = token }
-
-      expect(described_class.instance.config.token).to eq(token)
     end
   end
 end
