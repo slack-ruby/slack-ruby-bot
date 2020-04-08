@@ -50,6 +50,19 @@ describe SlackRubyBot::App do
         expect(klass.instance.config.token).to eq('test')
       end
     end
+
+    context 'when SLACK_RUBY_BOT_ALIASES is defined in ENV' do
+      before do
+        ENV['SLACK_RUBY_BOT_ALIASES'] = 'alias alias2'
+      end
+      after do
+        ENV.delete('SLACK_RUBY_BOT_ALIASES')
+      end
+
+      it 'sets config.aliases' do
+        expect(klass.instance.config.aliases).to eq(%w[alias alias2])
+      end
+    end
   end
 
   describe 'executable' do
