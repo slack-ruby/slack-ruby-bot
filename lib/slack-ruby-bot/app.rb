@@ -18,8 +18,6 @@ module SlackRubyBot
       end
     end
 
-    private
-
     def self.configure!
       SlackRubyBot.configure do |config|
         config.token = ENV['SLACK_API_TOKEN'] if ENV.key?('SLACK_API_TOKEN')
@@ -31,7 +29,8 @@ module SlackRubyBot
         config.token = SlackRubyBot.config.token
       end
     end
-    private_class_method :configure!
+
+    private
 
     def hello(client, _data)
       if client.team && client.self
