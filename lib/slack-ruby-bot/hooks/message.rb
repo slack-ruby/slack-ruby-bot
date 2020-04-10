@@ -7,7 +7,7 @@ module SlackRubyBot
         return if message_to_self_not_allowed? && message_to_self?(client, data)
         return if bot_message_not_allowed? && bot_message?(client, data)
 
-        data.text = data.text.strip if data.text
+        data.text = data.text.strip.gsub("\u00A0", ' ') if data.text
         result = child_command_classes.detect { |d| d.invoke(client, data) }
         result ||= built_in_command_classes.detect { |d| d.invoke(client, data) }
         result ||= SlackRubyBot::Commands::Unknown.tap { |d| d.invoke(client, data) }

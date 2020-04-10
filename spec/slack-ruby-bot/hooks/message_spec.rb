@@ -31,6 +31,20 @@ describe SlackRubyBot::Hooks::Message do
     it 'does not return unknown command class' do
       expect(built_in_command_classes).to_not include SlackRubyBot::Commands::Unknown
     end
+    it 'calls the correct command when no-break space present' do
+      client = respond_to?(:client) ? send(:client) : SlackRubyBot::Client.new
+      message_command = SlackRubyBot::Hooks::Message.new
+      allow(client).to(receive(:message)) do |options|
+        @messages ||= []
+        @messages.push(options)
+      end
+
+      run_command = message_command.call(
+        client, Hashie::Mash.new(text: "#{SlackRubyBot.config.user}\u00a0help", channel: 'channel')
+      )
+
+      expect(run_command).to(eq(SlackRubyBot::Commands::Help))
+    end
   end
   describe '#message_to_self_not_allowed?' do
     context 'with allow_message_loops set to true' do
