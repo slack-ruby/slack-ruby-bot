@@ -1,6 +1,7 @@
 ### 0.14.1 (Next)
 
 * Your contribution here.
+* [#256](https://github.com/slack-ruby/slack-ruby-bot/pull/256): Allow command matcher to receive no-break spaces as regular spaces - [@MichaelM-Shopify](https://github.com/MichaelM-Shopify), [@dblock](https://github.com/dblock).
 * [#254](https://github.com/slack-ruby/slack-ruby-bot/pull/254): Allow setting of `config.token` and `config.aliases` in initializer - [@wasabigeek](https://github.com/wasabigeek).
 * [#253](https://github.com/slack-ruby/slack-ruby-bot/pull/253): Remove reference to unsupported Giphy content rating - [@wasabigeek](https://github.com/wasabigeek).
 
