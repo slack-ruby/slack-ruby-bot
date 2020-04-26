@@ -1,6 +1,14 @@
 Upgrading SlackRubyBot
 ======================
 
+### Upgrading to >= 0.14.1
+
+#### Set up VCR explicitly
+
+Requiring `slack-ruby-bot/rspec` won't set up [VCR](https://rubygems.org/gems/vcr) anymore. If your spec suite implicitly relies on this you would need to set up VCR explicitly in your spec suite. Just follow standard VCR documentation.
+
+See issue [#257](https://github.com/slack-ruby/slack-ruby-bot/issues/257) for more details.
+
 ### Upgrading to >= 0.14.0
 
 #### Bot Messages Disabled

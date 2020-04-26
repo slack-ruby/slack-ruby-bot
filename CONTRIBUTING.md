@@ -18,7 +18,7 @@ git remote add upstream https://github.com/slack-ruby/slack-ruby-bot.git
 
 ## Bundle Install and Test
 
-First make sure you've installed all default gems
+First make sure you've installed all default gems.
 
 ```
 bundle install
@@ -30,13 +30,13 @@ To run the full specs suite you'll need to install one of the optional gems: `as
 gem install async-websocket -v 0.8.0
 ```
 
-Run specs with
+Run specs with:
 
 ```
 bundle exec rake CONCURRENCY=async-websocket
 ```
 
-Take a look at travis configuration for more details.
+Take a look at the [travis configuration](https://github.com/slack-ruby/slack-ruby-bot/blob/master/.travis.yml) for more details.
 
 
 ## Run SlackRubyBot in Development
