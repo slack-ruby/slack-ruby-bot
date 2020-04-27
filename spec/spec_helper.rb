@@ -2,6 +2,7 @@
 
 require 'slack-ruby-bot/rspec'
 require 'webmock/rspec'
+require_relative 'support/vcr'
 
 module WithGiphy
   def self.env?

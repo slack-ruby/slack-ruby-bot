@@ -18,12 +18,16 @@ git remote add upstream https://github.com/slack-ruby/slack-ruby-bot.git
 
 ## Bundle Install and Test
 
-Ensure that you can build the project and run tests.
+Ensure that you can build the project and run tests. Make sure you have set `CONCURRENCY` env variable to one of the following: `celluloid-io`, `faye-websocket` or `async-websocket`.
 
 ```
+export CONCURRENCY=async-websocket
 bundle install
 bundle exec rake
 ```
+
+Take a look at the [travis configuration](https://github.com/slack-ruby/slack-ruby-bot/blob/master/.travis.yml) for more details.
+
 
 ## Run SlackRubyBot in Development
 
