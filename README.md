@@ -19,8 +19,7 @@ If you are not familiar with Slack bots or Slack API concepts, you might want to
 
 ## Stable Release
 
-You're reading the documentation for the **next** release of slack-ruby-bot.
-Please see the documentation for the [last stable release, v0.14.0](https://github.com/slack-ruby/slack-ruby-bot/tree/v0.14.0) unless you're integrating with HEAD.
+You're reading the documentation for the **stable** release of slack-ruby-bot, v0.15.0.
 See [CHANGELOG](CHANGELOG.md) for a history of changes and [UPGRADING](UPGRADING.md) for how to upgrade to more recent versions.
 
 ## Usage
