@@ -1,3 +1,7 @@
+### 0.15.1 (Next)
+
+* Your contribution here.
+
 ### 0.15.0 (2020/5/8)
 
 * [#258](https://github.com/slack-ruby/slack-ruby-bot/pull/258): Extract development dependencies (VCR) from shared rspec configuraion - [@dikond](https://github.com/dikond).
