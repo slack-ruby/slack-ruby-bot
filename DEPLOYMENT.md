@@ -12,6 +12,8 @@ Once created, go to the app's Basic Info tab and grab the Client ID and Client S
 
 Alternatively, you can still [generate a legacy API token](https://api.slack.com/custom-integrations/legacy-tokens) for your app and use it for some interactions.
 
+If you have a legacy API token, and would like to migrate to the new Slack apps, a brief [migration guide](MIGRATION.md) is provided.
+
 #### SLACK_API_TOKEN
 
 Set the SLACK_API_TOKEN environment variable using the token received above.
@@ -81,7 +83,7 @@ passenger_pre_start http://example.com:80/;
   <Directory /var/www/bot/public>
     Allow from all
     Options -MultiViews
-    Require all granted    
+    Require all granted
   </Directory>
 </VirtualHost>
 
