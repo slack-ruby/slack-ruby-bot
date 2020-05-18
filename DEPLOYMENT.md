@@ -12,7 +12,7 @@ Once created, go to the app's Basic Info tab and grab the Client ID and Client S
 
 Alternatively, you can still [generate a legacy API token](https://api.slack.com/custom-integrations/legacy-tokens) for your app and use it for some interactions.
 
-If you have a legacy API token, and would like to migrate to the new Slack apps, a brief [migration guide](MIGRATION.md) is provided.
+If you have a legacy API token, and would like to migrate to [slack-ruby-bot-server](https://github.com/slack-ruby/slack-ruby-bot-server), a brief [migration guide](MIGRATION.md) is provided.
 
 #### SLACK_API_TOKEN
 
