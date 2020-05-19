@@ -1,6 +1,7 @@
 ### 0.15.1 (Next)
 
 * Your contribution here.
+* [#260](https://github.com/slack-ruby/slack-ruby-bot/pull/260): Add brief migration guide - [@wasabigeek](https://github.com/wasabigeek).
 
 ### 0.15.0 (2020/5/8)
 
