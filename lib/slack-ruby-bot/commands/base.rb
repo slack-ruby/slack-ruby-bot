@@ -16,25 +16,6 @@ module SlackRubyBot
           SlackRubyBot::Commands::Base.command_classes << subclass
         end
 
-        def send_message(client, channel, text, options = {})
-          logger.warn '[DEPRECATION] `send_message` is deprecated.  Please use `client.say` instead.'
-          if text && !text.length.empty?
-            client.say(options.merge(channel: channel, text: text))
-          else
-            client.say(options.merge(channel: channel, text: 'Nothing to see here.', gif: 'nothing'))
-          end
-        end
-
-        def send_message_with_gif(client, channel, text, keywords, options = {})
-          logger.warn '[DEPRECATION] `send_message_with_gif` is deprecated.  Please use `client.say` instead.'
-          client.say(options.merge(channel: channel, text: text, gif: keywords))
-        end
-
-        def send_gif(client, channel, keywords, options = {})
-          logger.warn '[DEPRECATION] `send_gif` is deprecated.  Please use `client.say` instead.'
-          client.say(options.merge(channel: channel, text: '', gif: keywords))
-        end
-
         def help(&block)
           Support::Help.instance.capture_help(self, &block)
         end

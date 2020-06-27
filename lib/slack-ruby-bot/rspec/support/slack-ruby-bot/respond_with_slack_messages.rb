@@ -13,8 +13,6 @@ RSpec::Matchers.define :respond_with_slack_messages do |expected|
     message_command = SlackRubyBot::Hooks::Message.new
     channel, user, message, attachments = parse(actual)
 
-    allow(Giphy).to receive(:random) if defined?(Giphy)
-
     @messages ||= []
     allow(client).to receive(:message) do |options|
       @messages.push options

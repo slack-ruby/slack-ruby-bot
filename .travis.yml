@@ -14,15 +14,11 @@ matrix:
     - rvm: 2.3.0
       env: CONCURRENCY=async-websocket
     - rvm: 2.6.5
-      env: CONCURRENCY=celluloid-io WITH_GIPHY=true
+      env: CONCURRENCY=celluloid-io
     - rvm: 2.6.5
-      env: CONCURRENCY=faye-websocket WITH_GIPHY=true
+      env: CONCURRENCY=faye-websocket
     - rvm: 2.6.5
-      env: CONCURRENCY=celluloid-io WITH_GIPHY_CLIENT=true
-    - rvm: 2.6.5
-      env: CONCURRENCY=faye-websocket WITH_GIPHY_CLIENT=true
-    - rvm: 2.6.5
-      env: CONCURRENCY=async-websocket WITH_GIPHY_CLIENT=true
+      env: CONCURRENCY=async-websocket
     - rvm: ruby-head
     - rvm: jruby-head
   allow_failures:

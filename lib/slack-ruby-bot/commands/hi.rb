@@ -9,7 +9,7 @@ module SlackRubyBot
       end
 
       def self.call(client, data, _match)
-        client.say(channel: data.channel, text: "Hi <@#{data.user}>!", gif: 'hi')
+        client.say(channel: data.channel, text: "Hi <@#{data.user}>!")
       end
     end
   end

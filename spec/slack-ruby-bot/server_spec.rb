@@ -15,18 +15,6 @@ describe SlackRubyBot::Server do
       expect(server.send(:client).token).to eq 'token'
     end
 
-    it 'send_gifs is false without giphy', unless: WithGiphy.env? do
-      server = SlackRubyBot::Server.new(send_gifs: true)
-      expect(server.send(:client).send_gifs?).to be false
-    end
-
-    it 'send_gifs', if: WithGiphy.env? do
-      server = SlackRubyBot::Server.new(send_gifs: true)
-      expect(server.send(:client).send_gifs?).to be true
-      server = SlackRubyBot::Server.new(send_gifs: false)
-      expect(server.send(:client).send_gifs?).to be false
-    end
-
     it 'aliases' do
       server = SlackRubyBot::Server.new(aliases: %w[foo bar])
       expect(server.send(:client).aliases).to eq %w[foo bar]
@@ -40,16 +28,16 @@ describe SlackRubyBot::Server do
     end
     it 'creates a client with a token' do
       expect(client).to receive(:start!) { raise 'expected' }
-      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', send_gifs: nil, aliases: nil).and_return(client)
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', aliases: nil).and_return(client)
       expect { subject.start! }.to raise_error RuntimeError, 'expected'
     end
     it 'asynchronously creates a client with a token' do
       expect(client).to receive(:start_async) { raise 'expected' }
-      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', send_gifs: nil, aliases: nil).and_return(client)
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', aliases: nil).and_return(client)
       expect { subject.start_async }.to raise_error RuntimeError, 'expected'
     end
     it 'stops client' do
-      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', send_gifs: nil, aliases: nil).and_return(client)
+      expect(Slack::RealTime::Client).to receive(:new).with(token: 'token', aliases: nil).and_return(client)
       expect(subject.send(:client)).to_not be nil
       expect(client).to receive(:started?).and_return(true)
       subject.stop!

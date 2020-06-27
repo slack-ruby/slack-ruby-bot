@@ -1,6 +1,17 @@
 Upgrading SlackRubyBot
 ======================
 
+### Upgrading to >= 0.16.0
+
+#### Removed GIF support
+
+GIF, Giphy and other animated GIF support has been removed. Remove `gif` options from all `client.say(gif: 'keyword')` method calls, the `GIPHY_API_KEY` ENV var, `gem 'giphy'` or `gem 'GiphyClient'`.
+.
+
+The `SlackRubyBot::Commands::Base#send_message`, `send_message_with_gif` and `send_gif` methods have been removed.
+
+See [#261](https://github.com/slack-ruby/slack-ruby-bot/issues/261) for details.
+
 ### Upgrading to >= 0.15.0
 
 #### Set up VCR explicitly
