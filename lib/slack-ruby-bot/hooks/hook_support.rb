@@ -18,12 +18,6 @@ module SlackRubyBot
         end
       end
 
-      # Instance stuff
-      def hooks
-        warn Kernel.caller.first + ' [DEPRECATION] `hooks` method is deprecated. Please use `server.on` instead to register a hook.'
-        _hooks
-      end
-
       def on(event_name, handler)
         _hooks.add(event_name, handler)
       end

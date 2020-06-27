@@ -56,11 +56,6 @@ describe SlackRubyBot::Hooks::HookSupport do
     end
   end
 
-  describe '#hooks' do
-    subject { super().new }
-    it { expect(subject.hooks).to eq subject.send(:_hooks) }
-  end
-
   describe '#_hooks' do
     it 'returns a SlackRubyBot::Hooks::Set instance' do
       hooks_set = subject.new.send(:_hooks)

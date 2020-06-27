@@ -39,7 +39,6 @@ If you are not familiar with Slack bots or Slack API concepts, you might want to
       - [Hooks registration on SlackRubyBot::Server initialization](#hooks-registration-on-slackrubybotserver-initialization)
       - [Hooks registration on a SlackRubyBot::Server instance](#hooks-registration-on-a-slackrubybotserver-instance)
       - [Hooks registration on SlackRubyBot::Server class](#hooks-registration-on-slackrubybotserver-class)
-    - [Deprecated hook registration](#deprecated-hook-registration)
   - [Bot Message Protection](#bot-message-protection)
   - [Message Loop Protection](#message-loop-protection)
   - [Logging](#logging)
@@ -461,19 +460,6 @@ end
 These will get pushed into the hook set on initialization.
 
 Either by configuration, explicit assignment or hook blocks, multiple handlers can exist for the same event type.
-
-
-#### Deprecated hook registration
-
-Registering a hook method using `hooks.add` is considered deprecated and
-will be removed on future versions.
-
-```ruby
-# [DEPRECATED]
-server.hooks.add(:hello, MyBot::Hooks::UserChange.new)
-server.hooks.add(:hello, ->(client, data) { puts "Hello!" })
-
-```
 
 ### Bot Message Protection
 
