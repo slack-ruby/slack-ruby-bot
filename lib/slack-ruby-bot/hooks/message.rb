@@ -4,10 +4,11 @@ module SlackRubyBot
   module Hooks
     class Message
       def call(client, data)
-        return if message_to_self_not_allowed? && message_to_self?(client, data)
-        return if bot_message_not_allowed? && bot_message?(client, data)
+        return if !client.allow_message_loops? && client.message_to_self?(data)
+        return if !client.allow_bot_messages? && client.bot_message?(data)
 
-        data.text = data.text.strip if data.text
+        prepare!(data)
+
         result = child_command_classes.detect { |d| d.invoke(client, data) }
         result ||= built_in_command_classes.detect { |d| d.invoke(client, data) }
         result ||= SlackRubyBot::Commands::Unknown.tap { |d| d.invoke(client, data) }
@@ -16,20 +17,8 @@ module SlackRubyBot
 
       private
 
-      def message_to_self_not_allowed?
-        !SlackRubyBot::Config.allow_message_loops?
-      end
-
-      def message_to_self?(client, data)
-        client.self && client.self.id == data.user
-      end
-
-      def bot_message_not_allowed?
-        !SlackRubyBot::Config.allow_bot_messages?
-      end
-
-      def bot_message?(_client, data)
-        data.subtype == 'bot_message'
+      def prepare!(data)
+        data.text = data.text.strip if data.text
       end
 
       #

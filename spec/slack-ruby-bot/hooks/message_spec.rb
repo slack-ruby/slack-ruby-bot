@@ -34,55 +34,6 @@ describe SlackRubyBot::Hooks::Message do
       expect(built_in_command_classes).to_not include SlackRubyBot::Commands::Unknown
     end
   end
-  describe '#message_to_self_not_allowed?' do
-    context 'with allow_message_loops set to true' do
-      before do
-        SlackRubyBot::Config.allow_message_loops = true
-      end
-      it do
-        expect(message_hook.send(:message_to_self_not_allowed?)).to be false
-      end
-    end
-    context 'with allow_message_loops set to false' do
-      before do
-        SlackRubyBot::Config.allow_message_loops = false
-      end
-      it do
-        expect(message_hook.send(:message_to_self_not_allowed?)).to be true
-      end
-    end
-  end
-  describe '#bot_message_not_allowed?' do
-    context 'with allow_bot_messages set to true' do
-      before do
-        SlackRubyBot::Config.allow_bot_messages = true
-      end
-      it do
-        expect(message_hook.send(:bot_message_not_allowed?)).to be false
-      end
-    end
-    context 'with allow_bot_messages set to false' do
-      before do
-        SlackRubyBot::Config.allow_bot_messages = false
-      end
-      it do
-        expect(message_hook.send(:bot_message_not_allowed?)).to be true
-      end
-    end
-  end
-  describe '#message_to_self?' do
-    let(:client) { Hashie::Mash.new(self: { 'id' => 'U0K8CKKT1' }) }
-    context 'with message to self' do
-      it do
-        expect(message_hook.send(:message_to_self?, client, Hashie::Mash.new(user: 'U0K8CKKT1'))).to be true
-      end
-    end
-    context 'with message to another user' do
-      it do
-        expect(message_hook.send(:message_to_self?, client, Hashie::Mash.new(user: 'U0K8CKKT2'))).to be false
-      end
-    end
-  end
   describe '#message' do
     let(:client) { Hashie::Mash.new(self: { 'id' => 'U0K8CKKT1' }) }
     it 'invokes a command' do

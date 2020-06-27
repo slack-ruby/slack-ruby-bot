@@ -188,8 +188,6 @@ SlackRubyBot.configure do |config|
 end
 ```
 
-This is particularly fun with emoji.
-
 ![](screenshots/aliases.gif)
 
 Bots will also respond to a direct message, with or without the bot name in the message itself.
@@ -479,7 +477,7 @@ server.hooks.add(:hello, ->(client, data) { puts "Hello!" })
 
 ### Bot Message Protection
 
-By default bots do not respond to self or other bots. If you wish to change that behavior, set `allow_bot_messages` to `true`.
+By default bots do not respond to self or other bots. If you wish to change that behavior globally, set `allow_bot_messages` to `true`.
 
 ```ruby
 SlackRubyBot.configure do |config|
@@ -489,7 +487,7 @@ end
 
 ### Message Loop Protection
 
-By default bots do not respond to their own messages. If you wish to change that behavior, set `allow_message_loops` to `true`.
+By default bots do not respond to their own messages. If you wish to change that behavior globally, set `allow_message_loops` to `true`.
 
 ```ruby
 SlackRubyBot.configure do |config|

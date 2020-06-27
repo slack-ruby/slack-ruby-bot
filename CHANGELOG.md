@@ -3,6 +3,7 @@
 * [#263](https://github.com/slack-ruby/slack-ruby-bot/pull/263): Removed Giphy support - [@dblock](https://github.com/dblock).
 * [#260](https://github.com/slack-ruby/slack-ruby-bot/pull/260): Add brief migration guide - [@wasabigeek](https://github.com/wasabigeek).
 * [#264](https://github.com/slack-ruby/slack-ruby-bot/pull/264): Added TOC to README - [@dblock](https://github.com/dblock).
+* [#265](https://github.com/slack-ruby/slack-ruby-bot/pull/265): Make `allow_bot_messages` and `allow_message_loops` available in `SlackRubyBot::Client` - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.15.0 (2020/5/8)

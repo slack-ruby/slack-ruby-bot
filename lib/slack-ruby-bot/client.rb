@@ -4,11 +4,30 @@ module SlackRubyBot
   class Client < Slack::RealTime::Client
     include Loggable
     attr_accessor :aliases
-    attr_accessor :send_gifs
+    attr_accessor :allow_bot_messages
+    attr_accessor :allow_message_loops
 
     def initialize(attrs = {})
       super(attrs)
       @aliases = attrs[:aliases]
+      @allow_message_loops = attrs[:allow_message_loops]
+      @allow_bot_messages = attrs[:allow_bot_messages]
+    end
+
+    def allow_message_loops?
+      @allow_message_loops.nil? ? SlackRubyBot::Config.allow_message_loops? : !!@allow_message_loops
+    end
+
+    def allow_bot_messages?
+      @allow_bot_messages.nil? ? SlackRubyBot::Config.allow_bot_messages? : !!@allow_bot_messages
+    end
+
+    def message_to_self?(data)
+      !!(self.self && self.self.id == data.user)
+    end
+
+    def bot_message?(data)
+      data.subtype == 'bot_message'
     end
 
     def names
