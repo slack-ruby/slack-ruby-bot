@@ -9,6 +9,12 @@ GIF, Giphy and other animated GIF support has been removed. Remove `gif` options
 
 See [#261](https://github.com/slack-ruby/slack-ruby-bot/issues/261) for details.
 
+#### Removed deprecated `server.hooks`
+
+The previously deprecated `SlackRubyBot::Server#hooks` has been removed.
+
+See [#266](https://github.com/slack-ruby/slack-ruby-bot/issues/266) for details.
+
 ### Upgrading to >= 0.15.0
 
 #### Set up VCR explicitly
