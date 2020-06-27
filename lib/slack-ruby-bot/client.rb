@@ -9,7 +9,6 @@ module SlackRubyBot
     def initialize(attrs = {})
       super(attrs)
       @aliases = attrs[:aliases]
-      @send_gifs = attrs[:send_gifs]
     end
 
     def names
@@ -31,12 +30,6 @@ module SlackRubyBot
       name && names.include?(name.downcase)
     end
 
-    def send_gifs?
-      return false unless defined?(Giphy)
-
-      send_gifs.nil? ? SlackRubyBot::Config.send_gifs? : send_gifs
-    end
-
     def name
       SlackRubyBot.config.user || self.self&.name
     end
@@ -46,21 +39,8 @@ module SlackRubyBot
     end
 
     def say(options = {})
-      options = options.dup
-      # get GIF
-      keywords = options.delete(:gif)
-      # text
-      text = options.delete(:text)
-      if keywords && send_gifs?
-        gif = begin
-          Giphy.random(keywords)
-              rescue StandardError => e
-                logger.warn "Giphy.random: #{e.message}"
-                nil
-        end
-      end
-      text = [text, gif && gif.image_url.to_s].compact.join("\n")
-      message({ text: text }.merge(options))
+      logger.warn '[DEPRECATION] `gif:` is deprecated and has no effect.' if options.key?(:gif)
+      message({ text: '' }.merge(options))
     end
   end
 end

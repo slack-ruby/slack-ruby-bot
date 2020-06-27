@@ -321,47 +321,6 @@ class AuthorizedBot < SlackRubyBot::Commands::Base
 end
 ```
 
-### Animated GIFs
-
-The `SlackRubyBot::Client` implementation comes with GIF support. To enable it add `gem GiphyClient` (official Giphy SDK) or `gem giphy` (older SDK, deprecated) to your **Gemfile** and set a Giphy key via `ENV['GIPHY_API_KEY']`. Obtain one from [developers.giphy.com](https://developers.giphy.com).
-
-**Note:** Bots send animated GIFs in default commands and errors.
-
-```ruby
-class Phone < SlackRubyBot::Commands::Base
-  command 'call'
-
-  def self.call(client, data, match)
-    client.say(channel: data.channel, text: 'called', gif: 'phone')
-    # Sends the text 'called' and a random GIF that matches the keyword 'phone'.
-  end
-end
-```
-
-Giphy API key is set automatically via `ENV['GIPHY_API_KEY']`. You can override this manually.
-
-```ruby
-Giphy.configure do |config|
-  config.api_key = 'key'
-end
-```
-
-With `GiphyClient` you can configure the default GIF [content rating](https://developers.giphy.com/docs/optional-settings#rating), which supports G, PG, PG-13, and R. The default value is `G`.
-
-```ruby
-Giphy.configure do |config|
-  config.rating = 'PG'
-end
-```
-
-If you use giphy for something else but don't want your bots to send GIFs you can set `ENV['SLACK_RUBY_BOT_SEND_GIFS']` or `SlackRubyBot::Config.send_gifs` to `false`. The latter takes precedence.
-
-```ruby
-SlackRubyBot.configure do |config|
-  config.send_gifs = false
-end
-```
-
 ### Built-In Commands
 
 Slack-ruby-bot comes with several built-in commands. You can re-define built-in commands, normally, as described above.
@@ -512,14 +471,14 @@ end
 
 ### Advanced Integration
 
-You may want to integrate a bot or multiple bots into other systems, in which case a globally configured bot may not work for you. You may create instances of [SlackRubyBot::Server](lib/slack-ruby-bot/server.rb) which accepts `token`, `aliases` and `send_gifs`.
+You may want to integrate a bot or multiple bots into other systems, in which case a globally configured bot may not work for you. You may create instances of [SlackRubyBot::Server](lib/slack-ruby-bot/server.rb) which accepts `token` and `aliases`.
 
 ```ruby
 EM.run do
   bot1 = SlackRubyBot::Server.new(token: token1, aliases: ['bot1'])
   bot1.start_async
 
-  bot2 = SlackRubyBot::Server.new(token: token2, send_gifs: false, aliases: ['bot2'])
+  bot2 = SlackRubyBot::Server.new(token: token2, aliases: ['bot2'])
   bot2.start_async
 end
 ```
