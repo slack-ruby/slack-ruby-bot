@@ -5,10 +5,12 @@ describe SlackRubyBot::Hooks::Message do
 
   describe '#call' do
     it 'doesn\'t raise an error when message is a frozen string' do
-      message_hook.call(
-        SlackRubyBot::Client.new,
-        Hashie::Mash.new(text: 'message')
-      )
+      expect do
+        message_hook.call(
+          SlackRubyBot::Client.new,
+          Hashie::Mash.new(text: 'message'.freeze) # rubocop:disable Style/RedundantFreeze
+        )
+      end.to_not raise_error
     end
   end
 
