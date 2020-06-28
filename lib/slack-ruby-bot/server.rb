@@ -56,7 +56,7 @@ module SlackRubyBot
       else
         raise e
       end
-    rescue Faraday::Error::TimeoutError, Faraday::Error::ConnectionFailed, Faraday::Error::SSLError => e
+    rescue Faraday::TimeoutError, Faraday::ConnectionFailed, Faraday::SSLError => e
       logger.error e
       sleep 1 # ignore, try again
     rescue StandardError => e

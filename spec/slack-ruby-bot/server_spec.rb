@@ -56,7 +56,7 @@ describe SlackRubyBot::Server do
         subject.run
       end.to raise_error Slack::Web::Api::Error, 'unknown'
     end
-    [Faraday::Error::ConnectionFailed, Faraday::Error::TimeoutError, Faraday::Error::SSLError].each do |err|
+    [Faraday::ConnectionFailed, Faraday::TimeoutError, Faraday::SSLError].each do |err|
       it err.to_s do
         expect(client).to receive(:start!) { raise err, 'Faraday' }
         expect(client).to receive(:start!) { raise 'unknown' }
