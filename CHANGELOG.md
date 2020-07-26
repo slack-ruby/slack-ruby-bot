@@ -1,4 +1,4 @@
-### 0.16.0 (Next)
+### 0.16.0 (2020/7/26)
 
 * [#263](https://github.com/slack-ruby/slack-ruby-bot/pull/263): Removed Giphy support - [@dblock](https://github.com/dblock).
 * [#260](https://github.com/slack-ruby/slack-ruby-bot/pull/260): Added a brief migration guide - [@wasabigeek](https://github.com/wasabigeek).
@@ -6,7 +6,6 @@
 * [#265](https://github.com/slack-ruby/slack-ruby-bot/pull/265): Made `allow_bot_messages` and `allow_message_loops` available in `SlackRubyBot::Client` - [@dblock](https://github.com/dblock).
 * [#266](https://github.com/slack-ruby/slack-ruby-bot/pull/266): Removed deprecated `Server#hooks` - [@dblock](https://github.com/dblock).
 * [#267](https://github.com/slack-ruby/slack-ruby-bot/pull/267): Require Faraday >= 1.0 - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 0.15.0 (2020/5/8)
 
