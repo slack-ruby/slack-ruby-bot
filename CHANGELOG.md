@@ -1,3 +1,7 @@
+### 0.16.1 (Next)
+
+* Your contribution here.
+
 ### 0.16.0 (2020/7/26)
 
 * [#263](https://github.com/slack-ruby/slack-ruby-bot/pull/263): Removed Giphy support - [@dblock](https://github.com/dblock).
