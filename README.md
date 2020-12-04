@@ -5,7 +5,13 @@ Slack-Ruby-Bot
 [![Build Status](https://travis-ci.org/slack-ruby/slack-ruby-bot.svg)](https://travis-ci.org/slack-ruby/slack-ruby-bot)
 [![Code Climate](https://codeclimate.com/github/slack-ruby/slack-ruby-bot/badges/gpa.svg)](https://codeclimate.com/github/slack-ruby/slack-ruby-bot)
 
-A generic Slack bot framework written in Ruby on top of [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client). This library does all the heavy lifting, such as message parsing, so you can focus on implementing slack bot commands. It also attempts to introduce the bare minimum number of requirements or any sorts of limitations. It's a Slack bot boilerplate.
+---
+
+**Warning**: As of December 4th, 2020 Slack no longer accept resubmissions from apps that are not using granular permissions, or so-called "classic apps". On November 18, 2021 Slack will start delisting apps that have not migrated to use granular permissions. This library implements legacy, real-time support for classic apps. You should not be building a new bot with it and use [slack-ruby-bot-server-events](https://github.com/slack-ruby/slack-ruby-bot-server-events) instead. For a rudimentary bot you can even start with [slack-ruby-bot-server-events-app-mentions](https://github.com/slack-ruby/slack-ruby-bot-server-events-app-mentions). See [MIGRATION](MIGRATION.md) for migration help.
+
+---
+
+The slack-ruby-bot library is a generic Slack bot framework written in Ruby on top of [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client). This library does all the heavy lifting, such as message parsing, so you can focus on implementing slack bot commands. It also attempts to introduce the bare minimum number of requirements or any sorts of limitations. It's a Slack bot boilerplate.
 
 If you are not familiar with Slack bots or Slack API concepts, you might want to watch [this video](http://code.dblock.org/2016/03/11/your-first-slack-bot-service-video.html).
 
