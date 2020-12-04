@@ -1,3 +1,7 @@
+### 0.16.2 (Next)
+
+* Your contribution here.
+
 ### 0.16.1 (2020/12/4)
 
 * [#271](https://github.com/slack-ruby/slack-ruby-bot/pull/271): Added explicit dependency on `activesupport` - [@dblock](https://github.com/dblock).
